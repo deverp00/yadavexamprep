@@ -1,0 +1,1317 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: admin/import-export.html
+
+    Administrator Import / Export Management
+
+    Designed and Developed by Yadav Web Technologies
+    =====================================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Administrator tools for importing, validating, exporting and backing up Yadav ExamPrep content."
+    >
+
+    <meta name="theme-color" content="#111111">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Import / Export | Yadav ExamPrep</title>
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <!-- Page Controller -->
+
+    <script
+        type="module"
+        src="../js/admin-import-export.js"
+    ></script>
+
+</head>
+
+<body class="admin-body" data-page="admin-import-export">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         AUTHENTICATION GATE
+    =============================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Checking your administrator session.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ==============================================
+         PROTECTED ADMIN APPLICATION
+    =============================================== -->
+
+    <div
+        class="admin-app"
+        id="adminImportExportApp"
+        hidden
+    >
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+        <!-- SIDEBAR -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link"
+                    >
+                        Dashboard
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link"
+                    >
+                        Exams
+                    </a>
+
+                    <a
+                        href="subjects.html"
+                        class="admin-nav-link"
+                    >
+                        Subjects
+                    </a>
+
+                    <a
+                        href="topics.html"
+                        class="admin-nav-link"
+                    >
+                        Topics
+                    </a>
+
+                    <a
+                        href="lessons.html"
+                        class="admin-nav-link"
+                    >
+                        Lessons
+                    </a>
+
+                    <a
+                        href="questions.html"
+                        class="admin-nav-link"
+                    >
+                        Question Bank
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link"
+                    >
+                        Mock Tests
+                    </a>
+
+                    <a
+                        href="publishing.html"
+                        class="admin-nav-link"
+                    >
+                        Publishing
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+                    <a
+                        href="import-export.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+                        Import / Export
+                    </a>
+
+                    <a
+                        href="settings.html"
+                        class="admin-nav-link"
+                    >
+                        Settings
+                    </a>
+
+                </div>
+
+            </nav>
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Public Website ↗
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    Sign Out
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- MAIN AREA -->
+
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Import / Export
+                    </h2>
+
+                </div>
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ======================================
+                 PAGE CONTENT
+            ======================================= -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+                <!-- PAGE HEADING -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Data Management
+                        </span>
+
+                        <h1>Import / Export</h1>
+
+                        <p>
+                            Import validated JSON content, export
+                            your educational records, and maintain
+                            administrator-controlled backups.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- STATUS -->
+
+                <div
+                    class="admin-alert"
+                    id="importExportStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="importExportSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="importExportStatusText">
+                        Connecting to Firebase Realtime Database...
+                    </span>
+
+                </div>
+
+                <!-- ==================================
+                     IMPORT SECTION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="importSectionTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="importSectionTitle">
+                                Import Educational Content
+                            </h2>
+
+                            <p>
+                                Select a JSON file and validate its
+                                structure before importing anything
+                                into Firebase.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="importDataForm"
+                        novalidate
+                    >
+
+                        <div class="admin-form-grid">
+
+                            <!-- File Input -->
+
+                            <div class="admin-form-field is-full">
+
+                                <label for="importJsonFile">
+                                    Select JSON File *
+                                </label>
+
+                                <input
+                                    type="file"
+                                    id="importJsonFile"
+                                    name="importJsonFile"
+                                    accept=".json,application/json"
+                                    required
+                                    disabled
+                                >
+
+                                <span class="admin-form-help">
+                                    Only UTF-8 JSON files are accepted.
+                                    No records are imported during
+                                    file selection or preview.
+                                </span>
+
+                            </div>
+
+                            <!-- Import Mode -->
+
+                            <div class="admin-form-field">
+
+                                <label for="importMode">
+                                    Import Mode *
+                                </label>
+
+                                <select
+                                    id="importMode"
+                                    name="importMode"
+                                    required
+                                    disabled
+                                >
+
+                                    <option value="skip">
+                                        Add New Records Only
+                                    </option>
+
+                                    <option value="update">
+                                        Add and Update Matching Records
+                                    </option>
+
+                                </select>
+
+                                <span class="admin-form-help">
+                                    Matching is based on the record's
+                                    existing Firebase identifier.
+                                </span>
+
+                            </div>
+
+                            <!-- Collection Scope -->
+
+                            <div class="admin-form-field">
+
+                                <label for="importCollectionScope">
+                                    Import Scope *
+                                </label>
+
+                                <select
+                                    id="importCollectionScope"
+                                    name="importCollectionScope"
+                                    required
+                                    disabled
+                                >
+
+                                    <option value="all">
+                                        All Included Collections
+                                    </option>
+
+                                    <option value="exams">
+                                        Exams Only
+                                    </option>
+
+                                    <option value="subjects">
+                                        Subjects Only
+                                    </option>
+
+                                    <option value="topics">
+                                        Topics Only
+                                    </option>
+
+                                    <option value="lessons">
+                                        Lessons Only
+                                    </option>
+
+                                    <option value="questions">
+                                        Questions Only
+                                    </option>
+
+                                    <option value="tests">
+                                        Mock Tests Only
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="validateImportButton"
+                                disabled
+                            >
+
+                                <span id="validateImportButtonText">
+                                    Validate &amp; Preview
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="validateImportSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="resetImportButton"
+                                disabled
+                            >
+                                Clear Selection
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     IMPORT PREVIEW
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    id="importPreviewSection"
+                    aria-labelledby="importPreviewTitle"
+                    hidden
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="importPreviewTitle">
+                                Import Preview
+                            </h2>
+
+                            <p>
+                                Review the validation results
+                                before confirming the import.
+                            </p>
+
+                        </div>
+
+                        <span
+                            class="admin-status-badge"
+                            id="importValidationBadge"
+                        >
+                            Awaiting Validation
+                        </span>
+
+                    </div>
+
+                    <!-- File Summary -->
+
+                    <div class="admin-form-grid">
+
+                        <div class="admin-form-field">
+
+                            <span class="admin-stat-label">
+                                File Name
+                            </span>
+
+                            <strong id="importPreviewFileName">
+                                —
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-form-field">
+
+                            <span class="admin-stat-label">
+                                File Size
+                            </span>
+
+                            <strong id="importPreviewFileSize">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Statistics -->
+
+                    <div
+                        class="admin-stats-grid"
+                        aria-label="Import preview statistics"
+                    >
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Records Found
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="importRecordsFound"
+                            >
+                                —
+                            </strong>
+
+                        </article>
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Valid Records
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="importValidRecords"
+                            >
+                                —
+                            </strong>
+
+                        </article>
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Skipped Records
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="importSkippedRecords"
+                            >
+                                —
+                            </strong>
+
+                        </article>
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Validation Errors
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="importErrorCount"
+                            >
+                                —
+                            </strong>
+
+                        </article>
+
+                    </div>
+
+                    <!-- Collection Breakdown -->
+
+                    <div class="admin-table-container">
+
+                        <table class="admin-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th scope="col">
+                                        Collection
+                                    </th>
+
+                                    <th scope="col">
+                                        Records Found
+                                    </th>
+
+                                    <th scope="col">
+                                        New
+                                    </th>
+
+                                    <th scope="col">
+                                        Updates
+                                    </th>
+
+                                    <th scope="col">
+                                        Skipped
+                                    </th>
+
+                                    <th scope="col">
+                                        Errors
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="importPreviewTableBody">
+
+                                <tr>
+
+                                    <td colspan="6">
+                                        Awaiting file validation.
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Validation Messages -->
+
+                    <div
+                        id="importValidationMessages"
+                        aria-live="polite"
+                    ></div>
+
+                    <!-- Confirmation Action -->
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="openImportConfirmationButton"
+                            disabled
+                        >
+                            Continue to Import
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="cancelImportPreviewButton"
+                        >
+                            Cancel Preview
+                        </button>
+
+                    </div>
+
+                </section>
+
+                <!-- ==================================
+                     EXPORT SECTION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="exportSectionTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="exportSectionTitle">
+                                Export Educational Content
+                            </h2>
+
+                            <p>
+                                Download a JSON backup of selected
+                                protected master records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="exportDataForm"
+                    >
+
+                        <fieldset class="admin-form-field">
+
+                            <legend>
+                                Select Collections to Export
+                            </legend>
+
+                            <div class="admin-form-grid">
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="exams"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Exams</span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="subjects"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Subjects</span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="topics"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Topics</span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="lessons"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Lessons</span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="questions"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Question Bank</span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        name="exportCollection"
+                                        value="tests"
+                                        checked
+                                        disabled
+                                    >
+
+                                    <span>Mock Tests and Test Questions</span>
+
+                                </label>
+
+                            </div>
+
+                        </fieldset>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="exportDataButton"
+                                disabled
+                            >
+
+                                <span id="exportDataButtonText">
+                                    Export Selected Collections
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="exportDataSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="selectAllExportButton"
+                                disabled
+                            >
+                                Select All
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="clearExportSelectionButton"
+                                disabled
+                            >
+                                Clear Selection
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     BACKUP INFORMATION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="backupInformationTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="backupInformationTitle">
+                                Backup Information
+                            </h2>
+
+                            <p>
+                                Review database availability and
+                                backup-related information.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-system-details">
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Database Connection
+                            </span>
+
+                            <strong id="backupDatabaseStatus">
+                                Checking...
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Export Format
+                            </span>
+
+                            <strong>
+                                JSON
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Last Export in This Session
+                            </span>
+
+                            <strong id="lastExportTime">
+                                Not exported yet
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Last Import in This Session
+                            </span>
+
+                            <strong id="lastImportTime">
+                                Not imported yet
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-alert is-warning">
+
+                        <p>
+                            <strong>Important:</strong>
+                            Downloaded backups may contain unpublished
+                            content and correct answers. Store them
+                            securely and do not upload them to a
+                            public GitHub repository.
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <!-- FOOTER -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==============================================
+         IMPORT CONFIRMATION MODAL
+    =============================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="importConfirmationModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="importConfirmationTitle"
+            aria-describedby="importConfirmationDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <h2 id="importConfirmationTitle">
+                        Confirm Data Import
+                    </h2>
+
+                    <p
+                        class="admin-form-help"
+                        id="importConfirmationDescription"
+                    >
+                        Review the operation before writing
+                        any records to Firebase.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeImportConfirmationModal"
+                    aria-label="Close import confirmation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <div class="admin-modal-body">
+
+                <p>
+                    Selected file:
+                </p>
+
+                <p>
+                    <strong id="importConfirmationFileName">
+                        —
+                    </strong>
+                </p>
+
+                <div class="admin-system-details">
+
+                    <div class="admin-system-detail">
+
+                        <span>
+                            Import Mode
+                        </span>
+
+                        <strong id="importConfirmationMode">
+                            —
+                        </strong>
+
+                    </div>
+
+                    <div class="admin-system-detail">
+
+                        <span>
+                            Records to Write
+                        </span>
+
+                        <strong id="importConfirmationCount">
+                            —
+                        </strong>
+
+                    </div>
+
+                </div>
+
+                <div class="admin-alert is-warning">
+
+                    <p>
+                        Existing matching records may be updated
+                        when update mode is selected. This operation
+                        requires administrator authorization.
+                    </p>
+
+                </div>
+
+                <label
+                    class="admin-checkbox-label"
+                    for="importConfirmationAgreement"
+                >
+
+                    <input
+                        type="checkbox"
+                        id="importConfirmationAgreement"
+                    >
+
+                    <span>
+                        I have reviewed the validation preview
+                        and understand the selected import mode.
+                    </span>
+
+                </label>
+
+            </div>
+
+            <div class="admin-modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelImportConfirmation"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmImportButton"
+                    disabled
+                >
+
+                    <span id="confirmImportButtonText">
+                        Import Records
+                    </span>
+
+                    <span
+                        class="ui-spinner"
+                        id="confirmImportSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
