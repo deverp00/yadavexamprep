@@ -1,0 +1,1422 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Manage examination categories in Yadav ExamPrep."
+    >
+
+    <meta name="theme-color" content="#111111">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Manage Exams | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/components.css">
+
+    <link rel="stylesheet" href="../css/animation.css">
+
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <link rel="stylesheet" href="../css/admin.css">
+
+
+    <!-- =============================================
+         EXAM MANAGEMENT CONTROLLER
+    ============================================== -->
+
+    <script
+        type="module"
+        src="../js/admin-exams.js"
+    ></script>
+
+</head>
+
+
+<body class="admin-body" data-page="admin-exams">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+
+    <!-- =============================================
+         AUTHENTICATION GATE
+    ============================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Please wait while your administrator
+                session is being verified.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =============================================
+         PROTECTED ADMIN APPLICATION
+    ============================================== -->
+
+    <div
+        class="admin-app"
+        id="adminExamsApp"
+        hidden
+    >
+
+
+        <!-- Mobile Backdrop -->
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+
+        <!-- =========================================
+             SIDEBAR
+        ========================================== -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+                <!-- Overview -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link"
+                    >
+                        <icon aria-hidden="true"></icon>
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="3" y="3" width="7" height="9" rx="1"></rect>
+                            <rect x="14" y="3" width="7" height="5" rx="1"></rect>
+                            <rect x="14" y="12" width="7" height="9" rx="1"></rect>
+                            <rect x="3" y="16" width="7" height="5" rx="1"></rect>
+                        </svg>
+
+                        <span>Dashboard</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Content Management -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                            <path d="M8 8h8"></path>
+                            <path d="M8 12h8"></path>
+                            <path d="M8 16h5"></path>
+                        </svg>
+
+                        <span>Exams</span>
+
+                    </a>
+
+                    <a href="subjects.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"></path>
+                        </svg>
+
+                        <span>Subjects</span>
+
+                    </a>
+
+                    <a href="topics.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M8 6h13"></path>
+                            <path d="M8 12h13"></path>
+                            <path d="M8 18h13"></path>
+                            <path d="M3 6h.01"></path>
+                            <path d="M3 12h.01"></path>
+                            <path d="M3 18h.01"></path>
+                        </svg>
+
+                        <span>Topics</span>
+
+                    </a>
+
+                    <a href="lessons.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 7v14"></path>
+                            <path d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v13h-5a4 4 0 0 0-4 3 4 4 0 0 0-4-3H3Z"></path>
+                        </svg>
+
+                        <span>Lessons</span>
+
+                    </a>
+
+                    <a href="questions.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"></path>
+                            <path d="M12 17h.01"></path>
+                        </svg>
+
+                        <span>Question Bank</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Examination -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+                    <a href="mock-tests.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect x="3" y="4" width="18" height="17" rx="2"></rect>
+                            <path d="M8 2v4"></path>
+                            <path d="M16 2v4"></path>
+                            <path d="M3 10h18"></path>
+                            <path d="m9 15 2 2 4-4"></path>
+                        </svg>
+
+                        <span>Mock Tests</span>
+
+                    </a>
+
+                    <a href="publishing.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 3v12"></path>
+                            <path d="m7 8 5-5 5 5"></path>
+                            <path d="M5 16v4h14v-4"></path>
+                        </svg>
+
+                        <span>Publishing</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Administration -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+                    <a href="import-export.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 3v12"></path>
+                            <path d="m8 11 4 4 4-4"></path>
+                            <path d="M4 17v4h16v-4"></path>
+                        </svg>
+
+                        <span>Import / Export</span>
+
+                    </a>
+
+                    <a href="settings.html" class="admin-nav-link">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle cx="12" cy="12" r="3"></circle>
+                            <path d="M12 2v2"></path>
+                            <path d="M12 20v2"></path>
+                            <path d="M4.93 4.93 6.34 6.34"></path>
+                            <path d="m17.66 17.66 1.41 1.41"></path>
+                            <path d="M2 12h2"></path>
+                            <path d="M20 12h2"></path>
+                            <path d="m4.93 19.07 1.41-1.41"></path>
+                            <path d="m17.66 6.34 1.41-1.41"></path>
+                        </svg>
+
+                        <span>Settings</span>
+
+                    </a>
+
+                </div>
+
+            </nav>
+
+
+            <!-- Sidebar Footer -->
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span>View Public Website ↗</span>
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    <span>Sign Out</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN CONTENT
+        ========================================== -->
+
+        <div class="admin-main">
+
+
+            <!-- Topbar -->
+
+            <header class="admin-topbar">
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Exam Management
+                    </h2>
+
+                </div>
+
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- =====================================
+                 EXAM MANAGEMENT CONTENT
+            ====================================== -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+
+                <!-- Page Heading -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Content Management
+                        </span>
+
+                        <h1>Manage Exams</h1>
+
+                        <p>
+                            Create and organize examination
+                            categories. Only published records
+                            will appear on the public website.
+                        </p>
+
+                    </div>
+
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="addExamButton"
+                            disabled
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 5v14"></path>
+                                <path d="M5 12h14"></path>
+                            </svg>
+
+                            Add New Exam
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     STATUS MESSAGE
+                ================================== -->
+
+                <div
+                    class="admin-alert"
+                    id="examManagementStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="examManagementSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="examManagementStatusText">
+                        Connecting to Firebase...
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     EXAM STATISTICS
+                ================================== -->
+
+                <section
+                    class="admin-stats-grid"
+                    aria-label="Exam statistics"
+                >
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Total Exams
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="examTotalCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            All managed examination categories
+                        </span>
+
+                    </article>
+
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Published
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="examPublishedCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Visible to public visitors
+                        </span>
+
+                    </article>
+
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Drafts
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="examDraftCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Not yet published
+                        </span>
+
+                    </article>
+
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Search Results
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="examFilteredCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Matching current filters
+                        </span>
+
+                    </article>
+
+                </section>
+
+
+                <!-- =================================
+                     EXAM DIRECTORY
+                ================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="examDirectoryTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="examDirectoryTitle">
+                                Examination Directory
+                            </h2>
+
+                            <p>
+                                Search, edit, publish, or remove
+                                examination records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Filter Toolbar -->
+
+                    <form
+                        class="admin-toolbar"
+                        id="examFilterForm"
+                        role="search"
+                    >
+
+                        <div class="admin-toolbar-group">
+
+                            <label
+                                for="examSearch"
+                                class="sr-only"
+                            >
+                                Search exams
+                            </label>
+
+                            <input
+                                type="search"
+                                class="admin-search"
+                                id="examSearch"
+                                placeholder="Search exams..."
+                                autocomplete="off"
+                                disabled
+                            >
+
+
+                            <label
+                                for="examStatusFilter"
+                                class="sr-only"
+                            >
+                                Filter by publication status
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="examStatusFilter"
+                                disabled
+                            >
+
+                                <option value="all">
+                                    All Statuses
+                                </option>
+
+                                <option value="published">
+                                    Published
+                                </option>
+
+                                <option value="draft">
+                                    Drafts
+                                </option>
+
+                            </select>
+
+
+                            <label
+                                for="examSortFilter"
+                                class="sr-only"
+                            >
+                                Sort exams
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="examSortFilter"
+                                disabled
+                            >
+
+                                <option value="newest">
+                                    Newest First
+                                </option>
+
+                                <option value="oldest">
+                                    Oldest First
+                                </option>
+
+                                <option value="name-asc">
+                                    Name A–Z
+                                </option>
+
+                                <option value="name-desc">
+                                    Name Z–A
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <div class="admin-toolbar-group">
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="resetExamFilters"
+                                disabled
+                            >
+                                Reset Filters
+                            </button>
+
+                        </div>
+
+                    </form>
+
+
+                    <!-- Data Table -->
+
+                    <div class="admin-table-container">
+
+                        <table class="admin-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th scope="col">
+                                        Exam Name
+                                    </th>
+
+                                    <th scope="col">
+                                        Description
+                                    </th>
+
+                                    <th scope="col">
+                                        Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Updated
+                                    </th>
+
+                                    <th scope="col">
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+
+                            <tbody id="examTableBody">
+
+                                <tr>
+
+                                    <td colspan="5">
+
+                                        <div class="admin-loading-state">
+
+                                            <span
+                                                class="ui-spinner"
+                                                aria-hidden="true"
+                                            ></span>
+
+                                            <span>
+                                                Loading examination records...
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+
+                    <!-- Pagination -->
+
+                    <div
+                        class="admin-pagination"
+                        id="examPagination"
+                        hidden
+                    >
+
+                        <span
+                            class="admin-pagination-info"
+                            id="examPaginationInfo"
+                        ></span>
+
+                        <div
+                            class="admin-pagination-actions"
+                            id="examPaginationButtons"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     EMPTY STATE TEMPLATE
+                ================================== -->
+
+                <template id="examEmptyStateTemplate">
+
+                    <tr>
+
+                        <td colspan="5">
+
+                            <div class="admin-empty-state">
+
+                                <h3>
+                                    No exams found
+                                </h3>
+
+                                <p>
+                                    Add your first examination category
+                                    or adjust your current filters.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </template>
+
+
+                <!-- =================================
+                     FOOTER
+                ================================== -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         ADD / EDIT EXAM MODAL
+    ============================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="examFormModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="examFormModalTitle"
+            aria-describedby="examFormModalDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <h2 id="examFormModalTitle">
+                        Add New Exam
+                    </h2>
+
+                    <p
+                        id="examFormModalDescription"
+                        class="admin-form-help"
+                    >
+                        Complete the details to create
+                        an examination category.
+                    </p>
+
+                </div>
+
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeExamFormModal"
+                    aria-label="Close exam form"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <!-- Exam Form -->
+
+            <form
+                class="admin-form"
+                id="examForm"
+            >
+
+                <div class="admin-modal-body">
+
+                    <input
+                        type="hidden"
+                        id="examRecordId"
+                        name="examRecordId"
+                    >
+
+
+                    <div class="admin-form-grid">
+
+
+                        <!-- Exam Name -->
+
+                        <div class="admin-form-field is-full">
+
+                            <label for="examName">
+                                Exam Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="examName"
+                                name="name"
+                                placeholder="Enter examination name"
+                                maxlength="120"
+                                autocomplete="off"
+                                required
+                            >
+
+                            <span class="admin-form-help">
+                                This name will identify the exam
+                                throughout the website.
+                            </span>
+
+                        </div>
+
+
+                        <!-- Short Description -->
+
+                        <div class="admin-form-field is-full">
+
+                            <label for="examDescription">
+                                Description
+                            </label>
+
+                            <textarea
+                                id="examDescription"
+                                name="description"
+                                rows="4"
+                                maxlength="600"
+                                placeholder="Write a brief description of this examination..."
+                            ></textarea>
+
+                        </div>
+
+
+                        <!-- Display Order -->
+
+                        <div class="admin-form-field">
+
+                            <label for="examDisplayOrder">
+                                Display Order
+                            </label>
+
+                            <input
+                                type="number"
+                                id="examDisplayOrder"
+                                name="order"
+                                min="0"
+                                max="99999"
+                                step="1"
+                                value="0"
+                                required
+                            >
+
+                            <span class="admin-form-help">
+                                Lower numbers appear first.
+                            </span>
+
+                        </div>
+
+
+                        <!-- Publication Status -->
+
+                        <div class="admin-form-field">
+
+                            <label for="examPublicationStatus">
+                                Publication Status
+                            </label>
+
+                            <select
+                                id="examPublicationStatus"
+                                name="published"
+                                required
+                            >
+
+                                <option value="false">
+                                    Save as Draft
+                                </option>
+
+                                <option value="true">
+                                    Publish
+                                </option>
+
+                            </select>
+
+                            <span class="admin-form-help">
+                                Draft content is not publicly visible.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- Form Actions -->
+
+                <div class="admin-modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="cancelExamForm"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveExamButton"
+                    >
+
+                        <span id="saveExamButtonText">
+                            Save Exam
+                        </span>
+
+                        <span
+                            class="ui-spinner"
+                            id="saveExamSpinner"
+                            aria-hidden="true"
+                            hidden
+                        ></span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+
+    <!-- =============================================
+         DELETE CONFIRMATION MODAL
+    ============================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="deleteExamModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="deleteExamModalTitle"
+            aria-describedby="deleteExamModalDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <h2 id="deleteExamModalTitle">
+                    Delete Examination?
+                </h2>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeDeleteExamModal"
+                    aria-label="Close delete confirmation"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+
+            </div>
+
+
+            <div class="admin-modal-body">
+
+                <p id="deleteExamModalDescription">
+                    You are about to delete the selected examination.
+                    This action cannot be undone.
+                </p>
+
+                <p>
+                    <strong id="deleteExamName"></strong>
+                </p>
+
+                <div class="admin-alert is-warning">
+
+                    Deletion must be blocked if dependent
+                    subjects, topics, lessons, or mock tests
+                    still reference this examination.
+                </div>
+
+            </div>
+
+
+            <div class="admin-modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelDeleteExam"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmDeleteExam"
+                >
+
+                    <span id="deleteExamButtonText">
+                        Delete Exam
+                    </span>
+
+                    <span
+                        class="ui-spinner"
+                        id="deleteExamSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
