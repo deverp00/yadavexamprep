@@ -1,0 +1,1421 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Yadav ExamPrep administrator dashboard for managing examination preparation content."
+    >
+
+    <meta name="theme-color" content="#111111">
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Admin Dashboard | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link rel="stylesheet" href="../css/style.css">
+
+    <link rel="stylesheet" href="../css/components.css">
+
+    <link rel="stylesheet" href="../css/animation.css">
+
+    <link rel="stylesheet" href="../css/responsive.css">
+
+    <link rel="stylesheet" href="../css/admin.css">
+
+
+    <!-- =============================================
+         ADMIN DASHBOARD CONTROLLER
+    ============================================== -->
+
+    <script
+        type="module"
+        src="../js/admin-dashboard.js"
+    ></script>
+
+</head>
+
+
+<body class="admin-body" data-page="admin-dashboard">
+
+
+    <!-- =============================================
+         ACCESSIBILITY
+    ============================================== -->
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to dashboard content
+    </a>
+
+
+    <!-- =============================================
+         AUTHENTICATION LOADING SCREEN
+    ============================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Please wait while your administrator
+                session is being verified.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =============================================
+         PROTECTED DASHBOARD APPLICATION
+         Remains hidden until authorization succeeds.
+    ============================================== -->
+
+    <div
+        class="admin-app"
+        id="adminDashboardApp"
+        hidden
+    >
+
+
+        <!-- =========================================
+             MOBILE SIDEBAR BACKDROP
+        ========================================== -->
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+
+        <!-- =========================================
+             ADMIN SIDEBAR
+        ========================================== -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+
+            <!-- Sidebar Brand -->
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+
+                <!-- Mobile Close -->
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close administrator navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+
+            <!-- =====================================
+                 SIDEBAR NAVIGATION
+            ====================================== -->
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+
+                <!-- Overview -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect
+                                x="3"
+                                y="3"
+                                width="7"
+                                height="9"
+                                rx="1"
+                            ></rect>
+
+                            <rect
+                                x="14"
+                                y="3"
+                                width="7"
+                                height="5"
+                                rx="1"
+                            ></rect>
+
+                            <rect
+                                x="14"
+                                y="12"
+                                width="7"
+                                height="9"
+                                rx="1"
+                            ></rect>
+
+                            <rect
+                                x="3"
+                                y="16"
+                                width="7"
+                                height="5"
+                                rx="1"
+                            ></rect>
+                        </svg>
+
+                        <span>Dashboard</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Content Management -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+
+                    <!-- Exams -->
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect
+                                x="4"
+                                y="3"
+                                width="16"
+                                height="18"
+                                rx="2"
+                            ></rect>
+
+                            <path d="M8 8h8"></path>
+                            <path d="M8 12h8"></path>
+                            <path d="M8 16h5"></path>
+                        </svg>
+
+                        <span>Exams</span>
+
+                    </a>
+
+
+                    <!-- Subjects -->
+
+                    <a
+                        href="subjects.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"
+                            ></path>
+
+                            <path
+                                d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2Z"
+                            ></path>
+                        </svg>
+
+                        <span>Subjects</span>
+
+                    </a>
+
+
+                    <!-- Topics -->
+
+                    <a
+                        href="topics.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M8 6h13"></path>
+                            <path d="M8 12h13"></path>
+                            <path d="M8 18h13"></path>
+
+                            <path d="M3 6h.01"></path>
+                            <path d="M3 12h.01"></path>
+                            <path d="M3 18h.01"></path>
+                        </svg>
+
+                        <span>Topics</span>
+
+                    </a>
+
+
+                    <!-- Lessons -->
+
+                    <a
+                        href="lessons.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 7v14"></path>
+
+                            <path
+                                d="M3 18V5a2 2 0 0 1 2-2h3a4 4 0 0 1 4 4 4 4 0 0 1 4-4h3a2 2 0 0 1 2 2v13h-5a4 4 0 0 0-4 3 4 4 0 0 0-4-3H3Z"
+                            ></path>
+                        </svg>
+
+                        <span>Lessons</span>
+
+                    </a>
+
+
+                    <!-- Questions -->
+
+                    <a
+                        href="questions.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="10"
+                            ></circle>
+
+                            <path
+                                d="M9.5 9a2.5 2.5 0 0 1 5 0c0 2-2.5 2-2.5 4"
+                            ></path>
+
+                            <path d="M12 17h.01"></path>
+                        </svg>
+
+                        <span>Question Bank</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Examination Management -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+
+                    <!-- Mock Tests -->
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <rect
+                                x="3"
+                                y="4"
+                                width="18"
+                                height="17"
+                                rx="2"
+                            ></rect>
+
+                            <path d="M8 2v4"></path>
+                            <path d="M16 2v4"></path>
+                            <path d="M3 10h18"></path>
+                            <path d="m9 15 2 2 4-4"></path>
+                        </svg>
+
+                        <span>Mock Tests</span>
+
+                    </a>
+
+
+                    <!-- Publishing -->
+
+                    <a
+                        href="publishing.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 3v12"></path>
+                            <path d="m7 8 5-5 5 5"></path>
+                            <path d="M5 16v4h14v-4"></path>
+                        </svg>
+
+                        <span>Publishing</span>
+
+                    </a>
+
+                </div>
+
+
+                <!-- Administration -->
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+
+                    <!-- Import / Export -->
+
+                    <a
+                        href="import-export.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M12 3v12"></path>
+                            <path d="m8 11 4 4 4-4"></path>
+                            <path d="M4 17v4h16v-4"></path>
+                        </svg>
+
+                        <span>Import / Export</span>
+
+                    </a>
+
+
+                    <!-- Settings -->
+
+                    <a
+                        href="settings.html"
+                        class="admin-nav-link"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="12"
+                                cy="12"
+                                r="3"
+                            ></circle>
+
+                            <path
+                                d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.86 1.86-.06-.06A1.7 1.7 0 0 0 16 18.4a1.7 1.7 0 0 0-1 1.56V21h-6v-1.04a1.7 1.7 0 0 0-1-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.86-1.86.06-.06A1.7 1.7 0 0 0 4.6 15a1.7 1.7 0 0 0-1.56-1H2v-4h1.04A1.7 1.7 0 0 0 4.6 9a1.7 1.7 0 0 0-.34-1.88L4.2 7.06 6.06 5.2l.06.06A1.7 1.7 0 0 0 8 5.6a1.7 1.7 0 0 0 1-1.56V3h6v1.04a1.7 1.7 0 0 0 1 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.86 1.86-.06.06A1.7 1.7 0 0 0 19.4 9a1.7 1.7 0 0 0 1.56 1H22v4h-1.04A1.7 1.7 0 0 0 19.4 15Z"
+                            ></path>
+                        </svg>
+
+                        <span>Settings</span>
+
+                    </a>
+
+                </div>
+
+            </nav>
+
+
+            <!-- =====================================
+                 SIDEBAR FOOTER
+            ====================================== -->
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M14 3h7v7"></path>
+                        <path d="M10 14 21 3"></path>
+                        <path
+                            d="M21 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h6"
+                        ></path>
+                    </svg>
+
+                    <span>View Public Website</span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                        <path d="m16 17 5-5-5-5"></path>
+                        <path d="M21 12H9"></path>
+                    </svg>
+
+                    <span>Sign Out</span>
+
+                </button>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =========================================
+             MAIN DASHBOARD
+        ========================================== -->
+
+        <div class="admin-main">
+
+
+            <!-- =====================================
+                 DASHBOARD TOPBAR
+            ====================================== -->
+
+            <header class="admin-topbar">
+
+
+                <!-- Left Side -->
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Administration
+                    </h2>
+
+                </div>
+
+
+                <!-- Right Side -->
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out of administrator account"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+
+            <!-- =====================================
+                 DASHBOARD CONTENT
+            ====================================== -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+
+                <!-- =================================
+                     PAGE HEADING
+                ================================== -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Overview
+                        </span>
+
+                        <h1>
+                            Dashboard
+                        </h1>
+
+                        <p>
+                            Manage examination preparation
+                            content, monitor publication status,
+                            and organize your learning platform.
+                        </p>
+
+                    </div>
+
+
+                    <div class="admin-page-actions">
+
+                        <a
+                            href="exams.html"
+                            class="btn btn-primary"
+                        >
+                            Add New Exam
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 5v14"></path>
+                                <path d="M5 12h14"></path>
+                            </svg>
+
+                        </a>
+
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            Manage Tests
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     DASHBOARD DATA STATUS
+                ================================== -->
+
+                <div
+                    class="admin-alert"
+                    id="adminDashboardStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="adminDashboardSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="adminDashboardStatusText">
+                        Loading your dashboard information...
+                    </span>
+
+                </div>
+
+
+                <!-- =================================
+                     PRIMARY STATISTICS
+                ================================== -->
+
+                <section
+                    class="admin-dashboard-statistics"
+                    aria-labelledby="adminStatisticsTitle"
+                >
+
+                    <h2
+                        id="adminStatisticsTitle"
+                        class="sr-only"
+                    >
+                        Content Statistics
+                    </h2>
+
+                    <div class="admin-stats-grid">
+
+
+                        <!-- Exams -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Exams
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalExams"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Examination categories
+                            </span>
+
+                        </article>
+
+
+                        <!-- Subjects -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Subjects
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalSubjects"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Registered subject records
+                            </span>
+
+                        </article>
+
+
+                        <!-- Topics -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Topics
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalTopics"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Learning topics
+                            </span>
+
+                        </article>
+
+
+                        <!-- Lessons -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Lessons
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalLessons"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Structured learning materials
+                            </span>
+
+                        </article>
+
+
+                        <!-- Questions -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Questions
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalQuestions"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Questions in the question bank
+                            </span>
+
+                        </article>
+
+
+                        <!-- Mock Tests -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Total Mock Tests
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminTotalMockTests"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Created examination tests
+                            </span>
+
+                        </article>
+
+
+                        <!-- Published -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Published Tests
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminPublishedTests"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Available on the public website
+                            </span>
+
+                        </article>
+
+
+                        <!-- Drafts -->
+
+                        <article class="admin-stat-card">
+
+                            <span class="admin-stat-label">
+                                Draft Tests
+                            </span>
+
+                            <strong
+                                class="admin-stat-value"
+                                id="adminDraftTests"
+                            >
+                                —
+                            </strong>
+
+                            <span class="admin-stat-description">
+                                Not currently published
+                            </span>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     QUICK MANAGEMENT
+                ================================== -->
+
+                <section
+                    class="admin-dashboard-management"
+                    aria-labelledby="adminQuickManagementTitle"
+                >
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <h2 id="adminQuickManagementTitle">
+                                    Quick Management
+                                </h2>
+
+                                <p>
+                                    Access the main content management
+                                    sections directly from your dashboard.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="admin-content-grid">
+
+
+                            <!-- Manage Exams -->
+
+                            <a
+                                href="exams.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Manage Exams</h3>
+
+                                <p>
+                                    Create, update, organize, and
+                                    publish examination categories.
+                                </p>
+
+                                <span>Open Exam Manager →</span>
+
+                            </a>
+
+
+                            <!-- Manage Subjects -->
+
+                            <a
+                                href="subjects.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Manage Subjects</h3>
+
+                                <p>
+                                    Organize subjects under their
+                                    respective examination categories.
+                                </p>
+
+                                <span>Open Subject Manager →</span>
+
+                            </a>
+
+
+                            <!-- Manage Lessons -->
+
+                            <a
+                                href="lessons.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Manage Learning</h3>
+
+                                <p>
+                                    Build structured educational content
+                                    using topics and lessons.
+                                </p>
+
+                                <span>Open Lesson Manager →</span>
+
+                            </a>
+
+
+                            <!-- Manage Questions -->
+
+                            <a
+                                href="questions.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Question Bank</h3>
+
+                                <p>
+                                    Create and maintain questions,
+                                    answer options, and explanations.
+                                </p>
+
+                                <span>Open Question Bank →</span>
+
+                            </a>
+
+
+                            <!-- Manage Tests -->
+
+                            <a
+                                href="mock-tests.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Mock Test Manager</h3>
+
+                                <p>
+                                    Configure examination tests,
+                                    duration, marking, and questions.
+                                </p>
+
+                                <span>Open Test Manager →</span>
+
+                            </a>
+
+
+                            <!-- Publishing -->
+
+                            <a
+                                href="publishing.html"
+                                class="admin-card admin-quick-link"
+                            >
+
+                                <h3>Publishing Control</h3>
+
+                                <p>
+                                    Review draft content and control
+                                    what appears on the public website.
+                                </p>
+
+                                <span>Open Publishing →</span>
+
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     RECENT CONTENT
+                ================================== -->
+
+                <section
+                    class="admin-dashboard-recent"
+                    aria-labelledby="adminRecentContentTitle"
+                >
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <h2 id="adminRecentContentTitle">
+                                    Recently Updated Content
+                                </h2>
+
+                                <p>
+                                    Latest content activity from
+                                    your Firebase database.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div
+                            id="adminRecentContent"
+                            aria-live="polite"
+                        >
+
+                            <div class="admin-loading-state">
+
+                                <span
+                                    class="ui-spinner"
+                                    aria-hidden="true"
+                                ></span>
+
+                                <span>
+                                    Loading recent activity...
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     DATABASE INFORMATION
+                ================================== -->
+
+                <section
+                    class="admin-dashboard-system"
+                    aria-labelledby="adminSystemTitle"
+                >
+
+                    <div class="admin-card">
+
+                        <div class="admin-card-header">
+
+                            <div>
+
+                                <h2 id="adminSystemTitle">
+                                    System Information
+                                </h2>
+
+                                <p>
+                                    Administrator session and
+                                    database connection details.
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <dl class="admin-system-details">
+
+                            <div>
+
+                                <dt>
+                                    Authentication
+                                </dt>
+
+                                <dd id="adminAuthenticationState">
+                                    Checking...
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Database Connection
+                                </dt>
+
+                                <dd id="adminDatabaseState">
+                                    Checking...
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Administrator Email
+                                </dt>
+
+                                <dd id="adminSystemEmail">
+                                    —
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Platform
+                                </dt>
+
+                                <dd>
+                                    Yadav ExamPrep
+                                </dd>
+
+                            </div>
+
+                        </dl>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =================================
+                     DASHBOARD FOOTER
+                ================================== -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
