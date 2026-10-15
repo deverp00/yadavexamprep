@@ -1,0 +1,1171 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!--
+        YADAV EXAMPREP
+        File: admin/mock-tests.html
+        Admin Mock Test Management
+        Designed and Developed by Yadav Web Technologies
+    -->
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#111111">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="description" content="Manage Yadav ExamPrep mock examinations.">
+
+    <title>Manage Mock Tests | Yadav ExamPrep</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <script type="module" src="../js/admin-mock-tests.js"></script>
+</head>
+
+<body class="admin-body" data-page="admin-mock-tests">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- AUTHENTICATION GATE -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+        <div class="admin-empty-state">
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Checking your administrator session.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+        </div>
+    </section>
+
+    <!-- PROTECTED APPLICATION -->
+
+    <div class="admin-app" id="adminMockTestsApp" hidden>
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+        <!-- SIDEBAR -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+            <div class="admin-sidebar-brand">
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+                    <span class="logo-symbol" aria-hidden="true">Y.</span>
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+                <div class="admin-nav-group">
+                    <p class="admin-nav-heading">Overview</p>
+                    <a href="dashboard.html" class="admin-nav-link">
+                        Dashboard
+                    </a>
+                </div>
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-heading">Content Management</p>
+
+                    <a href="exams.html" class="admin-nav-link">
+                        Exams
+                    </a>
+
+                    <a href="subjects.html" class="admin-nav-link">
+                        Subjects
+                    </a>
+
+                    <a href="topics.html" class="admin-nav-link">
+                        Topics
+                    </a>
+
+                    <a href="lessons.html" class="admin-nav-link">
+                        Lessons
+                    </a>
+
+                    <a href="questions.html" class="admin-nav-link">
+                        Question Bank
+                    </a>
+                </div>
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-heading">Examination</p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+                        Mock Tests
+                    </a>
+
+                    <a href="publishing.html" class="admin-nav-link">
+                        Publishing
+                    </a>
+                </div>
+
+                <div class="admin-nav-group">
+                    <p class="admin-nav-heading">Administration</p>
+
+                    <a href="import-export.html" class="admin-nav-link">
+                        Import / Export
+                    </a>
+
+                    <a href="settings.html" class="admin-nav-link">
+                        Settings
+                    </a>
+                </div>
+            </nav>
+
+            <div class="admin-sidebar-footer">
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Public Website ↗
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    Sign Out
+                </button>
+            </div>
+        </aside>
+
+        <!-- MAIN APPLICATION -->
+
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+                <div class="admin-topbar-left">
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Mock Test Management
+                    </h2>
+                </div>
+
+                <div class="admin-topbar-actions">
+                    <div class="admin-user-badge">
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >A</span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+                    </button>
+                </div>
+            </header>
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+                <!-- PAGE HEADING -->
+
+                <div class="admin-page-heading">
+                    <div>
+                        <span class="admin-page-eyebrow">
+                            Examination Management
+                        </span>
+
+                        <h1>Manage Mock Tests</h1>
+
+                        <p>
+                            Assemble examinations using your existing
+                            Question Bank, configure test settings,
+                            and manage publication.
+                        </p>
+                    </div>
+
+                    <div class="admin-page-actions">
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="addMockTestButton"
+                            disabled
+                        >
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 5v14"></path>
+                                <path d="M5 12h14"></path>
+                            </svg>
+
+                            Create Mock Test
+                        </button>
+                    </div>
+                </div>
+
+                <!-- DATABASE STATUS -->
+
+                <div
+                    class="admin-alert"
+                    id="mockTestManagementStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+                    <span
+                        class="ui-spinner"
+                        id="mockTestManagementSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="mockTestManagementStatusText">
+                        Connecting to Firebase Realtime Database...
+                    </span>
+                </div>
+
+                <!-- STATISTICS -->
+
+                <section
+                    class="admin-stats-grid"
+                    aria-label="Mock test statistics"
+                >
+                    <article class="admin-stat-card">
+                        <span class="admin-stat-label">
+                            Total Tests
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="mockTestTotalCount"
+                        >—</strong>
+
+                        <span class="admin-stat-description">
+                            All managed tests
+                        </span>
+                    </article>
+
+                    <article class="admin-stat-card">
+                        <span class="admin-stat-label">
+                            Published
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="mockTestPublishedCount"
+                        >—</strong>
+
+                        <span class="admin-stat-description">
+                            Publicly available tests
+                        </span>
+                    </article>
+
+                    <article class="admin-stat-card">
+                        <span class="admin-stat-label">
+                            Drafts
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="mockTestDraftCount"
+                        >—</strong>
+
+                        <span class="admin-stat-description">
+                            Unpublished tests
+                        </span>
+                    </article>
+
+                    <article class="admin-stat-card">
+                        <span class="admin-stat-label">
+                            Search Results
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="mockTestFilteredCount"
+                        >—</strong>
+
+                        <span class="admin-stat-description">
+                            Matching current filters
+                        </span>
+                    </article>
+                </section>
+
+                <!-- TEST DIRECTORY -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="mockTestDirectoryTitle"
+                >
+                    <div class="admin-card-header">
+                        <div>
+                            <h2 id="mockTestDirectoryTitle">
+                                Mock Test Directory
+                            </h2>
+
+                            <p>
+                                Manage test settings, assigned questions,
+                                and publication status.
+                            </p>
+                        </div>
+                    </div>
+
+                    <form
+                        class="admin-toolbar"
+                        id="mockTestFilterForm"
+                        role="search"
+                    >
+                        <div class="admin-toolbar-group">
+
+                            <label
+                                class="sr-only"
+                                for="mockTestSearch"
+                            >
+                                Search mock tests
+                            </label>
+
+                            <input
+                                type="search"
+                                class="admin-search"
+                                id="mockTestSearch"
+                                placeholder="Search mock tests..."
+                                autocomplete="off"
+                                disabled
+                            >
+
+                            <label
+                                class="sr-only"
+                                for="mockTestExamFilter"
+                            >
+                                Filter by examination
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="mockTestExamFilter"
+                                disabled
+                            >
+                                <option value="all">
+                                    All Exams
+                                </option>
+                            </select>
+
+                            <label
+                                class="sr-only"
+                                for="mockTestSubjectFilter"
+                            >
+                                Filter by subject
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="mockTestSubjectFilter"
+                                disabled
+                            >
+                                <option value="all">
+                                    All Subjects
+                                </option>
+                            </select>
+
+                            <label
+                                class="sr-only"
+                                for="mockTestStatusFilter"
+                            >
+                                Filter by publication status
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="mockTestStatusFilter"
+                                disabled
+                            >
+                                <option value="all">All Statuses</option>
+                                <option value="published">Published</option>
+                                <option value="draft">Drafts</option>
+                            </select>
+
+                            <label
+                                class="sr-only"
+                                for="mockTestSortFilter"
+                            >
+                                Sort mock tests
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="mockTestSortFilter"
+                                disabled
+                            >
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="title-asc">Title A–Z</option>
+                                <option value="title-desc">Title Z–A</option>
+                                <option value="questions-desc">
+                                    Most Questions
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="admin-toolbar-group">
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="resetMockTestFilters"
+                                disabled
+                            >
+                                Reset Filters
+                            </button>
+                        </div>
+                    </form>
+
+                    <div class="admin-table-container">
+                        <table class="admin-table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Test</th>
+                                    <th scope="col">Examination</th>
+                                    <th scope="col">Subject</th>
+                                    <th scope="col">Questions</th>
+                                    <th scope="col">Duration</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Updated</th>
+                                    <th scope="col">Actions</th>
+                                </tr>
+                            </thead>
+
+                            <tbody id="mockTestTableBody">
+                                <tr>
+                                    <td colspan="8">
+                                        <div class="admin-loading-state">
+                                            <span
+                                                class="ui-spinner"
+                                                aria-hidden="true"
+                                            ></span>
+
+                                            <span>
+                                                Loading mock tests...
+                                            </span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div
+                        class="admin-pagination"
+                        id="mockTestPagination"
+                        hidden
+                    >
+                        <span
+                            class="admin-pagination-info"
+                            id="mockTestPaginationInfo"
+                        ></span>
+
+                        <div
+                            class="admin-pagination-actions"
+                            id="mockTestPaginationButtons"
+                        ></div>
+                    </div>
+                </section>
+
+                <template id="mockTestEmptyStateTemplate">
+                    <tr>
+                        <td colspan="8">
+                            <div class="admin-empty-state">
+                                <h3>No mock tests found</h3>
+                                <p>
+                                    Create a mock test using your
+                                    existing Question Bank or adjust
+                                    the selected filters.
+                                </p>
+                            </div>
+                        </td>
+                    </tr>
+                </template>
+
+                <footer class="admin-dashboard-footer">
+                    <p>
+                        &copy; <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+                </footer>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         ADD / EDIT MOCK TEST MODAL
+    =============================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="mockTestFormModal"
+        hidden
+    >
+        <section
+            class="admin-modal admin-modal-large"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="mockTestFormModalTitle"
+            aria-describedby="mockTestFormModalDescription"
+        >
+            <div class="admin-modal-header">
+                <div>
+                    <h2 id="mockTestFormModalTitle">
+                        Create Mock Test
+                    </h2>
+
+                    <p
+                        class="admin-form-help"
+                        id="mockTestFormModalDescription"
+                    >
+                        Configure the examination and select questions
+                        from your Question Bank.
+                    </p>
+                </div>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeMockTestFormModal"
+                    aria-label="Close mock test form"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <form class="admin-form" id="mockTestForm">
+
+                <div class="admin-modal-body">
+
+                    <input
+                        type="hidden"
+                        id="mockTestRecordId"
+                        name="mockTestRecordId"
+                    >
+
+                    <div class="admin-form-grid">
+
+                        <div class="admin-form-field">
+                            <label for="mockTestParentExam">
+                                Parent Examination *
+                            </label>
+
+                            <select
+                                id="mockTestParentExam"
+                                name="examId"
+                                required
+                            >
+                                <option value="">
+                                    Select an examination
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestParentSubject">
+                                Parent Subject
+                            </label>
+
+                            <select
+                                id="mockTestParentSubject"
+                                name="subjectId"
+                                disabled
+                            >
+                                <option value="">
+                                    All Subjects / Full Exam
+                                </option>
+                            </select>
+
+                            <span class="admin-form-help">
+                                Optional. Leave unselected for an
+                                examination-wide test.
+                            </span>
+                        </div>
+
+                        <div class="admin-form-field is-full">
+                            <label for="mockTestTitle">
+                                Test Title *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="mockTestTitle"
+                                name="title"
+                                maxlength="180"
+                                placeholder="Enter mock test title"
+                                autocomplete="off"
+                                required
+                            >
+                        </div>
+
+                        <div class="admin-form-field is-full">
+                            <label for="mockTestDescription">
+                                Test Description
+                            </label>
+
+                            <textarea
+                                id="mockTestDescription"
+                                name="description"
+                                rows="3"
+                                maxlength="1000"
+                                placeholder="Describe the purpose and coverage of this test..."
+                            ></textarea>
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestDuration">
+                                Duration (Minutes) *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="mockTestDuration"
+                                name="duration"
+                                min="0"
+                                max="1440"
+                                step="1"
+                                value="30"
+                                required
+                            >
+
+                            <span class="admin-form-help">
+                                Enter 0 for an untimed test.
+                            </span>
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestDisplayOrder">
+                                Display Order *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="mockTestDisplayOrder"
+                                name="order"
+                                min="0"
+                                max="99999"
+                                step="1"
+                                value="0"
+                                required
+                            >
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestMarksPerQuestion">
+                                Default Marks per Question *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="mockTestMarksPerQuestion"
+                                name="marksPerQuestion"
+                                min="0.01"
+                                max="1000"
+                                step="0.01"
+                                value="1"
+                                required
+                            >
+
+                            <span class="admin-form-help">
+                                Individual question marks can override
+                                this default.
+                            </span>
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestNegativeMarks">
+                                Default Negative Marks *
+                            </label>
+
+                            <input
+                                type="number"
+                                id="mockTestNegativeMarks"
+                                name="negativeMarks"
+                                min="0"
+                                max="1000"
+                                step="0.01"
+                                value="0"
+                                required
+                            >
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestFeatured">
+                                Homepage Placement
+                            </label>
+
+                            <select
+                                id="mockTestFeatured"
+                                name="featured"
+                            >
+                                <option value="false">
+                                    Standard Test
+                                </option>
+
+                                <option value="true">
+                                    Featured Test
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="admin-form-field">
+                            <label for="mockTestPublicationStatus">
+                                Publication Status *
+                            </label>
+
+                            <select
+                                id="mockTestPublicationStatus"
+                                name="published"
+                                required
+                            >
+                                <option value="false">
+                                    Save as Draft
+                                </option>
+
+                                <option value="true">
+                                    Publish Test
+                                </option>
+                            </select>
+
+                            <span class="admin-form-help">
+                                A test must contain valid published
+                                questions before publication.
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <!-- QUESTION SELECTION -->
+
+                    <section
+                        class="admin-card"
+                        aria-labelledby="mockTestQuestionSelectorTitle"
+                    >
+                        <div class="admin-card-header">
+                            <div>
+                                <h3 id="mockTestQuestionSelectorTitle">
+                                    Select Questions
+                                </h3>
+
+                                <p>
+                                    Choose questions from the existing
+                                    Question Bank. Draft questions
+                                    cannot be included in a published test.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="admin-toolbar">
+                            <div class="admin-toolbar-group">
+                                <label
+                                    for="mockTestQuestionSearch"
+                                    class="sr-only"
+                                >
+                                    Search available questions
+                                </label>
+
+                                <input
+                                    type="search"
+                                    class="admin-search"
+                                    id="mockTestQuestionSearch"
+                                    placeholder="Search available questions..."
+                                    autocomplete="off"
+                                    disabled
+                                >
+
+                                <label
+                                    for="mockTestQuestionTopicFilter"
+                                    class="sr-only"
+                                >
+                                    Filter available questions by topic
+                                </label>
+
+                                <select
+                                    class="admin-filter"
+                                    id="mockTestQuestionTopicFilter"
+                                    disabled
+                                >
+                                    <option value="all">
+                                        All Topics
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div
+                            class="admin-loading-state"
+                            id="mockTestQuestionLoading"
+                        >
+                            Select an examination to view
+                            available questions.
+                        </div>
+
+                        <div
+                            id="mockTestAvailableQuestions"
+                            class="admin-question-selection-list"
+                            aria-label="Available questions"
+                        ></div>
+
+                        <div
+                            class="admin-pagination"
+                            id="mockTestQuestionPagination"
+                            hidden
+                        >
+                            <span
+                                class="admin-pagination-info"
+                                id="mockTestQuestionPaginationInfo"
+                            ></span>
+
+                            <div
+                                class="admin-pagination-actions"
+                                id="mockTestQuestionPaginationButtons"
+                            ></div>
+                        </div>
+                    </section>
+
+                    <!-- SELECTED QUESTION SUMMARY -->
+
+                    <section
+                        class="admin-card"
+                        aria-labelledby="mockTestSelectedQuestionsTitle"
+                    >
+                        <div class="admin-card-header">
+                            <div>
+                                <h3 id="mockTestSelectedQuestionsTitle">
+                                    Selected Questions
+                                </h3>
+
+                                <p>
+                                    Review the selected questions and
+                                    arrange their examination order.
+                                </p>
+                            </div>
+
+                            <strong
+                                id="mockTestSelectedCount"
+                                aria-live="polite"
+                            >
+                                0 selected
+                            </strong>
+                        </div>
+
+                        <div
+                            id="mockTestSelectedQuestions"
+                            class="admin-selected-question-list"
+                            aria-label="Selected question order"
+                        >
+                            <div class="admin-empty-state">
+                                <p>
+                                    No questions selected.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="admin-form-grid">
+                            <div class="admin-form-field">
+                                <label for="mockTestQuestionCount">
+                                    Total Selected Questions
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="mockTestQuestionCount"
+                                    value="0"
+                                    readonly
+                                >
+                            </div>
+
+                            <div class="admin-form-field">
+                                <label for="mockTestMaximumMarks">
+                                    Maximum Marks
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="mockTestMaximumMarks"
+                                    value="0"
+                                    readonly
+                                >
+                            </div>
+                        </div>
+                    </section>
+
+                </div>
+
+                <div class="admin-modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="cancelMockTestForm"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveMockTestButton"
+                    >
+                        <span id="saveMockTestButtonText">
+                            Save Mock Test
+                        </span>
+
+                        <span
+                            class="ui-spinner"
+                            id="saveMockTestSpinner"
+                            aria-hidden="true"
+                            hidden
+                        ></span>
+                    </button>
+                </div>
+
+            </form>
+        </section>
+    </div>
+
+    <!-- DELETE CONFIRMATION -->
+
+    <div
+        class="admin-modal-overlay"
+        id="deleteMockTestModal"
+        hidden
+    >
+        <section
+            class="admin-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="deleteMockTestModalTitle"
+            aria-describedby="deleteMockTestModalDescription"
+        >
+            <div class="admin-modal-header">
+                <h2 id="deleteMockTestModalTitle">
+                    Delete Mock Test?
+                </h2>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeDeleteMockTestModal"
+                    aria-label="Close delete confirmation"
+                >
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <div class="admin-modal-body">
+                <p id="deleteMockTestModalDescription">
+                    This will permanently remove the selected
+                    test and its published question copies.
+                    The original Question Bank records will
+                    remain intact.
+                </p>
+
+                <p>
+                    <strong id="deleteMockTestTitle"></strong>
+                </p>
+
+                <div class="admin-alert is-warning">
+                    This action cannot be undone. Existing
+                    links to the deleted test will stop working.
+                </div>
+            </div>
+
+            <div class="admin-modal-footer">
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelDeleteMockTest"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmDeleteMockTest"
+                >
+                    <span id="deleteMockTestButtonText">
+                        Delete Mock Test
+                    </span>
+
+                    <span
+                        class="ui-spinner"
+                        id="deleteMockTestSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+                </button>
+            </div>
+        </section>
+    </div>
+
+</body>
+</html>
