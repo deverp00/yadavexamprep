@@ -1,0 +1,2669 @@
+
+/*
+=========================================================
+YADAV EXAMPREP
+File: css/admin.css
+
+Admin Login and Management Dashboard Styles
+
+Designed and Developed by Yadav Web Technologies
+=========================================================
+*/
+
+
+/* =====================================================
+   01. ADMIN DESIGN SYSTEM
+===================================================== */
+
+:root {
+
+    --admin-primary: #111111;
+    --admin-secondary: #555555;
+
+    --admin-background: #FFFFFF;
+    --admin-surface: #F8F9FA;
+    --admin-surface-hover: #F3F4F6;
+
+    --admin-border: #D1D5DB;
+    --admin-border-soft: #E5E7EB;
+
+    --admin-radius: 9px;
+
+    --admin-success: #166534;
+    --admin-success-bg: #F0FDF4;
+
+    --admin-error: #991B1B;
+    --admin-error-bg: #FEF2F2;
+
+    --admin-warning: #92400E;
+    --admin-warning-bg: #FFFBEB;
+
+    --admin-sidebar-width: 265px;
+    --admin-header-height: 76px;
+
+    --admin-shadow:
+        0 12px 35px rgba(17, 17, 17, 0.045);
+
+    --admin-transition: 180ms ease;
+
+}
+
+
+/* =====================================================
+   02. GLOBAL ADMIN FOUNDATION
+===================================================== */
+
+.admin-body {
+
+    min-height: 100vh;
+
+    margin: 0;
+
+    background: var(--admin-background);
+
+    color: var(--admin-primary);
+
+    font-family: "Roboto", Arial, sans-serif;
+
+}
+
+.admin-body *,
+.admin-body *::before,
+.admin-body *::after {
+
+    box-sizing: border-box;
+
+}
+
+.admin-body [hidden] {
+
+    display: none !important;
+
+}
+
+.admin-body button,
+.admin-body input,
+.admin-body textarea,
+.admin-body select {
+
+    font: inherit;
+
+}
+
+.admin-body button {
+
+    cursor: pointer;
+
+}
+
+.admin-body button:disabled {
+
+    opacity: 0.48;
+
+    cursor: not-allowed;
+
+}
+
+.admin-body :is(
+    a,
+    button,
+    input,
+    select,
+    textarea
+):focus-visible {
+
+    outline: 2px solid var(--admin-primary);
+
+    outline-offset: 3px;
+
+}
+
+.admin-body a {
+
+    color: inherit;
+
+}
+
+.admin-body svg {
+
+    flex-shrink: 0;
+
+}
+
+.admin-body .btn {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 9px;
+
+    min-height: 43px;
+
+    text-decoration: none;
+
+}
+
+.admin-body .btn-outline {
+
+    border: 1px solid var(--admin-border);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+}
+
+.admin-body .btn-outline:hover {
+
+    border-color: var(--admin-primary);
+
+    background: var(--admin-surface);
+
+}
+
+
+/* =====================================================
+   03. ADMIN LOGIN PAGE
+===================================================== */
+
+body[data-page="admin-login"] {
+
+    display: flex;
+
+    flex-direction: column;
+
+    min-height: 100vh;
+
+    background: var(--admin-surface);
+
+}
+
+
+/* =====================================================
+   04. LOGIN HEADER
+===================================================== */
+
+.admin-login-header {
+
+    position: relative;
+
+    z-index: 5;
+
+    background: #FFFFFF;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+}
+
+.admin-login-header-inner {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    min-height: 85px;
+
+}
+
+.admin-back-link {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    color: var(--admin-secondary);
+
+    font-size: 13px;
+
+    font-weight: 600;
+
+    text-decoration: none;
+
+    transition: color var(--admin-transition);
+
+}
+
+.admin-back-link:hover {
+
+    color: var(--admin-primary);
+
+}
+
+
+/* =====================================================
+   05. LOGIN MAIN LAYOUT
+===================================================== */
+
+.admin-login-main {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    flex: 1;
+
+    width: 100%;
+
+    padding: 65px 24px;
+
+}
+
+.admin-login-container {
+
+    width: min(100%, 460px);
+
+    margin-inline: auto;
+
+}
+
+.admin-login-intro {
+
+    margin-bottom: 29px;
+
+    text-align: center;
+
+}
+
+.admin-login-eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: 14px;
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.12em;
+
+    text-transform: uppercase;
+
+}
+
+.admin-login-intro h1 {
+
+    margin: 0 0 12px;
+
+    color: var(--admin-primary);
+
+    font-size: clamp(30px, 5vw, 40px);
+
+    font-weight: 800;
+
+    line-height: 1.2;
+
+    letter-spacing: -0.045em;
+
+}
+
+.admin-login-intro p {
+
+    max-width: 390px;
+
+    margin: 0 auto;
+
+    color: var(--admin-secondary);
+
+    font-size: 14px;
+
+    line-height: 1.75;
+
+}
+
+
+/* =====================================================
+   06. LOGIN CARD
+===================================================== */
+
+.admin-login-card {
+
+    padding: clamp(24px, 5vw, 37px);
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    box-shadow: var(--admin-shadow);
+
+}
+
+.admin-login-card-header {
+
+    margin-bottom: 28px;
+
+}
+
+.admin-login-icon {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 49px;
+
+    height: 49px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-primary);
+
+}
+
+.admin-login-card-header h2 {
+
+    margin: 0 0 10px;
+
+    font-size: 23px;
+
+    font-weight: 800;
+
+    line-height: 1.3;
+
+    letter-spacing: -0.025em;
+
+}
+
+.admin-login-card-header p {
+
+    margin: 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.7;
+
+}
+
+
+/* =====================================================
+   07. AUTHENTICATION STATUS
+===================================================== */
+
+.admin-auth-status {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 13px 15px;
+
+    margin-bottom: 22px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: var(--admin-surface);
+
+}
+
+.admin-auth-status p {
+
+    flex: 1;
+
+    margin: 0;
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+    overflow-wrap: anywhere;
+
+}
+
+.admin-auth-status-icon {
+
+    display: block;
+
+    flex: 0 0 8px;
+
+    width: 8px;
+
+    height: 8px;
+
+    margin-top: 6px;
+
+    border-radius: 50%;
+
+    background: currentColor;
+
+}
+
+.admin-auth-status.is-error {
+
+    border-color: #FECACA;
+
+    background: var(--admin-error-bg);
+
+    color: var(--admin-error);
+
+}
+
+.admin-auth-status.is-success {
+
+    border-color: #BBF7D0;
+
+    background: var(--admin-success-bg);
+
+    color: var(--admin-success);
+
+}
+
+.admin-auth-status.is-loading {
+
+    color: var(--admin-secondary);
+
+}
+
+
+/* =====================================================
+   08. LOGIN FORM
+===================================================== */
+
+.admin-login-form {
+
+    display: grid;
+
+    gap: 23px;
+
+}
+
+.admin-form-group {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    min-width: 0;
+
+}
+
+.admin-form-group > label {
+
+    color: var(--admin-primary);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.admin-input-wrapper {
+
+    position: relative;
+
+    display: flex;
+
+    align-items: center;
+
+    min-width: 0;
+
+}
+
+.admin-input-wrapper > svg {
+
+    position: absolute;
+
+    left: 15px;
+
+    color: #6B7280;
+
+    pointer-events: none;
+
+}
+
+.admin-input-wrapper input {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    height: 49px;
+
+    padding: 12px 15px 12px 45px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 14px;
+
+    transition:
+        border-color var(--admin-transition),
+        box-shadow var(--admin-transition);
+
+}
+
+.admin-input-wrapper input::placeholder {
+
+    color: #9CA3AF;
+
+}
+
+.admin-input-wrapper input:hover {
+
+    border-color: #888888;
+
+}
+
+.admin-input-wrapper input:focus {
+
+    outline: none;
+
+    border-color: var(--admin-primary);
+
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.07);
+
+}
+
+.admin-input-wrapper input[aria-invalid="true"] {
+
+    border-color: var(--admin-error);
+
+}
+
+.admin-field-help {
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =====================================================
+   09. PASSWORD VISIBILITY
+===================================================== */
+
+.admin-password-wrapper input {
+
+    padding-right: 51px;
+
+}
+
+.admin-password-toggle {
+
+    position: absolute;
+
+    right: 7px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 38px;
+
+    height: 38px;
+
+    padding: 0;
+
+    border: 0;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: var(--admin-secondary);
+
+}
+
+.admin-password-toggle:hover {
+
+    background: var(--admin-surface);
+
+    color: var(--admin-primary);
+
+}
+
+
+/* =====================================================
+   10. LOGIN SUBMIT
+===================================================== */
+
+.admin-login-submit {
+
+    width: 100%;
+
+    min-height: 49px !important;
+
+    margin-top: 3px;
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+}
+
+.admin-login-submit .ui-spinner {
+
+    width: 17px;
+
+    height: 17px;
+
+    margin: 0;
+
+    border-width: 2px;
+
+}
+
+.admin-login-security-note {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: center;
+
+    gap: 8px;
+
+    margin: -5px 0 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.7;
+
+    text-align: left;
+
+}
+
+.admin-login-security-note svg {
+
+    margin-top: 1px;
+
+}
+
+
+/* =====================================================
+   11. PUBLIC ACCESS LINK
+===================================================== */
+
+.admin-public-access {
+
+    padding-top: 27px;
+
+    text-align: center;
+
+}
+
+.admin-public-access p {
+
+    margin: 0 0 10px;
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+}
+
+.admin-public-access a {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+    color: var(--admin-primary);
+
+    font-size: 13px;
+
+    font-weight: 700;
+
+    text-decoration: none;
+
+}
+
+.admin-public-access a:hover {
+
+    text-decoration: underline;
+
+    text-underline-offset: 4px;
+
+}
+
+
+/* =====================================================
+   12. LOGIN FOOTER
+===================================================== */
+
+.admin-login-footer {
+
+    padding: 21px 0;
+
+    border-top: 1px solid var(--admin-border-soft);
+
+    background: #FFFFFF;
+
+}
+
+.admin-login-footer-inner {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 12px;
+
+}
+
+.admin-login-footer p {
+
+    margin: 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+}
+
+.admin-login-footer .developer-credit span {
+
+    color: var(--admin-primary);
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   13. DASHBOARD APPLICATION SHELL
+===================================================== */
+
+.admin-app {
+
+    display: flex;
+
+    min-height: 100vh;
+
+    background: var(--admin-surface);
+
+}
+
+.admin-sidebar {
+
+    position: fixed;
+
+    inset: 0 auto 0 0;
+
+    z-index: 100;
+
+    display: flex;
+
+    flex-direction: column;
+
+    width: var(--admin-sidebar-width);
+
+    height: 100dvh;
+
+    border-right: 1px solid var(--admin-border-soft);
+
+    background: #FFFFFF;
+
+    transition: transform 220ms ease;
+
+}
+
+.admin-main {
+
+    flex: 1;
+
+    min-width: 0;
+
+    min-height: 100vh;
+
+    margin-left: var(--admin-sidebar-width);
+
+}
+
+.admin-main-content {
+
+    width: 100%;
+
+    max-width: 1600px;
+
+    padding: 32px;
+
+    margin-inline: auto;
+
+}
+
+
+/* =====================================================
+   14. DASHBOARD SIDEBAR BRAND
+===================================================== */
+
+.admin-sidebar-brand {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 12px;
+
+    min-height: var(--admin-header-height);
+
+    padding: 16px 20px;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+}
+
+.admin-sidebar-brand .site-logo {
+
+    min-width: 0;
+
+}
+
+.admin-sidebar-brand .logo-text {
+
+    font-size: 16px;
+
+}
+
+.admin-sidebar-close {
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 35px;
+
+    height: 35px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 7px;
+
+    background: #FFFFFF;
+
+}
+
+
+/* =====================================================
+   15. SIDEBAR NAVIGATION
+===================================================== */
+
+.admin-sidebar-navigation {
+
+    flex: 1;
+
+    min-height: 0;
+
+    padding: 19px 12px;
+
+    overflow-y: auto;
+
+    overscroll-behavior: contain;
+
+    scrollbar-width: thin;
+
+}
+
+.admin-nav-group {
+
+    margin-bottom: 22px;
+
+}
+
+.admin-nav-heading {
+
+    padding: 0 13px;
+
+    margin: 0 0 10px;
+
+    color: #777777;
+
+    font-size: 10px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.1em;
+
+    text-transform: uppercase;
+
+}
+
+.admin-nav-link {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    width: 100%;
+
+    min-height: 43px;
+
+    padding: 11px 13px;
+
+    margin-bottom: 3px;
+
+    border: 1px solid transparent;
+
+    border-radius: 7px;
+
+    background: transparent;
+
+    color: var(--admin-secondary);
+
+    font-size: 13px;
+
+    font-weight: 500;
+
+    text-align: left;
+
+    text-decoration: none;
+
+    transition:
+        color var(--admin-transition),
+        background-color var(--admin-transition),
+        border-color var(--admin-transition);
+
+}
+
+.admin-nav-link svg {
+
+    width: 18px;
+
+    height: 18px;
+
+}
+
+.admin-nav-link:hover {
+
+    background: var(--admin-surface);
+
+    color: var(--admin-primary);
+
+}
+
+.admin-nav-link.active,
+.admin-nav-link[aria-current="page"] {
+
+    border-color: var(--admin-primary);
+
+    background: var(--admin-primary);
+
+    color: #FFFFFF;
+
+    font-weight: 700;
+
+}
+
+.admin-sidebar-footer {
+
+    padding: 17px 13px;
+
+    border-top: 1px solid var(--admin-border-soft);
+
+}
+
+
+/* =====================================================
+   16. DASHBOARD TOPBAR
+===================================================== */
+
+.admin-topbar {
+
+    position: sticky;
+
+    top: 0;
+
+    z-index: 50;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    gap: 20px;
+
+    min-height: var(--admin-header-height);
+
+    padding: 14px 32px;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+    background: rgba(255, 255, 255, 0.94);
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+
+}
+
+.admin-topbar-left,
+.admin-topbar-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 14px;
+
+    min-width: 0;
+
+}
+
+.admin-topbar-title {
+
+    margin: 0;
+
+    font-size: 17px;
+
+    font-weight: 800;
+
+    overflow-wrap: anywhere;
+
+}
+
+.admin-menu-toggle {
+
+    display: none;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 40px;
+
+    height: 40px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+}
+
+.admin-user-badge {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    min-width: 0;
+
+    padding: 7px 11px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: var(--admin-surface);
+
+    font-size: 12px;
+
+}
+
+.admin-user-avatar {
+
+    display: grid;
+
+    place-items: center;
+
+    flex: 0 0 31px;
+
+    width: 31px;
+
+    height: 31px;
+
+    border-radius: 7px;
+
+    background: var(--admin-primary);
+
+    color: #FFFFFF;
+
+    font-weight: 700;
+
+}
+
+
+/* =====================================================
+   17. PAGE HEADINGS
+===================================================== */
+
+.admin-page-heading {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 20px;
+
+    margin-bottom: 27px;
+
+}
+
+.admin-page-eyebrow {
+
+    display: inline-block;
+
+    margin-bottom: 9px;
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: 0.09em;
+
+    text-transform: uppercase;
+
+}
+
+.admin-page-heading h1 {
+
+    margin: 0 0 10px;
+
+    font-size: clamp(25px, 3vw, 34px);
+
+    font-weight: 800;
+
+    letter-spacing: -0.04em;
+
+}
+
+.admin-page-heading p {
+
+    max-width: 700px;
+
+    margin: 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 13px;
+
+    line-height: 1.75;
+
+}
+
+.admin-page-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+}
+
+
+/* =====================================================
+   18. DASHBOARD CARDS
+===================================================== */
+
+.admin-card {
+
+    min-width: 0;
+
+    padding: 24px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    box-shadow: var(--admin-shadow);
+
+}
+
+.admin-card-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding-bottom: 18px;
+
+    margin-bottom: 20px;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+}
+
+.admin-card-header h2,
+.admin-card-header h3 {
+
+    margin: 0;
+
+    font-size: 17px;
+
+    line-height: 1.4;
+
+}
+
+.admin-card-header p {
+
+    margin: 7px 0 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+    line-height: 1.65;
+
+}
+
+
+/* =====================================================
+   19. DASHBOARD STATISTICS
+===================================================== */
+
+.admin-stats-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+
+    gap: 17px;
+
+    margin-bottom: 26px;
+
+}
+
+.admin-stat-card {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+
+    min-width: 0;
+
+    padding: 23px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+}
+
+.admin-stat-label {
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+}
+
+.admin-stat-value {
+
+    color: var(--admin-primary);
+
+    font-size: clamp(27px, 3vw, 37px);
+
+    font-weight: 800;
+
+    font-variant-numeric: tabular-nums;
+
+    letter-spacing: -0.04em;
+
+}
+
+.admin-stat-description {
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+
+/* =====================================================
+   20. DASHBOARD CONTENT GRID
+===================================================== */
+
+.admin-content-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 20px;
+
+}
+
+.admin-content-grid .admin-card {
+
+    height: 100%;
+
+}
+
+
+/* =====================================================
+   21. MANAGEMENT TOOLBAR
+===================================================== */
+
+.admin-toolbar {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    padding: 17px;
+
+    margin-bottom: 19px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+}
+
+.admin-toolbar-group {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    min-width: 0;
+
+}
+
+.admin-search {
+
+    width: min(100%, 300px);
+
+    min-height: 42px;
+
+    padding: 10px 13px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 13px;
+
+}
+
+.admin-filter {
+
+    min-height: 42px;
+
+    max-width: 100%;
+
+    padding: 9px 13px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 13px;
+
+}
+
+
+/* =====================================================
+   22. ADMIN FORMS
+===================================================== */
+
+.admin-form {
+
+    display: grid;
+
+    gap: 20px;
+
+}
+
+.admin-form-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    gap: 18px;
+
+}
+
+.admin-form-field {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 9px;
+
+    min-width: 0;
+
+}
+
+.admin-form-field.is-full {
+
+    grid-column: 1 / -1;
+
+}
+
+.admin-form-field label {
+
+    color: var(--admin-primary);
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+}
+
+.admin-form-field input,
+.admin-form-field select,
+.admin-form-field textarea {
+
+    display: block;
+
+    width: 100%;
+
+    min-width: 0;
+
+    min-height: 44px;
+
+    padding: 11px 13px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 13px;
+
+    line-height: 1.6;
+
+}
+
+.admin-form-field textarea {
+
+    min-height: 125px;
+
+    resize: vertical;
+
+}
+
+.admin-form-field :is(
+    input,
+    select,
+    textarea
+):focus {
+
+    outline: none;
+
+    border-color: var(--admin-primary);
+
+    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.07);
+
+}
+
+.admin-form-help {
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    line-height: 1.6;
+
+}
+
+.admin-form-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 11px;
+
+    padding-top: 21px;
+
+    border-top: 1px solid var(--admin-border-soft);
+
+}
+
+
+/* =====================================================
+   23. CHECKBOX AND SWITCH
+===================================================== */
+
+.admin-checkbox {
+
+    display: inline-flex;
+
+    align-items: flex-start;
+
+    gap: 10px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+
+    line-height: 1.6;
+
+}
+
+.admin-checkbox input {
+
+    width: 17px;
+
+    height: 17px;
+
+    flex-shrink: 0;
+
+    margin-top: 1px;
+
+    accent-color: var(--admin-primary);
+
+}
+
+.admin-switch {
+
+    position: relative;
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 11px;
+
+    cursor: pointer;
+
+}
+
+.admin-switch input {
+
+    position: absolute;
+
+    width: 1px;
+
+    height: 1px;
+
+    opacity: 0;
+
+}
+
+.admin-switch-track {
+
+    position: relative;
+
+    display: block;
+
+    width: 40px;
+
+    height: 23px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 99px;
+
+    background: #E5E7EB;
+
+    transition: background-color var(--admin-transition);
+
+}
+
+.admin-switch-track::after {
+
+    position: absolute;
+
+    top: 3px;
+
+    left: 3px;
+
+    width: 15px;
+
+    height: 15px;
+
+    border-radius: 50%;
+
+    background: #FFFFFF;
+
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+
+    content: "";
+
+    transition: transform var(--admin-transition);
+
+}
+
+.admin-switch input:checked + .admin-switch-track {
+
+    background: var(--admin-primary);
+
+    border-color: var(--admin-primary);
+
+}
+
+.admin-switch input:checked + .admin-switch-track::after {
+
+    transform: translateX(17px);
+
+}
+
+.admin-switch input:focus-visible + .admin-switch-track {
+
+    outline: 2px solid var(--admin-primary);
+
+    outline-offset: 3px;
+
+}
+
+
+/* =====================================================
+   24. ADMIN TABLE
+===================================================== */
+
+.admin-table-container {
+
+    width: 100%;
+
+    max-width: 100%;
+
+    overflow-x: auto;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    scrollbar-width: thin;
+
+}
+
+.admin-table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    font-size: 12px;
+
+    text-align: left;
+
+}
+
+.admin-table thead {
+
+    background: var(--admin-surface);
+
+}
+
+.admin-table th {
+
+    padding: 15px 16px;
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+.admin-table td {
+
+    padding: 15px 16px;
+
+    border-top: 1px solid var(--admin-border-soft);
+
+    color: var(--admin-primary);
+
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+
+}
+
+.admin-table tbody tr:hover {
+
+    background: var(--admin-surface);
+
+}
+
+.admin-table .admin-table-title {
+
+    font-weight: 700;
+
+}
+
+.admin-table-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    flex-wrap: wrap;
+
+    gap: 7px;
+
+}
+
+
+/* =====================================================
+   25. ACTION BUTTONS
+===================================================== */
+
+.admin-icon-button {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    width: 35px;
+
+    height: 35px;
+
+    padding: 0;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 7px;
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    transition:
+        border-color var(--admin-transition),
+        background-color var(--admin-transition);
+
+}
+
+.admin-icon-button:hover {
+
+    border-color: var(--admin-primary);
+
+    background: var(--admin-surface);
+
+}
+
+.admin-icon-button.is-danger:hover {
+
+    border-color: var(--admin-error);
+
+    background: var(--admin-error-bg);
+
+    color: var(--admin-error);
+
+}
+
+
+/* =====================================================
+   26. PUBLICATION BADGES
+===================================================== */
+
+.admin-status-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 6px;
+
+    padding: 6px 9px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 6px;
+
+    background: var(--admin-surface);
+
+    color: var(--admin-secondary);
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    white-space: nowrap;
+
+}
+
+.admin-status-badge.is-published {
+
+    border-color: #BBF7D0;
+
+    background: var(--admin-success-bg);
+
+    color: var(--admin-success);
+
+}
+
+.admin-status-badge.is-draft {
+
+    border-color: var(--admin-border);
+
+    background: var(--admin-surface);
+
+    color: var(--admin-secondary);
+
+}
+
+.admin-status-badge.is-warning {
+
+    border-color: #FDE68A;
+
+    background: var(--admin-warning-bg);
+
+    color: var(--admin-warning);
+
+}
+
+
+/* =====================================================
+   27. EMPTY / LOADING STATES
+===================================================== */
+
+.admin-empty-state {
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    min-height: 230px;
+
+    padding: 35px 20px;
+
+    text-align: center;
+
+}
+
+.admin-empty-state h3 {
+
+    margin: 0;
+
+    font-size: 17px;
+
+}
+
+.admin-empty-state p {
+
+    max-width: 430px;
+
+    margin: 0;
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+    line-height: 1.75;
+
+}
+
+.admin-loading-state {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    gap: 13px;
+
+    padding: 32px;
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+}
+
+
+/* =====================================================
+   28. ADMIN ALERTS
+===================================================== */
+
+.admin-alert {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    gap: 11px;
+
+    padding: 15px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 12px;
+
+    line-height: 1.7;
+
+}
+
+.admin-alert.is-success {
+
+    border-color: #BBF7D0;
+
+    background: var(--admin-success-bg);
+
+    color: var(--admin-success);
+
+}
+
+.admin-alert.is-error {
+
+    border-color: #FECACA;
+
+    background: var(--admin-error-bg);
+
+    color: var(--admin-error);
+
+}
+
+.admin-alert.is-warning {
+
+    border-color: #FDE68A;
+
+    background: var(--admin-warning-bg);
+
+    color: var(--admin-warning);
+
+}
+
+
+/* =====================================================
+   29. ADMIN MODAL
+===================================================== */
+
+.admin-modal-overlay {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 500;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(17, 17, 17, 0.65);
+
+    backdrop-filter: blur(5px);
+
+}
+
+.admin-modal {
+
+    width: min(100%, 610px);
+
+    max-height: calc(100dvh - 40px);
+
+    overflow-y: auto;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: var(--admin-radius);
+
+    background: #FFFFFF;
+
+    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.16);
+
+}
+
+.admin-modal-header {
+
+    display: flex;
+
+    align-items: flex-start;
+
+    justify-content: space-between;
+
+    gap: 15px;
+
+    padding: 22px 24px;
+
+    border-bottom: 1px solid var(--admin-border-soft);
+
+}
+
+.admin-modal-header h2 {
+
+    margin: 0;
+
+    font-size: 19px;
+
+}
+
+.admin-modal-body {
+
+    padding: 24px;
+
+}
+
+.admin-modal-footer {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: flex-end;
+
+    flex-wrap: wrap;
+
+    gap: 10px;
+
+    padding: 17px 24px;
+
+    border-top: 1px solid var(--admin-border-soft);
+
+}
+
+
+/* =====================================================
+   30. ADMIN PAGINATION
+===================================================== */
+
+.admin-pagination {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    flex-wrap: wrap;
+
+    gap: 14px;
+
+    padding: 18px 0;
+
+}
+
+.admin-pagination-info {
+
+    color: var(--admin-secondary);
+
+    font-size: 12px;
+
+}
+
+.admin-pagination-actions {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 7px;
+
+}
+
+.admin-pagination-actions button {
+
+    min-width: 35px;
+
+    min-height: 35px;
+
+    padding: 7px;
+
+    border: 1px solid var(--admin-border);
+
+    border-radius: 7px;
+
+    background: #FFFFFF;
+
+    color: var(--admin-primary);
+
+    font-size: 12px;
+
+}
+
+.admin-pagination-actions button.is-active {
+
+    border-color: var(--admin-primary);
+
+    background: var(--admin-primary);
+
+    color: #FFFFFF;
+
+}
+
+
+/* =====================================================
+   31. MOBILE SIDEBAR BACKDROP
+===================================================== */
+
+.admin-sidebar-backdrop {
+
+    position: fixed;
+
+    inset: 0;
+
+    z-index: 90;
+
+    background: rgba(17, 17, 17, 0.55);
+
+}
+
+.admin-sidebar-backdrop[hidden] {
+
+    display: none !important;
+
+}
+
+
+/* =====================================================
+   32. LARGE TABLET
+===================================================== */
+
+@media (max-width: 1200px) {
+
+    .admin-stats-grid {
+
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+    }
+
+    .admin-main-content {
+
+        padding: 26px;
+
+    }
+
+}
+
+
+/* =====================================================
+   33. TABLET / MOBILE DASHBOARD
+===================================================== */
+
+@media (max-width: 900px) {
+
+    .admin-sidebar {
+
+        transform: translateX(-100%);
+
+        box-shadow: 12px 0 40px rgba(0, 0, 0, 0.08);
+
+    }
+
+    .admin-sidebar.is-open {
+
+        transform: translateX(0);
+
+    }
+
+    .admin-sidebar-close,
+    .admin-menu-toggle {
+
+        display: inline-flex;
+
+    }
+
+    .admin-main {
+
+        margin-left: 0;
+
+    }
+
+    .admin-topbar {
+
+        padding-inline: 22px;
+
+    }
+
+    .admin-main-content {
+
+        padding: 23px;
+
+    }
+
+}
+
+
+/* =====================================================
+   34. SMALL TABLET
+===================================================== */
+
+@media (max-width: 768px) {
+
+    .admin-content-grid {
+
+        grid-template-columns: minmax(0, 1fr);
+
+    }
+
+    .admin-form-grid {
+
+        grid-template-columns: minmax(0, 1fr);
+
+    }
+
+    .admin-form-field.is-full {
+
+        grid-column: auto;
+
+    }
+
+    .admin-login-header-inner {
+
+        min-height: 72px;
+
+    }
+
+    .admin-login-main {
+
+        padding-block: 42px;
+
+    }
+
+}
+
+
+/* =====================================================
+   35. MOBILE
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .admin-login-main {
+
+        padding: 30px 16px 42px;
+
+    }
+
+    .admin-login-card {
+
+        padding: 22px;
+
+    }
+
+    .admin-login-footer-inner {
+
+        flex-direction: column;
+
+        align-items: center;
+
+        text-align: center;
+
+    }
+
+    .admin-back-link {
+
+        font-size: 0;
+
+        gap: 0;
+
+    }
+
+    .admin-back-link svg {
+
+        width: 21px;
+
+        height: 21px;
+
+    }
+
+    .admin-main-content {
+
+        padding: 17px;
+
+    }
+
+    .admin-topbar {
+
+        padding-inline: 16px;
+
+    }
+
+    .admin-topbar-title {
+
+        font-size: 15px;
+
+    }
+
+    .admin-user-badge {
+
+        padding: 5px;
+
+    }
+
+    .admin-stats-grid {
+
+        gap: 10px;
+
+    }
+
+    .admin-stat-card {
+
+        padding: 16px;
+
+    }
+
+    .admin-stat-value {
+
+        font-size: 27px;
+
+    }
+
+    .admin-page-heading {
+
+        flex-direction: column;
+
+        align-items: stretch;
+
+    }
+
+    .admin-page-actions {
+
+        width: 100%;
+
+    }
+
+    .admin-page-actions .btn {
+
+        flex: 1;
+
+    }
+
+    .admin-card {
+
+        padding: 18px;
+
+    }
+
+    .admin-toolbar {
+
+        align-items: stretch;
+
+    }
+
+    .admin-toolbar-group {
+
+        width: 100%;
+
+    }
+
+    .admin-search {
+
+        width: 100%;
+
+    }
+
+    .admin-filter {
+
+        flex: 1;
+
+        min-width: 0;
+
+    }
+
+    .admin-form-actions {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .admin-form-actions .btn {
+
+        width: 100%;
+
+    }
+
+    .admin-modal-header,
+    .admin-modal-body,
+    .admin-modal-footer {
+
+        padding: 18px;
+
+    }
+
+    .admin-modal-footer {
+
+        flex-direction: column-reverse;
+
+    }
+
+    .admin-modal-footer .btn {
+
+        width: 100%;
+
+    }
+
+}
+
+
+/* =====================================================
+   36. VERY SMALL SCREENS
+===================================================== */
+
+@media (max-width: 380px) {
+
+    .admin-sidebar {
+
+        width: min(88vw, var(--admin-sidebar-width));
+
+    }
+
+    .admin-login-card {
+
+        padding: 18px;
+
+    }
+
+    .admin-main-content {
+
+        padding: 13px;
+
+    }
+
+    .admin-topbar {
+
+        gap: 9px;
+
+    }
+
+    .admin-topbar-actions {
+
+        gap: 7px;
+
+    }
+
+    .admin-stat-card {
+
+        padding: 13px;
+
+    }
+
+    .admin-stat-label {
+
+        font-size: 11px;
+
+    }
+
+    .admin-stat-value {
+
+        font-size: 24px;
+
+    }
+
+}
+
+
+/* =====================================================
+   37. REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    .admin-body *,
+    .admin-body *::before,
+    .admin-body *::after {
+
+        animation-duration: 0.01ms !important;
+
+        transition-duration: 0.01ms !important;
+
+        scroll-behavior: auto !important;
+
+    }
+
+}
+
+
+/* =====================================================
+   38. PRINT
+===================================================== */
+
+@media print {
+
+    .admin-sidebar,
+    .admin-topbar,
+    .admin-sidebar-backdrop,
+    .admin-page-actions,
+    .admin-toolbar,
+    .admin-pagination,
+    .admin-table-actions,
+    .admin-modal-overlay {
+
+        display: none !important;
+
+    }
+
+    .admin-main {
+
+        margin: 0;
+
+    }
+
+    .admin-main-content {
+
+        max-width: none;
+
+        padding: 0;
+
+    }
+
+    .admin-card,
+    .admin-stat-card {
+
+        box-shadow: none;
+
+        break-inside: avoid;
+
+    }
+
+    .admin-table-container {
+
+        overflow: visible;
+
+    }
+
+}
+
+
+/* =====================================================
+   END OF ADMIN.CSS
+===================================================== */
