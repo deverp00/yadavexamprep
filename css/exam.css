@@ -1,2768 +1,1697 @@
 
 /*
-=========================================================
+========================================================
 YADAV EXAMPREP
 File: css/exam.css
 
-Examination and Result Page Styles
+CSS INTEGRATION — FULL FILE REPLACEMENT
 
 Designed and Developed by Yadav Web Technologies
-=========================================================
+
+PAGES:
+    mock-test.html
+    result.html
+    practice.html
+
+OWNERSHIP:
+    style.css      Global typography and structure
+    components.css Reusable buttons, forms, cards and UI
+    animation.css  Motion and transitions
+    responsive.css Cross-page responsive safety
+    exam.css       Examination, results and practice UI
+
+IMPORTANT:
+    - Universal 9px border radius.
+    - No body/header/footer/global heading overrides.
+    - No sample examination data.
+    - No page-wide horizontal scrolling.
+    - Preserve JavaScript-controlled hidden states.
+========================================================
 */
 
-
-/* =====================================================
-   01. EXAMINATION DESIGN VARIABLES
-===================================================== */
+/* ====================================================
+   01. EXAMINATION DESIGN TOKENS
+==================================================== */
 
 :root {
+    --exam-gap: 24px;
+    --exam-panel-padding: 28px;
+    --exam-sidebar-width: 306px;
 
-    --exam-primary: #111111;
+    --exam-correct: #166534;
+    --exam-correct-bg: #f0fdf4;
+    --exam-correct-border: #bbd7c4;
 
-    --exam-secondary: #555555;
+    --exam-incorrect: #991b1b;
+    --exam-incorrect-bg: #fef2f2;
+    --exam-incorrect-border: #fecaca;
 
-    --exam-background: #FFFFFF;
-
-    --exam-surface: #F8F9FA;
-
-    --exam-border: #D1D5DB;
-
-    --exam-radius: 9px;
-
-    --exam-success: #166534;
-
-    --exam-success-bg: #F0FDF4;
-
-    --exam-error: #991B1B;
-
-    --exam-error-bg: #FEF2F2;
-
-    --exam-warning: #92400E;
-
-    --exam-warning-bg: #FFFBEB;
-
-    --exam-review: #6B21A8;
-
-    --exam-review-bg: #FAF5FF;
-
-    --exam-shadow:
-        0 12px 32px rgba(17, 17, 17, 0.045);
-
+    --exam-review: #854d0e;
+    --exam-review-bg: #fefce8;
+    --exam-review-border: #fde68a;
 }
 
+/* ====================================================
+   02. PAGE STRUCTURE
+==================================================== */
 
-/* =====================================================
-   02. SHARED EXAMINATION FOUNDATION
-===================================================== */
+.exam-page-section,
+.result-page-section {
+    min-width: 0;
+}
+
+.exam-page-section > .container,
+.result-page-section > .container {
+    min-width: 0;
+}
+
+.exam-page-section .section-heading,
+.result-page-section .section-heading {
+    max-width: 100%;
+}
+
+.exam-page-section .section-heading p,
+.result-page-section .section-heading p {
+    max-width: 720px;
+}
 
 .exam-instructions-section,
-.examination-workspace-section,
-.result-summary-section,
-.answer-review-section {
-
-    background: var(--exam-background);
-
-}
-
-.exam-instructions-section *,
-.examination-workspace-section *,
-.result-summary-section *,
-.answer-review-section * {
-
-    box-sizing: border-box;
-
-}
-
-.exam-instructions-section button,
-.examination-workspace-section button,
-.result-summary-section button,
-.answer-review-section button {
-
-    font: inherit;
-
-}
-
-.exam-instructions-section button:focus-visible,
-.examination-workspace-section button:focus-visible,
-.result-summary-section button:focus-visible,
-.answer-review-section button:focus-visible {
-
-    outline: 2px solid var(--exam-primary);
-
-    outline-offset: 3px;
-
-}
-
-.exam-instructions-card,
-.exam-question-card,
-.exam-sidebar,
-.exam-topbar,
-.result-overview-card,
-.result-details-card,
-.result-stat-card,
-.answer-review-card {
-
-    min-width: 0;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-background);
-
-}
-
-
-/* =====================================================
-   03. EXAMINATION STATUS
-===================================================== */
-
-.examination-status-section,
-.result-status-section {
-
-    min-height: 58vh;
-
-    display: flex;
-
-    align-items: center;
-
-}
-
-.examination-status-section .container,
-.result-status-section .container {
-
+.exam-workspace,
+.result-content {
     width: 100%;
-
+    min-width: 0;
 }
 
-.examination-status-section .empty-state,
-.result-status-section .empty-state {
-
-    max-width: 640px;
-
-    margin-inline: auto;
-
-    text-align: center;
-
-}
-
-.examination-status-section .ui-spinner,
-.result-status-section .ui-spinner {
-
-    margin-inline: auto;
-
-    margin-bottom: 22px;
-
-}
-
-
-/* =====================================================
-   04. EXAMINATION INSTRUCTIONS
-===================================================== */
-
-.exam-instructions-section {
-
-    padding-top: 46px;
-
-    padding-bottom: 90px;
-
-}
-
-.exam-instructions-section .breadcrumb {
-
-    margin-bottom: 40px;
-
-}
-
-.exam-instructions-section .page-intro-content {
-
-    max-width: 800px;
-
-    margin-bottom: 36px;
-
-}
+/* ====================================================
+   03. EXAMINATION INSTRUCTIONS
+==================================================== */
 
 .exam-instructions-card {
-
-    padding: clamp(22px, 4vw, 44px);
-
-    box-shadow: var(--exam-shadow);
-
-}
-
-.exam-instructions-header {
-
-    padding-bottom: 30px;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.exam-instructions-header .ui-badge {
-
-    display: inline-flex;
-
-    margin-bottom: 18px;
-
-}
-
-.exam-instructions-header h2 {
-
-    margin: 0 0 12px;
-
-    font-size: clamp(24px, 3vw, 32px);
-
-    line-height: 1.25;
-
-    color: var(--exam-primary);
-
-}
-
-.exam-instructions-header p {
-
-    max-width: 760px;
-
-    margin: 0;
-
-    color: var(--exam-secondary);
-
-    line-height: 1.75;
-
-}
-
-
-/* =====================================================
-   05. EXAMINATION INFORMATION GRID
-===================================================== */
-
-.exam-information-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-
-    padding-block: 32px;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.exam-information-item {
-
     display: flex;
-
     flex-direction: column;
+    gap: var(--space-6);
 
-    gap: 12px;
+    width: 100%;
+    max-width: 920px;
 
-    min-width: 0;
+    padding: var(--exam-panel-padding);
 
-    padding: 20px;
+    border: var(--border);
+    border-radius: var(--radius);
 
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
+    background: var(--background);
+    box-shadow: var(--shadow-sm);
 }
 
-.exam-information-label {
-
-    font-size: 13px;
-
-    color: var(--exam-secondary);
-
-}
-
-.exam-information-item strong {
-
-    font-size: clamp(18px, 2vw, 24px);
-
-    line-height: 1.3;
-
-    overflow-wrap: anywhere;
-
-    color: var(--exam-primary);
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-
-/* =====================================================
-   06. EXAMINATION RULES
-===================================================== */
-
-.exam-rules {
-
-    padding-block: 32px;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.exam-rules h3 {
-
-    margin: 0 0 20px;
-
-    font-size: 20px;
-
-    color: var(--exam-primary);
-
-}
-
-.exam-rules ol {
-
-    display: grid;
-
-    gap: 14px;
-
-    padding-left: 22px;
-
-    margin: 0;
-
-    color: var(--exam-secondary);
-
-    line-height: 1.75;
-
-}
-
-.exam-rules li {
-
-    padding-left: 5px;
-
-}
-
-
-/* =====================================================
-   07. AGREEMENT AND START BUTTON
-===================================================== */
-
-.exam-agreement {
-
+.exam-instructions-heading {
     display: flex;
-
     align-items: flex-start;
-
-    gap: 13px;
-
-    margin-top: 30px;
-
-    cursor: pointer;
-
-    color: var(--exam-primary);
-
-    line-height: 1.6;
-
+    flex-direction: column;
+    gap: var(--space-3);
 }
 
-.exam-agreement input {
+.exam-instructions-heading h2 {
+    max-width: 100%;
 
-    width: 18px;
-
-    height: 18px;
-
-    flex: 0 0 18px;
-
-    margin-top: 3px;
-
-    accent-color: var(--exam-primary);
-
-    cursor: pointer;
-
+    font-size: var(--font-2xl);
+    line-height: var(--line-heading);
 }
 
-.exam-instruction-actions {
+.exam-instructions-heading p {
+    max-width: 720px;
+    font-size: var(--font-sm);
+}
 
+.exam-instruction-stats {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-3);
+}
+
+.exam-instruction-stat {
     display: flex;
-
-    justify-content: flex-end;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 14px;
-
-    margin-top: 30px;
-
-}
-
-.exam-instruction-actions .btn {
-
-    min-height: 46px;
-
-}
-
-.exam-instruction-actions .btn:disabled {
-
-    opacity: 0.45;
-
-    cursor: not-allowed;
-
-}
-
-
-/* =====================================================
-   08. ACTIVE EXAMINATION WORKSPACE
-===================================================== */
-
-.examination-workspace-section {
-
-    padding-top: 36px;
-
-    padding-bottom: 80px;
-
-}
-
-.exam-topbar {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    gap: 24px;
-
-    padding: 25px 28px;
-
-    margin-bottom: 25px;
-
-}
-
-.exam-topbar-information {
+    flex-direction: column;
+    gap: var(--space-2);
 
     min-width: 0;
+    padding: var(--space-4);
 
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
 }
 
-.exam-topbar-information h1 {
+.exam-instruction-stat > span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.5;
+}
 
-    margin: 8px 0;
-
-    font-size: clamp(21px, 2.5vw, 28px);
-
-    line-height: 1.3;
+.exam-instruction-stat > strong {
+    color: var(--primary);
+    font-size: var(--font-md);
+    font-weight: 700;
+    line-height: 1.4;
 
     overflow-wrap: anywhere;
-
+    font-variant-numeric: tabular-nums;
 }
 
-.exam-topbar-information p {
+.exam-instructions-content {
+    min-width: 0;
+}
+
+.exam-instructions-content h3,
+.exam-instructions-content h4 {
+    margin-bottom: var(--space-4);
+
+    font-size: var(--font-base);
+    font-weight: 700;
+}
+
+.exam-instructions-content ol,
+.exam-instructions-content ul {
+    display: grid;
+    gap: var(--space-3);
 
     margin: 0;
+    padding-left: var(--space-6);
 
-    color: var(--exam-secondary);
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
+}
 
-    font-size: 14px;
+.exam-instructions-content li {
+    padding-left: var(--space-1);
+}
 
+.exam-instructions-agreement {
+    padding: var(--space-4);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.exam-instructions-agreement label {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+    font-weight: 500;
     line-height: 1.6;
 
+    cursor: pointer;
 }
 
-.exam-topbar-actions {
+.exam-instructions-agreement input {
+    margin-top: 3px;
+}
 
+.exam-instructions-card > .btn {
+    align-self: flex-start;
+}
+
+/* ====================================================
+   04. EXAMINATION WORKSPACE HEADER
+==================================================== */
+
+.exam-workspace-header {
     display: flex;
-
     align-items: center;
+    justify-content: space-between;
+    gap: var(--space-6);
 
-    gap: 14px;
-
-    flex-shrink: 0;
-
+    width: 100%;
+    margin-bottom: var(--space-6);
 }
 
+.exam-workspace-heading {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-2);
 
-/* =====================================================
-   09. COUNTDOWN TIMER
-===================================================== */
+    min-width: 0;
+    flex: 1 1 auto;
+}
+
+.exam-workspace-heading h1,
+.exam-workspace-heading h2 {
+    margin: 0;
+
+    font-size: clamp(
+        var(--font-xl),
+        2.5vw,
+        var(--font-2xl)
+    );
+
+    line-height: var(--line-heading);
+}
+
+.exam-workspace-heading p {
+    max-width: 680px;
+    font-size: var(--font-sm);
+}
+
+.exam-workspace-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+
+    min-width: 0;
+    flex: 0 1 auto;
+}
+
+/* ====================================================
+   05. EXAMINATION TIMER
+==================================================== */
 
 .exam-timer {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
+    gap: var(--space-2);
 
-    gap: 10px;
+    min-height: 44px;
+    padding: 9px 14px;
 
-    min-height: 46px;
+    border: var(--border);
+    border-radius: var(--radius);
 
-    padding: 10px 16px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
-    color: var(--exam-primary);
-
-    font-size: 17px;
-
-    font-weight: 700;
-
-    font-variant-numeric: tabular-nums;
-
-    white-space: nowrap;
-
+    background: var(--surface);
+    color: var(--primary);
 }
 
 .exam-timer svg {
-
-    flex-shrink: 0;
-
+    width: 19px;
+    height: 19px;
 }
 
-.exam-timer.is-warning {
+.exam-timer strong {
+    color: inherit;
 
-    border-color: var(--exam-error);
+    font-size: var(--font-base);
+    font-weight: 700;
+    line-height: 1;
 
-    background: var(--exam-error-bg);
-
-    color: var(--exam-error);
-
-    animation: examTimerPulse 1.4s ease-in-out infinite;
-
-}
-
-@keyframes examTimerPulse {
-
-    0%,
-    100% {
-
-        opacity: 1;
-
-    }
-
-    50% {
-
-        opacity: 0.65;
-
-    }
-
-}
-
-
-/* =====================================================
-   10. EXAMINATION PROGRESS
-===================================================== */
-
-.exam-progress-panel {
-
-    margin-bottom: 28px;
-
-}
-
-.exam-progress-panel .progress-info {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    gap: 12px;
-
-    margin-bottom: 12px;
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-}
-
-.exam-progress-panel .progress-info strong {
-
-    color: var(--exam-primary);
-
+    white-space: nowrap;
     font-variant-numeric: tabular-nums;
-
 }
 
-.exam-progress-panel .progress-track {
+.exam-timer.is-warning,
+.exam-timer.warning,
+.exam-timer[data-state="warning"] {
+    border-color: var(--exam-review-border);
+    background: var(--exam-review-bg);
+    color: var(--exam-review);
+}
+
+.exam-timer.is-danger,
+.exam-timer.is-critical,
+.exam-timer.danger,
+.exam-timer[data-state="critical"] {
+    border-color: var(--exam-incorrect-border);
+    background: var(--exam-incorrect-bg);
+    color: var(--exam-incorrect);
+}
+
+/* ====================================================
+   06. PROGRESS LAYOUT
+==================================================== */
+
+.exam-progress-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
 
     width: 100%;
-
-    height: 7px;
-
-    overflow: hidden;
-
-    border-radius: 99px;
-
-    background: #E5E7EB;
-
+    margin-bottom: var(--space-6);
 }
 
-.exam-progress-panel .progress-fill {
-
-    width: 0;
-
-    height: 100%;
-
-    border-radius: inherit;
-
-    background: var(--exam-primary);
-
-    transition: width 250ms ease;
-
+.exam-progress-section .progress-info {
+    margin: 0;
 }
 
+.exam-progress-section .ui-progress {
+    width: 100%;
+}
 
-/* =====================================================
-   11. EXAMINATION TWO-COLUMN LAYOUT
-===================================================== */
+/* ====================================================
+   07. EXAMINATION GRID
+==================================================== */
 
 .exam-layout {
-
     display: grid;
-
     grid-template-columns:
         minmax(0, 1fr)
-        minmax(280px, 340px);
+        minmax(260px, var(--exam-sidebar-width));
 
     align-items: start;
+    gap: var(--exam-gap);
 
-    gap: 24px;
-
+    width: 100%;
+    min-width: 0;
 }
 
-.exam-question-column {
-
+.exam-main-column {
     display: flex;
-
     flex-direction: column;
-
-    gap: 20px;
+    gap: var(--space-5);
 
     min-width: 0;
-
 }
+
+.exam-sidebar {
+    min-width: 0;
+}
+
+/* ====================================================
+   08. QUESTION CARD
+==================================================== */
 
 .exam-question-card {
-
-    padding: clamp(20px, 3vw, 32px);
-
+    width: 100%;
     min-width: 0;
+    padding: var(--exam-panel-padding);
 
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+    box-shadow: var(--shadow-sm);
 }
 
 .exam-question-header {
-
     display: flex;
-
-    align-items: flex-start;
-
+    align-items: center;
     justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-3);
 
-    gap: 18px;
-
-    padding-bottom: 25px;
-
-    margin-bottom: 26px;
-
-    border-bottom: 1px solid var(--exam-border);
-
+    margin-bottom: var(--space-5);
 }
 
-.exam-question-header h2 {
-
-    margin: 8px 0 0;
-
-    font-size: clamp(21px, 2.3vw, 27px);
-
-    line-height: 1.3;
-
+.exam-question-header > span:not(.ui-badge) {
+    color: var(--text-muted);
+    font-size: var(--font-xs);
+    font-weight: 600;
+    line-height: 1.5;
 }
 
-.exam-question-header .ui-badge {
+.exam-question-card > h2,
+.exam-question-card > h3 {
+    margin: 0 0 var(--space-4);
 
-    flex-shrink: 0;
-
-    white-space: nowrap;
-
+    font-size: var(--font-lg);
+    font-weight: 700;
+    line-height: var(--line-heading);
 }
-
-
-/* =====================================================
-   12. QUESTION CONTENT
-===================================================== */
 
 .exam-question-content {
+    width: 100%;
+    min-width: 0;
+    margin-bottom: var(--space-6);
 
-    margin-bottom: 30px;
-
-    color: var(--exam-primary);
-
-    font-size: clamp(16px, 1.6vw, 19px);
-
-    font-weight: 500;
-
-    line-height: 1.8;
+    color: var(--text-primary);
+    font-size: var(--font-base);
+    line-height: var(--line-relaxed);
 
     overflow-wrap: anywhere;
+}
 
+.exam-question-content > * + * {
+    margin-top: var(--space-3);
 }
 
 .exam-question-content p {
-
-    margin: 0;
-
-    white-space: pre-line;
-
+    color: inherit;
+    font-size: inherit;
+    line-height: inherit;
 }
 
+.exam-question-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius);
+}
 
-/* =====================================================
-   13. MCQ ANSWER OPTIONS
-===================================================== */
+/* ====================================================
+   09. ANSWER OPTIONS
+==================================================== */
 
 .exam-answer-fieldset {
+    display: block;
 
     min-width: 0;
-
+    margin: 0;
     padding: 0;
 
-    margin: 0;
-
     border: 0;
-
 }
 
 .exam-answer-fieldset legend {
+    margin-bottom: var(--space-4);
+    padding: 0;
 
-    display: block;
-
-    width: 100%;
-
-    margin-bottom: 18px;
-
-    font-size: 13px;
-
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
     font-weight: 600;
-
-    color: var(--exam-secondary);
-
+    line-height: 1.5;
 }
 
 .exam-answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
 
-    display: grid;
-
-    gap: 12px;
-
+    width: 100%;
+    min-width: 0;
 }
 
-.exam-answer-option {
+/*
+    Supports labels or other option wrappers
+    rendered by the existing JS controllers.
 
+    Keep option typography stable before and
+    after selection to prevent layout jumps.
+*/
+
+.exam-answer-options > label,
+.exam-answer-option,
+.answer-option,
+.question-option {
     position: relative;
 
     display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
 
-    align-items: center;
-
-    gap: 15px;
-
-    min-height: 62px;
-
+    width: 100%;
+    min-width: 0;
+    min-height: 52px;
     padding: 14px 16px;
 
-    border: 1px solid var(--exam-border);
+    border: var(--border);
+    border-radius: var(--radius);
 
-    border-radius: var(--exam-radius);
+    background: var(--background);
+    color: var(--text-primary);
 
-    background: var(--exam-background);
-
-    cursor: pointer;
-
-    transition:
-        border-color 180ms ease,
-        background-color 180ms ease,
-        transform 180ms ease;
-
-}
-
-.exam-answer-option:hover {
-
-    border-color: var(--exam-primary);
-
-    background: var(--exam-surface);
-
-}
-
-.exam-answer-option:has(input:checked) {
-
-    border-color: var(--exam-primary);
-
-    background: var(--exam-surface);
-
-}
-
-.exam-answer-option:has(input:focus-visible) {
-
-    outline: 2px solid var(--exam-primary);
-
-    outline-offset: 3px;
-
-}
-
-.exam-answer-option input {
-
-    position: absolute;
-
-    width: 1px;
-
-    height: 1px;
-
-    opacity: 0;
-
-}
-
-.exam-answer-option .option-letter {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex: 0 0 34px;
-
-    width: 34px;
-
-    height: 34px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: 7px;
-
-    background: var(--exam-background);
-
-    color: var(--exam-primary);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-}
-
-.exam-answer-option:has(input:checked) .option-letter {
-
-    border-color: var(--exam-primary);
-
-    background: var(--exam-primary);
-
-    color: #FFFFFF;
-
-}
-
-.exam-answer-option .option-text {
-
-    flex: 1;
-
-    min-width: 0;
-
-    color: var(--exam-primary);
-
-    line-height: 1.65;
-
-    overflow-wrap: anywhere;
-
-}
-
-
-/* =====================================================
-   14. QUESTION ACTIONS
-===================================================== */
-
-.exam-question-actions {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: space-between;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    padding-top: 26px;
-
-    margin-top: 30px;
-
-    border-top: 1px solid var(--exam-border);
-
-}
-
-.exam-question-actions .btn {
-
-    min-height: 43px;
-
-}
-
-.exam-question-actions .btn:disabled {
-
-    opacity: 0.45;
-
-    cursor: not-allowed;
-
-}
-
-#markReviewButton[aria-pressed="true"] {
-
-    border-color: var(--exam-review);
-
-    background: var(--exam-review-bg);
-
-    color: var(--exam-review);
-
-}
-
-
-/* =====================================================
-   15. PREVIOUS / NEXT QUESTION
-===================================================== */
-
-.exam-question-navigation {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    gap: 14px;
-
-}
-
-.exam-question-navigation .btn {
-
-    min-height: 46px;
-
-}
-
-.exam-question-navigation .btn:disabled {
-
-    opacity: 0.4;
-
-    cursor: not-allowed;
-
-}
-
-
-/* =====================================================
-   16. QUESTION PALETTE SIDEBAR
-===================================================== */
-
-.exam-sidebar {
-
-    position: sticky;
-
-    top: calc(var(--header-height, 86px) + 18px);
-
-    padding: 24px;
-
-    min-width: 0;
-
-}
-
-.exam-sidebar-header {
-
-    padding-bottom: 22px;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.exam-sidebar-header h2 {
-
-    margin: 8px 0 0;
-
-    font-size: 19px;
-
-}
-
-
-/* =====================================================
-   17. QUESTION STATISTICS
-===================================================== */
-
-.exam-statistics-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 10px;
-
-    padding-block: 22px;
-
-}
-
-.exam-stat-item {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 7px;
-
-    padding: 14px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
-}
-
-.exam-stat-item strong {
-
-    font-size: 23px;
-
-    color: var(--exam-primary);
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.exam-stat-item span {
-
-    font-size: 12px;
-
-    color: var(--exam-secondary);
-
-}
-
-
-/* =====================================================
-   18. QUESTION PALETTE LEGEND
-===================================================== */
-
-.exam-palette-legend {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 12px;
-
-    padding-bottom: 20px;
-
-}
-
-.palette-legend-item {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 8px;
-
-    font-size: 11px;
-
-    color: var(--exam-secondary);
-
-}
-
-.palette-indicator {
-
-    display: inline-block;
-
-    flex: 0 0 13px;
-
-    width: 13px;
-
-    height: 13px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: 4px;
-
-    background: var(--exam-background);
-
-}
-
-.palette-indicator.is-current {
-
-    background: var(--exam-primary);
-
-    border-color: var(--exam-primary);
-
-}
-
-.palette-indicator.is-answered {
-
-    background: var(--exam-success-bg);
-
-    border-color: var(--exam-success);
-
-}
-
-.palette-indicator.is-unanswered {
-
-    background: var(--exam-background);
-
-}
-
-.palette-indicator.is-review {
-
-    background: var(--exam-review-bg);
-
-    border-color: var(--exam-review);
-
-}
-
-
-/* =====================================================
-   19. QUESTION PALETTE BUTTONS
-===================================================== */
-
-.exam-question-palette {
-
-    display: grid;
-
-    grid-template-columns: repeat(5, minmax(0, 1fr));
-
-    gap: 9px;
-
-    max-height: 320px;
-
-    padding: 2px 2px 20px;
-
-    overflow-y: auto;
-
-    scrollbar-width: thin;
-
-}
-
-.exam-palette-button {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    width: 100%;
-
-    min-height: 42px;
-
-    padding: 6px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: 7px;
-
-    background: var(--exam-background);
-
-    color: var(--exam-primary);
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        border-color 180ms ease,
-        background-color 180ms ease;
-
-}
-
-.exam-palette-button:hover {
-
-    border-color: var(--exam-primary);
-
-}
-
-.exam-palette-button.is-answered {
-
-    border-color: var(--exam-success);
-
-    background: var(--exam-success-bg);
-
-    color: var(--exam-success);
-
-}
-
-.exam-palette-button.is-review {
-
-    border-color: var(--exam-review);
-
-    background: var(--exam-review-bg);
-
-    color: var(--exam-review);
-
-}
-
-.exam-palette-button.is-current {
-
-    outline: 2px solid var(--exam-primary);
-
-    outline-offset: 2px;
-
-}
-
-.exam-palette-button.is-current:not(.is-review):not(.is-answered) {
-
-    border-color: var(--exam-primary);
-
-    background: var(--exam-primary);
-
-    color: #FFFFFF;
-
-}
-
-.exam-sidebar-footer {
-
-    padding-top: 20px;
-
-    border-top: 1px solid var(--exam-border);
-
-}
-
-.exam-sidebar-footer .btn {
-
-    width: 100%;
-
-}
-
-
-/* =====================================================
-   20. SUBMISSION MODAL
-===================================================== */
-
-.modal-overlay[hidden] {
-
-    display: none !important;
-
-}
-
-#submitConfirmationModal {
-
-    position: fixed;
-
-    inset: 0;
-
-    z-index: 2000;
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(17, 17, 17, 0.64);
-
-    backdrop-filter: blur(5px);
-
-    -webkit-backdrop-filter: blur(5px);
-
-}
-
-.exam-confirmation-dialog {
-
-    width: min(100%, 520px);
-
-    max-height: calc(100dvh - 40px);
-
-    overflow-y: auto;
-
-    padding: clamp(22px, 4vw, 36px);
-
-    background: #FFFFFF;
-
-    box-shadow: 0 25px 70px rgba(0, 0, 0, 0.15);
-
-}
-
-.exam-confirmation-dialog h2 {
-
-    margin: 12px 0;
-
-    font-size: clamp(22px, 3vw, 28px);
-
-    line-height: 1.3;
-
-}
-
-.exam-confirmation-dialog > p {
-
-    margin: 0;
-
-    color: var(--exam-secondary);
-
-    line-height: 1.75;
-
-}
-
-.exam-submission-summary {
-
-    display: grid;
-
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-
-    gap: 10px;
-
-    margin-top: 26px;
-
-}
-
-.exam-submission-summary > div {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 10px;
-
-    min-width: 0;
-
-    padding: 15px 10px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
-    text-align: center;
-
-}
-
-.exam-submission-summary span {
-
-    color: var(--exam-secondary);
-
-    font-size: 11px;
-
-}
-
-.exam-submission-summary strong {
-
-    color: var(--exam-primary);
-
-    font-size: 24px;
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.exam-confirmation-actions {
-
-    display: flex;
-
-    justify-content: flex-end;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    margin-top: 28px;
-
-}
-
-
-/* =====================================================
-   21. RESULT INTRODUCTION
-===================================================== */
-
-.result-intro-section {
-
-    padding-top: 44px;
-
-    padding-bottom: 24px;
-
-}
-
-.result-intro-section .breadcrumb {
-
-    margin-bottom: 35px;
-
-}
-
-.result-intro-section .page-intro-content {
-
-    max-width: 800px;
-
-}
-
-
-/* =====================================================
-   22. RESULT SUMMARY
-===================================================== */
-
-.result-summary-section {
-
-    padding-top: 20px;
-
-    padding-bottom: 75px;
-
-}
-
-.result-summary-section .section-heading {
-
-    margin-bottom: 25px;
-
-}
-
-.result-overview-card {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    align-items: center;
-
-    gap: 30px;
-
-    padding: clamp(24px, 4vw, 44px);
-
-    background: var(--exam-surface);
-
-}
-
-.result-score-panel {
-
-    display: flex;
-
-    flex-direction: column;
-
-    justify-content: center;
-
-    gap: 12px;
-
-    min-width: 0;
-
-}
-
-.result-score-label {
-
-    font-size: 14px;
-
-    color: var(--exam-secondary);
-
-    font-weight: 500;
-
-}
-
-.result-score-value {
-
-    display: flex;
-
-    align-items: baseline;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    color: var(--exam-primary);
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.result-score-value strong {
-
-    font-size: clamp(48px, 7vw, 86px);
-
-    font-weight: 800;
-
-    line-height: 1.1;
-
-    letter-spacing: -0.055em;
-
-}
-
-.result-score-divider {
-
-    font-size: clamp(26px, 3vw, 40px);
-
-    color: #9CA3AF;
-
-}
-
-#resultMaximumMarks {
-
-    font-size: clamp(24px, 3vw, 36px);
-
-    font-weight: 600;
-
-}
-
-.result-score-caption {
-
-    margin: 0;
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-}
-
-
-/* =====================================================
-   23. RESULT PERCENTAGE CIRCLE
-===================================================== */
-
-.result-percentage-panel {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 18px;
-
-    text-align: center;
-
-}
-
-.result-percentage-circle {
-
-    --result-percentage: 0%;
-
-    display: grid;
-
-    place-items: center;
-
-    width: clamp(155px, 19vw, 205px);
-
-    aspect-ratio: 1;
-
-    padding: 12px;
-
-    border-radius: 50%;
-
-    background: conic-gradient(
-        var(--exam-primary) var(--result-percentage),
-        #E5E7EB var(--result-percentage)
-    );
-
-}
-
-.result-percentage-inner {
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: center;
-
-    justify-content: center;
-
-    gap: 7px;
-
-    width: 100%;
-
-    height: 100%;
-
-    border-radius: 50%;
-
-    background: var(--exam-surface);
-
-}
-
-.result-percentage-inner strong {
-
-    color: var(--exam-primary);
-
-    font-size: clamp(25px, 3vw, 34px);
-
-    font-weight: 800;
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.result-percentage-inner span {
-
-    font-size: 12px;
-
-    color: var(--exam-secondary);
-
-}
-
-.result-percentage-panel > p {
-
-    max-width: 330px;
-
-    margin: 0;
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-    line-height: 1.7;
-
-}
-
-
-/* =====================================================
-   24. RESULT STATISTICS
-===================================================== */
-
-.result-statistics-grid {
-
-    display: grid;
-
-    grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    gap: 16px;
-
-    margin-top: 22px;
-
-}
-
-.result-stat-card {
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 14px;
-
-    padding: 24px;
-
-}
-
-.result-stat-label {
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-}
-
-.result-stat-value {
-
-    color: var(--exam-primary);
-
-    font-size: clamp(27px, 3vw, 36px);
-
-    font-weight: 800;
-
-    font-variant-numeric: tabular-nums;
-
-}
-
-.result-stat-description {
-
-    font-size: 12px;
-
-    color: var(--exam-secondary);
-
-}
-
-
-/* =====================================================
-   25. RESULT DETAILS
-===================================================== */
-
-.result-details-card {
-
-    padding: clamp(22px, 3vw, 32px);
-
-    margin-top: 22px;
-
-}
-
-.result-details-card h3 {
-
-    margin: 0 0 22px;
-
-    font-size: 20px;
-
-}
-
-.result-details-list {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 0 32px;
-
-    margin: 0;
-
-}
-
-.result-details-list > div {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: baseline;
-
-    gap: 12px;
-
-    padding: 16px 0;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.result-details-list dt {
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-}
-
-.result-details-list dd {
-
-    margin: 0;
-
-    color: var(--exam-primary);
-
-    font-size: 13px;
-
-    font-weight: 700;
-
-    text-align: right;
-
-    font-variant-numeric: tabular-nums;
-
-    overflow-wrap: anywhere;
-
-}
-
-.result-primary-actions {
-
-    display: flex;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    margin-top: 28px;
-
-}
-
-
-/* =====================================================
-   26. ANSWER REVIEW SECTION
-===================================================== */
-
-.answer-review-section {
-
-    padding-top: 75px;
-
-    padding-bottom: 90px;
-
-    background: var(--exam-surface);
-
-}
-
-.answer-review-section .section-heading {
-
-    margin-bottom: 26px;
-
-}
-
-.answer-review-toolbar {
-
-    padding: 12px;
-
-    margin-bottom: 20px;
-
-}
-
-.answer-review-toolbar .ui-tabs {
-
-    display: flex;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 8px;
-
-    border: 0;
-
-}
-
-.answer-review-toolbar .ui-tab {
-
-    min-height: 42px;
-
-    padding: 10px 16px;
-
-    border: 1px solid transparent;
-
-    border-radius: 7px;
-
-    background: transparent;
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-    font-weight: 600;
-
-    cursor: pointer;
-
-    transition:
-        background-color 180ms ease,
-        border-color 180ms ease,
-        color 180ms ease;
-
-}
-
-.answer-review-toolbar .ui-tab:hover {
-
-    background: var(--exam-surface);
-
-    color: var(--exam-primary);
-
-}
-
-.answer-review-toolbar .ui-tab.active {
-
-    border-color: var(--exam-primary);
-
-    background: var(--exam-primary);
-
-    color: #FFFFFF;
-
-}
-
-#answerReviewCount {
-
-    margin: 0 0 20px;
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-}
-
-
-/* =====================================================
-   27. ANSWER REVIEW CARDS
-===================================================== */
-
-.answer-review-list {
-
-    display: grid;
-
-    gap: 20px;
-
-}
-
-.answer-review-card {
-
-    padding: clamp(20px, 3vw, 30px);
-
-}
-
-.answer-review-card-header {
-
-    display: flex;
-
-    justify-content: space-between;
-
-    align-items: center;
-
-    flex-wrap: wrap;
-
-    gap: 12px;
-
-    padding-bottom: 20px;
-
-    margin-bottom: 22px;
-
-    border-bottom: 1px solid var(--exam-border);
-
-}
-
-.answer-review-question-title {
-
-    margin: 0;
-
-    color: var(--exam-primary);
-
-    font-size: 18px;
-
-}
-
-.answer-status-badge {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    padding: 7px 11px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: 6px;
-
-    background: var(--exam-surface);
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-}
-
-.answer-status-badge.is-correct {
-
-    border-color: #BBF7D0;
-
-    background: var(--exam-success-bg);
-
-    color: var(--exam-success);
-
-}
-
-.answer-status-badge.is-incorrect {
-
-    border-color: #FECACA;
-
-    background: var(--exam-error-bg);
-
-    color: var(--exam-error);
-
-}
-
-.answer-status-badge.is-unanswered {
-
-    color: var(--exam-secondary);
-
-}
-
-.answer-review-question {
-
-    margin: 0 0 25px;
-
-    color: var(--exam-primary);
-
-    font-size: 16px;
-
-    font-weight: 600;
-
-    line-height: 1.8;
-
-    white-space: pre-line;
-
-    overflow-wrap: anywhere;
-
-}
-
-
-/* =====================================================
-   28. ANSWER REVIEW OPTIONS
-===================================================== */
-
-.answer-review-options {
-
-    display: grid;
-
-    gap: 10px;
-
-}
-
-.answer-review-option {
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 12px;
-
-    min-height: 52px;
-
-    padding: 12px 15px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: #FFFFFF;
-
-}
-
-.answer-review-option .option-letter {
-
-    display: flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    flex: 0 0 31px;
-
-    width: 31px;
-
-    height: 31px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: 6px;
-
-    font-size: 12px;
-
-    font-weight: 700;
-
-}
-
-.answer-review-option .option-text {
-
-    flex: 1;
-
-    min-width: 0;
-
-    color: var(--exam-primary);
-
-    font-size: 13px;
-
+    font-size: var(--font-sm);
+    font-weight: 400;
     line-height: 1.6;
 
     overflow-wrap: anywhere;
-
+    cursor: pointer;
 }
 
-.answer-review-option.is-correct {
-
-    border-color: #86EFAC;
-
-    background: var(--exam-success-bg);
-
+.exam-answer-options > label:hover,
+.exam-answer-option:hover,
+.answer-option:hover,
+.question-option:hover {
+    border-color: var(--border-strong);
+    background: var(--surface);
 }
 
-.answer-review-option.is-correct .option-letter {
+.exam-answer-options input[type="radio"],
+.exam-answer-options input[type="checkbox"] {
+    width: 17px;
+    height: 17px;
+    flex: 0 0 17px;
+    margin-top: 2px;
 
-    border-color: var(--exam-success);
-
-    color: var(--exam-success);
-
+    accent-color: var(--primary);
 }
 
-.answer-review-option.is-incorrect {
-
-    border-color: #FCA5A5;
-
-    background: var(--exam-error-bg);
-
+.exam-answer-options > label:has(input:checked),
+.exam-answer-option:has(input:checked),
+.answer-option:has(input:checked),
+.question-option:has(input:checked),
+.exam-answer-option.is-selected,
+.answer-option.is-selected {
+    border-color: var(--primary);
+    background: var(--surface);
 }
 
-.answer-review-option.is-incorrect .option-letter {
-
-    border-color: var(--exam-error);
-
-    color: var(--exam-error);
-
+.exam-answer-options > label:has(input:focus-visible),
+.exam-answer-option:has(input:focus-visible),
+.answer-option:has(input:focus-visible) {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
 }
 
-.answer-option-indicator {
+/* Answer feedback states */
 
-    flex-shrink: 0;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
-    color: var(--exam-secondary);
-
+.exam-answer-options .is-correct,
+.exam-answer-options .correct,
+.exam-answer-options .answer-correct,
+.exam-answer-options [data-state="correct"] {
+    border-color: var(--exam-correct-border);
+    background: var(--exam-correct-bg);
+    color: var(--exam-correct);
 }
 
-.answer-review-option.is-correct .answer-option-indicator {
-
-    color: var(--exam-success);
-
+.exam-answer-options .is-incorrect,
+.exam-answer-options .incorrect,
+.exam-answer-options .answer-incorrect,
+.exam-answer-options [data-state="incorrect"] {
+    border-color: var(--exam-incorrect-border);
+    background: var(--exam-incorrect-bg);
+    color: var(--exam-incorrect);
 }
 
-.answer-review-option.is-incorrect .answer-option-indicator {
-
-    color: var(--exam-error);
-
+.exam-answer-options input:disabled {
+    cursor: not-allowed;
 }
 
-
-/* =====================================================
-   29. ANSWER COMPARISON
-===================================================== */
-
-.answer-review-comparison {
-
-    display: grid;
-
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 14px;
-
-    margin-top: 22px;
-
+.exam-answer-options > label:has(input:disabled) {
+    cursor: default;
 }
 
-.answer-comparison-item {
+/* ====================================================
+   10. QUESTION ACTIONS AND NAVIGATION
+==================================================== */
 
+.exam-question-actions,
+.exam-question-navigation {
     display: flex;
-
-    flex-direction: column;
-
-    gap: 9px;
-
-    padding: 16px;
-
-    border: 1px solid var(--exam-border);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
-}
-
-.answer-comparison-label {
-
-    font-size: 12px;
-
-    color: var(--exam-secondary);
-
-}
-
-.answer-comparison-item strong {
-
-    color: var(--exam-primary);
-
-    font-size: 13px;
-
-    line-height: 1.65;
-
-    overflow-wrap: anywhere;
-
-}
-
-
-/* =====================================================
-   30. AWARDED MARKS
-===================================================== */
-
-.answer-review-marks {
-
-    display: flex;
-
-    justify-content: space-between;
-
     align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
 
-    gap: 12px;
-
-    padding: 18px 0;
-
-    margin-top: 18px;
-
-    border-top: 1px solid var(--exam-border);
-
+    width: 100%;
+    min-width: 0;
 }
 
-.answer-review-marks span {
-
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
+.exam-question-actions {
+    margin-top: var(--space-6);
+    padding-top: var(--space-5);
+    border-top: var(--border);
 }
 
-.answer-review-marks strong {
-
-    color: var(--exam-primary);
-
-    font-size: 16px;
-
-    font-variant-numeric: tabular-nums;
-
+.exam-question-navigation {
+    justify-content: space-between;
 }
 
-
-/* =====================================================
-   31. ANSWER EXPLANATION
-===================================================== */
-
-.answer-review-explanation {
-
-    padding: 20px;
-
-    border: 1px solid var(--exam-border);
-
-    border-left: 3px solid var(--exam-primary);
-
-    border-radius: var(--exam-radius);
-
-    background: var(--exam-surface);
-
+.exam-question-navigation > .btn,
+.exam-question-actions > .btn {
+    max-width: 100%;
 }
 
-.answer-review-explanation h4 {
-
-    margin: 0 0 10px;
-
-    color: var(--exam-primary);
-
-    font-size: 14px;
-
+#markReviewButton[aria-pressed="true"],
+#markReviewButton.is-active {
+    border-color: var(--exam-review-border);
+    background: var(--exam-review-bg);
+    color: var(--exam-review);
 }
 
-.answer-review-explanation p {
+/* ====================================================
+   11. EXAMINATION SIDEBAR
+==================================================== */
 
+.exam-sidebar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+
+    padding: var(--space-5);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.exam-sidebar-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.exam-sidebar-header h2,
+.exam-sidebar-header h3 {
     margin: 0;
 
-    color: var(--exam-secondary);
-
-    font-size: 13px;
-
-    line-height: 1.8;
-
-    white-space: pre-line;
-
-    overflow-wrap: anywhere;
-
+    font-size: var(--font-base);
+    font-weight: 700;
+    line-height: var(--line-heading);
 }
 
+.exam-sidebar-header p,
+.exam-sidebar > p {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.6;
+}
 
-/* =====================================================
-   32. RESPONSIVE — TABLET
-===================================================== */
+.exam-sidebar-stats {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-2);
+}
 
-@media (max-width: 1024px) {
+.exam-sidebar-stat {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
 
-    .exam-layout {
+    min-width: 0;
+    padding: var(--space-3);
 
-        grid-template-columns:
-            minmax(0, 1fr)
-            minmax(245px, 290px);
+    border: var(--border);
+    border-radius: var(--radius);
 
-        gap: 16px;
+    background: var(--background);
+}
 
-    }
+.exam-sidebar-stat span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.4;
+}
 
-    .exam-sidebar {
+.exam-sidebar-stat strong {
+    color: var(--primary);
+    font-size: var(--font-xl);
+    font-weight: 700;
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
 
-        padding: 18px;
+/* ====================================================
+   12. QUESTION PALETTE
+==================================================== */
 
+.exam-question-palette {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: var(--space-2);
+
+    width: 100%;
+    min-width: 0;
+}
+
+.exam-question-palette button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-width: 0;
+    min-height: 40px;
+    padding: 6px 3px;
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: var(--font-xs);
+    font-weight: 700;
+    line-height: 1.3;
+
+    font-variant-numeric: tabular-nums;
+    cursor: pointer;
+}
+
+.exam-question-palette button:hover {
+    border-color: var(--primary);
+}
+
+.exam-question-palette button.is-current,
+.exam-question-palette button.current,
+.exam-question-palette button.active,
+.exam-question-palette button[aria-current="true"] {
+    outline: 2px solid var(--primary);
+    outline-offset: 1px;
+}
+
+.exam-question-palette button.is-answered,
+.exam-question-palette button.answered,
+.exam-question-palette button[data-status="answered"] {
+    border-color: var(--exam-correct-border);
+    background: var(--exam-correct-bg);
+    color: var(--exam-correct);
+}
+
+.exam-question-palette button.is-review,
+.exam-question-palette button.review,
+.exam-question-palette button.marked-review,
+.exam-question-palette button[data-status="review"] {
+    border-color: var(--exam-review-border);
+    background: var(--exam-review-bg);
+    color: var(--exam-review);
+}
+
+.exam-palette-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-3);
+
+    padding-top: var(--space-3);
+    border-top: var(--border);
+}
+
+.exam-palette-legend span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.5;
+}
+
+.exam-palette-legend span::before {
+    content: "";
+
+    display: inline-block;
+
+    width: 9px;
+    height: 9px;
+    margin-right: 6px;
+
+    border: 1px solid var(--border-strong);
+    border-radius: 3px;
+
+    background: var(--background);
+    vertical-align: middle;
+}
+
+.exam-palette-legend span:nth-child(1)::before {
+    border-color: var(--exam-correct-border);
+    background: var(--exam-correct-bg);
+}
+
+.exam-palette-legend span:nth-child(3)::before {
+    border-color: var(--exam-review-border);
+    background: var(--exam-review-bg);
+}
+
+.exam-sidebar > .btn {
+    width: 100%;
+}
+
+/* ====================================================
+   13. SUBMISSION MODAL CONTENT
+==================================================== */
+
+/*
+    Modal positioning belongs to components.css.
+    Only examination-specific modal content is here.
+*/
+
+#submitConfirmationModal .modal-dialog {
+    width: min(100%, 540px);
+}
+
+.exam-submit-summary {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+
+    padding: var(--space-6);
+}
+
+.exam-submit-summary > div {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+
+    min-width: 0;
+    padding: var(--space-3);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.exam-submit-summary span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.5;
+}
+
+.exam-submit-summary strong {
+    color: var(--primary);
+    font-size: var(--font-xl);
+    line-height: 1.2;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ====================================================
+   14. RESULT PAGE HEADER
+==================================================== */
+
+.result-heading {
+    align-items: flex-end;
+}
+
+.result-heading > .btn {
+    flex-shrink: 0;
+}
+
+/* ====================================================
+   15. MAIN RESULT SUMMARY
+==================================================== */
+
+.result-summary-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: center;
+    gap: var(--space-10);
+
+    width: 100%;
+    padding: clamp(24px, 4vw, 48px);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+    box-shadow: var(--shadow-sm);
+}
+
+.result-summary-information {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-4);
+
+    min-width: 0;
+}
+
+.result-summary-information h2 {
+    margin: 0;
+
+    font-size: clamp(
+        var(--font-lg),
+        2.5vw,
+        var(--font-2xl)
+    );
+
+    line-height: var(--line-heading);
+}
+
+.result-score {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+
+    color: var(--text-secondary);
+}
+
+.result-score strong {
+    color: var(--primary);
+
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    line-height: 1.1;
+
+    letter-spacing: -0.05em;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-score > span {
+    font-size: var(--font-base);
+    line-height: 1.5;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-performance-message {
+    max-width: 560px;
+    font-size: var(--font-sm);
+}
+
+/* ====================================================
+   16. PERCENTAGE CIRCLE
+==================================================== */
+
+.result-percentage-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    min-width: 0;
+}
+
+.result-percentage-circle {
+    display: grid;
+    place-items: center;
+
+    width: clamp(150px, 19vw, 196px);
+    aspect-ratio: 1;
+
+    padding: 12px;
+    border-radius: 50%;
+
+    background: conic-gradient(
+        var(--primary) 0%,
+        var(--border-color) 0%
+    );
+}
+
+.result-percentage-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: 4px;
+
+    width: 100%;
+    aspect-ratio: 1;
+
+    border-radius: 50%;
+    background: var(--background);
+}
+
+.result-percentage-inner strong {
+    color: var(--primary);
+
+    font-size: clamp(1.75rem, 3vw, 2.5rem);
+    font-weight: 800;
+    line-height: 1.1;
+
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+}
+
+.result-percentage-inner span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    font-weight: 600;
+}
+
+/* ====================================================
+   17. RESULT STATISTICS
+==================================================== */
+
+.result-statistics-section,
+.result-details-section,
+.answer-review-section {
+    min-width: 0;
+    margin-top: var(--space-10);
+}
+
+.result-stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: var(--space-4);
+}
+
+.result-stat-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-3);
+
+    min-width: 0;
+    padding: var(--space-5);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.result-stat-card span {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+}
+
+.result-stat-card strong {
+    color: var(--primary);
+
+    font-size: var(--font-2xl);
+    font-weight: 700;
+    line-height: 1.2;
+
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ====================================================
+   18. RESULT EXAMINATION DETAILS
+==================================================== */
+
+.result-details-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: var(--space-3);
+
+    padding: var(--space-5);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+}
+
+.result-detail-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+
+    min-width: 0;
+    padding: var(--space-3);
+}
+
+.result-detail-item span {
+    color: var(--text-secondary);
+    font-size: var(--font-xs);
+    line-height: 1.5;
+}
+
+.result-detail-item strong {
+    color: var(--primary);
+    font-size: var(--font-base);
+    font-weight: 700;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ====================================================
+   19. ANSWER REVIEW
+==================================================== */
+
+.answer-review-section .section-heading {
+    margin-bottom: var(--space-6);
+}
+
+.answer-review-count {
+    margin-block: var(--space-5);
+
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+}
+
+.answer-review-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    min-width: 0;
+}
+
+/*
+    The result controller creates actual review
+    records. Support its review-card variants
+    without changing global card styles.
+*/
+
+.answer-review-list > article,
+.answer-review-card,
+.review-question-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
+
+    min-width: 0;
+    padding: var(--space-6);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+}
+
+.answer-review-list h3,
+.answer-review-card h3,
+.review-question-card h3 {
+    font-size: var(--font-base);
+    line-height: var(--line-heading);
+}
+
+.answer-review-list p {
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
+}
+
+.answer-review-list .ui-badge {
+    align-self: flex-start;
+}
+
+.answer-review-list :is(
+    .review-options,
+    .answer-review-options
+) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.answer-review-list :is(
+    .review-option,
+    .answer-review-option
+) {
+    min-width: 0;
+    padding: var(--space-3) var(--space-4);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+    line-height: 1.6;
+
+    overflow-wrap: anywhere;
+}
+
+.answer-review-list :is(
+    .review-option,
+    .answer-review-option
+).correct,
+.answer-review-list :is(
+    .review-option,
+    .answer-review-option
+).is-correct {
+    border-color: var(--exam-correct-border);
+    background: var(--exam-correct-bg);
+    color: var(--exam-correct);
+}
+
+.answer-review-list :is(
+    .review-option,
+    .answer-review-option
+).incorrect,
+.answer-review-list :is(
+    .review-option,
+    .answer-review-option
+).is-incorrect {
+    border-color: var(--exam-incorrect-border);
+    background: var(--exam-incorrect-bg);
+    color: var(--exam-incorrect);
+}
+
+/* ====================================================
+   20. NEXT ACTIONS
+==================================================== */
+
+.result-next-actions {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+
+    margin-top: var(--space-12);
+    padding: var(--space-8);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+.result-next-actions > div:first-child {
+    min-width: 0;
+}
+
+.result-next-actions h2,
+.result-next-actions h3 {
+    margin-top: var(--space-2);
+
+    font-size: var(--font-xl);
+    line-height: var(--line-heading);
+}
+
+.result-next-actions p {
+    max-width: 600px;
+    margin-top: var(--space-3);
+
+    font-size: var(--font-sm);
+}
+
+.result-next-actions .hero-actions {
+    justify-content: flex-end;
+    flex: 0 1 auto;
+    margin-top: 0;
+}
+
+/* ====================================================
+   21. PRACTICE PAGE — SELECTION
+==================================================== */
+
+/*
+    Reuse examination instructions structurally.
+    Scope adjustments to the practice page only.
+*/
+
+[data-page="practice"] .exam-instructions-card {
+    max-width: 100%;
+}
+
+[data-page="practice"] #practiceSelectionForm {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+
+    width: 100%;
+    min-width: 0;
+}
+
+[data-page="practice"] #practiceSelectionForm
+.exam-question-actions {
+    margin-top: 0;
+}
+
+[data-page="practice"] #startPracticeButton {
+    min-width: 160px;
+}
+
+/* ====================================================
+   22. PRACTICE PAGE — FEEDBACK
+==================================================== */
+
+[data-page="practice"] #practiceFeedback {
+    margin-top: var(--space-5);
+}
+
+[data-page="practice"] #practiceFeedback h4 {
+    margin: 0 0 var(--space-2);
+
+    font-size: var(--font-sm);
+    font-weight: 700;
+}
+
+[data-page="practice"] #practiceFeedback p {
+    font-size: var(--font-sm);
+}
+
+[data-page="practice"] #practiceExplanationPanel {
+    margin-top: var(--space-4);
+    padding: var(--space-4);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+}
+
+[data-page="practice"] #practiceExplanationPanel h4 {
+    margin-bottom: var(--space-2);
+}
+
+[data-page="practice"] #practiceExplanationText {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
+
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+/* ====================================================
+   23. PRACTICE PAGE — RESULTS
+==================================================== */
+
+[data-page="practice"] #practiceResultSection {
+    margin-top: var(--space-6);
+}
+
+[data-page="practice"] #practiceResultSection
+.result-stats-grid {
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+}
+
+[data-page="practice"] #practiceResultSection
+.result-next-actions {
+    margin-top: var(--space-8);
+}
+
+/* ====================================================
+   24. RESPONSIVE — LARGE TABLETS
+==================================================== */
+
+@media (max-width: 1100px) {
+
+    :root {
+        --exam-sidebar-width: 270px;
+        --exam-gap: 18px;
+        --exam-panel-padding: 24px;
     }
 
     .exam-question-palette {
-
         grid-template-columns: repeat(4, minmax(0, 1fr));
-
     }
 
-    .exam-information-grid {
-
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    }
-
-    .result-statistics-grid {
-
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
+    [data-page="practice"] #practiceResultSection
+    .result-stats-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
     }
 
 }
 
+/* ====================================================
+   25. RESPONSIVE — TABLET
+==================================================== */
 
-/* =====================================================
-   33. RESPONSIVE — MOBILE
-===================================================== */
+@media (max-width: 900px) {
+
+    .exam-layout {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .exam-sidebar {
+        width: 100%;
+    }
+
+    .exam-question-palette {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+
+    .exam-instruction-stats {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .result-stats-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .result-details-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .result-next-actions {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .result-next-actions .hero-actions {
+        justify-content: flex-start;
+    }
+
+}
+
+/* ====================================================
+   26. RESPONSIVE — SMALL TABLET
+==================================================== */
 
 @media (max-width: 768px) {
 
-    .exam-instructions-section,
-    .examination-workspace-section {
-
-        padding-top: 28px;
-
-        padding-bottom: 55px;
-
+    :root {
+        --exam-panel-padding: 20px;
+        --exam-gap: 16px;
     }
 
-    .exam-topbar {
-
+    .exam-workspace-header {
+        align-items: flex-start;
         flex-direction: column;
-
-        align-items: stretch;
-
-        gap: 20px;
-
-        padding: 20px;
-
+        gap: var(--space-4);
     }
 
-    .exam-topbar-actions {
-
-        justify-content: space-between;
-
-        flex-wrap: wrap;
-
+    .exam-workspace-actions {
+        justify-content: flex-start;
+        width: 100%;
     }
 
-    .exam-layout {
-
-        grid-template-columns: minmax(0, 1fr);
-
+    .result-summary-card {
+        gap: var(--space-6);
     }
 
-    .exam-sidebar {
-
-        position: static;
-
-        order: 2;
-
+    .answer-review-list > article,
+    .answer-review-card,
+    .review-question-card {
+        padding: var(--space-5);
     }
 
-    .exam-question-palette {
-
-        grid-template-columns: repeat(7, minmax(0, 1fr));
-
-        max-height: none;
-
-    }
-
-    .result-overview-card {
-
-        grid-template-columns: minmax(0, 1fr);
-
-        gap: 38px;
-
-    }
-
-    .result-score-panel {
-
-        align-items: center;
-
-        text-align: center;
-
-    }
-
-    .result-details-list {
-
-        grid-template-columns: minmax(0, 1fr);
-
-    }
-
-    .answer-review-section {
-
-        padding-top: 55px;
-
-        padding-bottom: 65px;
-
+    .exam-submit-summary {
+        padding: var(--space-5);
     }
 
 }
 
-
-/* =====================================================
-   34. RESPONSIVE — SMALL MOBILE
-===================================================== */
+/* ====================================================
+   27. RESPONSIVE — MOBILE
+==================================================== */
 
 @media (max-width: 600px) {
 
-    .exam-instructions-card {
-
-        padding: 20px;
-
+    :root {
+        --exam-panel-padding: 16px;
     }
 
-    .exam-information-grid {
-
-        gap: 10px;
-
-    }
-
-    .exam-information-item {
-
-        padding: 14px;
-
-    }
-
-    .exam-instruction-actions {
-
-        flex-direction: column-reverse;
-
-        align-items: stretch;
-
-    }
-
-    .exam-instruction-actions .btn {
-
-        width: 100%;
-
-    }
-
-    .exam-topbar-actions {
-
-        align-items: stretch;
-
-    }
-
-    .exam-topbar-actions > * {
-
-        flex: 1;
-
-    }
-
+    .exam-instructions-card,
     .exam-question-card {
-
-        padding: 19px;
-
+        padding: var(--exam-panel-padding);
     }
 
-    .exam-question-header {
-
-        flex-wrap: wrap;
-
+    .exam-instructions-heading h2 {
+        font-size: var(--font-xl);
     }
 
-    .exam-question-actions {
-
-        align-items: stretch;
-
+    .exam-workspace-heading h1,
+    .exam-workspace-heading h2 {
+        font-size: var(--font-xl);
     }
 
-    .exam-question-actions .btn {
-
-        flex: 1;
-
+    .exam-question-card > h2,
+    .exam-question-card > h3 {
+        font-size: var(--font-md);
     }
 
-    .exam-question-navigation {
-
-        gap: 10px;
-
+    .exam-question-content {
+        font-size: var(--font-sm);
     }
 
-    .exam-question-navigation .btn {
-
-        flex: 1;
-
-        padding-inline: 10px;
-
-        font-size: 12px;
-
+    .exam-workspace-actions > .btn {
+        flex: 1 1 auto;
     }
 
     .exam-question-palette {
-
         grid-template-columns: repeat(5, minmax(0, 1fr));
-
     }
 
-    .exam-confirmation-actions {
-
-        flex-direction: column-reverse;
-
+    .exam-question-actions > .btn {
+        flex: 1 1 140px;
     }
 
-    .exam-confirmation-actions .btn {
-
-        width: 100%;
-
+    .exam-question-navigation > .btn {
+        flex: 1 1 140px;
     }
 
-    .result-statistics-grid {
+    .exam-submit-summary {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: var(--space-2);
 
-        gap: 10px;
+        padding: var(--space-4);
+    }
 
+    .exam-submit-summary > div {
+        padding: var(--space-2);
+    }
+
+    .exam-submit-summary strong {
+        font-size: var(--font-lg);
+    }
+
+    .result-heading {
+        align-items: flex-start;
+    }
+
+    .result-summary-card {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-6);
+
+        padding: var(--space-6);
+    }
+
+    .result-percentage-container {
+        justify-content: flex-start;
+    }
+
+    .result-percentage-circle {
+        width: 150px;
     }
 
     .result-stat-card {
-
-        padding: 17px;
-
+        padding: var(--space-4);
     }
 
-    .result-primary-actions {
-
-        flex-direction: column;
-
+    .result-stat-card strong {
+        font-size: var(--font-xl);
     }
 
-    .result-primary-actions .btn {
+    .result-details-grid {
+        gap: var(--space-2);
+        padding: var(--space-3);
+    }
 
+    .result-detail-item {
+        padding: var(--space-2);
+    }
+
+    .result-next-actions {
+        padding: var(--space-5);
+    }
+
+    .result-next-actions .hero-actions {
         width: 100%;
-
     }
 
-    .answer-review-toolbar .ui-tabs {
+    .result-next-actions .hero-actions > .btn {
+        flex: 1 1 100%;
+    }
 
-        display: grid;
-
+    [data-page="practice"] #practiceResultSection
+    .result-stats-grid {
         grid-template-columns: repeat(2, minmax(0, 1fr));
-
     }
 
-    .answer-review-toolbar .ui-tab {
-
-        padding-inline: 8px;
-
-        text-align: center;
-
-    }
-
-    .answer-review-comparison {
-
-        grid-template-columns: minmax(0, 1fr);
-
+    [data-page="practice"] #startPracticeButton {
+        width: 100%;
     }
 
 }
 
+/* ====================================================
+   28. RESPONSIVE — EXTRA-NARROW MOBILE
+==================================================== */
 
-/* =====================================================
-   35. RESPONSIVE — VERY SMALL SCREENS
-===================================================== */
+@media (max-width: 400px) {
 
-@media (max-width: 380px) {
-
-    .exam-information-grid {
-
+    .exam-instruction-stats {
         grid-template-columns: minmax(0, 1fr);
-
     }
 
     .exam-question-palette {
-
         grid-template-columns: repeat(4, minmax(0, 1fr));
-
     }
 
-    .exam-submission-summary {
-
-        gap: 6px;
-
+    .exam-sidebar {
+        padding: var(--space-4);
     }
 
-    .exam-submission-summary > div {
-
-        padding-inline: 6px;
-
+    .exam-question-actions,
+    .exam-question-navigation {
+        align-items: stretch;
+        flex-direction: column;
     }
 
-    .exam-submission-summary strong {
-
-        font-size: 20px;
-
+    .exam-question-actions > .btn,
+    .exam-question-navigation > .btn {
+        width: 100%;
+        flex: 0 0 auto;
     }
 
-    .exam-answer-option {
-
-        gap: 10px;
-
-        padding: 12px;
-
+    .result-details-grid {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    .answer-review-option {
-
-        flex-wrap: wrap;
-
-    }
-
-    .answer-option-indicator {
-
-        margin-left: 43px;
-
+    .exam-submit-summary {
+        grid-template-columns: minmax(0, 1fr);
     }
 
 }
 
+/* ====================================================
+   29. LANDSCAPE SAFETY
+==================================================== */
 
-/* =====================================================
-   36. TOUCH DEVICE SUPPORT
-===================================================== */
+@media (max-height: 500px) and (orientation: landscape) {
 
-@media (hover: none) and (pointer: coarse) {
-
-    .exam-palette-button {
-
-        min-height: 44px;
-
+    #submitConfirmationModal {
+        align-items: flex-start;
+        overflow-y: auto;
     }
 
-    .exam-answer-option {
-
-        min-height: 60px;
-
-    }
-
-    .answer-review-toolbar .ui-tab {
-
-        min-height: 44px;
-
+    #submitConfirmationModal .modal-dialog {
+        max-height: calc(100dvh - 24px);
     }
 
 }
 
-
-/* =====================================================
-   37. REDUCED MOTION
-===================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    .exam-timer.is-warning {
-
-        animation: none;
-
-    }
-
-    .exam-progress-panel .progress-fill,
-    .exam-answer-option,
-    .exam-palette-button,
-    .answer-review-toolbar .ui-tab {
-
-        transition: none;
-
-    }
-
-}
-
-
-/* =====================================================
-   38. PRINT RESULT
-===================================================== */
+/* ====================================================
+   30. PRINT
+==================================================== */
 
 @media print {
 
-    @page {
-
-        size: A4;
-
-        margin: 14mm;
-
-    }
-
-    body[data-page="result"] {
-
-        background: #FFFFFF !important;
-
-        color: #111111 !important;
-
-        font-size: 11pt;
-
-    }
-
-    body[data-page="result"] .site-header,
-    body[data-page="result"] .site-footer,
-    body[data-page="result"] .result-primary-actions,
-    body[data-page="result"] .answer-review-toolbar,
-    body[data-page="result"] .cta-section,
-    body[data-page="result"] .result-status-section {
-
+    [data-page="mock-test"] .exam-workspace-actions,
+    [data-page="mock-test"] .exam-question-actions,
+    [data-page="mock-test"] .exam-question-navigation,
+    [data-page="mock-test"] .exam-sidebar > .btn,
+    [data-page="result"] #printResultButton,
+    [data-page="result"] #answerReviewFilters,
+    [data-page="result"] .result-next-actions,
+    [data-page="practice"] .exam-question-actions,
+    [data-page="practice"] .exam-workspace-actions,
+    [data-page="practice"] .result-next-actions {
         display: none !important;
-
     }
 
-    body[data-page="result"] #resultContent {
-
-        display: block !important;
-
+    .exam-layout {
+        display: block;
     }
 
-    body[data-page="result"] .section {
-
-        padding: 10px 0;
-
+    .exam-sidebar {
+        margin-top: var(--space-5);
     }
 
-    body[data-page="result"] .container {
-
-        width: 100%;
-
-        max-width: none;
-
-        padding: 0;
-
-        margin: 0;
-
+    .exam-question-card,
+    .exam-instructions-card,
+    .result-summary-card,
+    .result-stat-card,
+    .result-details-grid,
+    .answer-review-list > article,
+    .answer-review-card,
+    .review-question-card {
+        box-shadow: none;
+        break-inside: avoid;
     }
 
-    body[data-page="result"] .result-overview-card,
-    body[data-page="result"] .result-stat-card,
-    body[data-page="result"] .result-details-card,
-    body[data-page="result"] .answer-review-card {
-
-        box-shadow: none !important;
-
-        border: 1px solid #BDBDBD;
-
-        background: #FFFFFF !important;
-
+    .result-summary-card,
+    .result-stats-grid,
+    .result-details-grid {
+        break-inside: avoid;
     }
 
-    body[data-page="result"] .result-overview-card {
-
-        grid-template-columns: 1fr 1fr;
-
-    }
-
-    body[data-page="result"] .result-statistics-grid {
-
-        grid-template-columns: repeat(4, minmax(0, 1fr));
-
-    }
-
-    body[data-page="result"] .answer-review-section {
-
-        background: #FFFFFF !important;
-
-    }
-
-    body[data-page="result"] .answer-review-card {
-
-        break-inside: avoid-page;
-
+    .answer-review-list > article,
+    .answer-review-card,
+    .review-question-card {
         page-break-inside: avoid;
-
-        margin-bottom: 14px;
-
     }
 
-    body[data-page="result"] .answer-review-option,
-    body[data-page="result"] .answer-comparison-item,
-    body[data-page="result"] .answer-review-explanation {
+    .result-content,
+    .answer-review-list {
+        overflow: visible;
+    }
 
-        print-color-adjust: exact;
-
+    .result-percentage-circle {
         -webkit-print-color-adjust: exact;
-
-    }
-
-    body[data-page="result"] .result-percentage-circle {
-
         print-color-adjust: exact;
-
-        -webkit-print-color-adjust: exact;
-
-    }
-
-    body[data-page="result"] a {
-
-        text-decoration: none;
-
     }
 
 }
 
+/* ====================================================
+   31. REDUCED MOTION
+==================================================== */
 
-/* =====================================================
-   END OF EXAM.CSS
-===================================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .exam-answer-options > label,
+    .exam-answer-option,
+    .answer-option,
+    .question-option,
+    .exam-question-palette button {
+        transition: none;
+    }
+
+}
+
+/* ====================================================
+   END OF FILE
+==================================================== */
