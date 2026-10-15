@@ -1,0 +1,782 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: exams.html
+
+    Public Examination Directory
+
+    Designed and Developed by Yadav Web Technologies
+
+    IMPORTANT:
+    - Free public access.
+    - No visitor login required.
+    - No hardcoded educational records.
+    - Examinations are loaded from Firebase RTDB.
+    =====================================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Explore published examinations, browse subjects and access free mock tests on Yadav ExamPrep."
+    >
+
+    <meta name="theme-color" content="#111111">
+
+    <title>Explore Exams | Yadav ExamPrep</title>
+
+    <!-- Typography -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+    <!-- Shared JavaScript -->
+
+    <script src="js/toggle.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+    <!-- Page Controller -->
+
+    <script
+        type="module"
+        src="js/exams.js"
+    ></script>
+
+</head>
+
+<body class="site-body" data-page="exams">
+
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         HEADER
+    =============================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-container">
+
+            <!-- Brand -->
+
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep Homepage"
+            >
+
+                <span
+                    class="logo-symbol"
+                    aria-hidden="true"
+                >
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="desktop-nav"
+                aria-label="Primary navigation"
+            >
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="exams.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+                    Exams
+                </a>
+
+                <a href="subjects.html" class="nav-link">
+                    Subjects
+                </a>
+
+                <a href="mock-tests.html" class="nav-link">
+                    Mock Tests
+                </a>
+
+                <a href="learn.html" class="nav-link">
+                    Learn
+                </a>
+
+            </nav>
+
+            <!-- Header Actions -->
+
+            <div class="header-actions">
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary header-cta"
+                >
+                    Start Practicing
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open navigation menu"
+                    aria-controls="mobileNavigation"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Mobile Navigation -->
+
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
+
+            <div class="mobile-nav-inner">
+
+                <a
+                    href="index.html"
+                    class="mobile-nav-link"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="exams.html"
+                    class="mobile-nav-link active"
+                    aria-current="page"
+                >
+                    Exams
+                </a>
+
+                <a
+                    href="subjects.html"
+                    class="mobile-nav-link"
+                >
+                    Subjects
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link"
+                >
+                    Mock Tests
+                </a>
+
+                <a
+                    href="learn.html"
+                    class="mobile-nav-link"
+                >
+                    Learn
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary mobile-cta"
+                >
+                    Start Practicing
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ==============================================
+         MAIN CONTENT
+    =============================================== -->
+
+    <main id="mainContent">
+
+        <!-- PAGE INTRODUCTION -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Examination Directory
+                        </span>
+
+                        <h1>
+                            Explore Examinations
+                        </h1>
+
+                        <p>
+                            Choose an examination to explore its
+                            subjects, follow structured learning
+                            content, and access available mock
+                            tests at no cost.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ==================================
+                     FILTERS
+                =================================== -->
+
+                <form
+                    class="filter-bar reveal"
+                    id="examFilterForm"
+                    role="search"
+                >
+
+                    <div class="search-box">
+
+                        <label
+                            class="visually-hidden"
+                            for="examSearch"
+                        >
+                            Search examinations
+                        </label>
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="19"
+                            height="19"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <circle
+                                cx="11"
+                                cy="11"
+                                r="8"
+                            ></circle>
+
+                            <path d="m21 21-4.35-4.35"></path>
+                        </svg>
+
+                        <input
+                            type="search"
+                            id="examSearch"
+                            name="search"
+                            placeholder="Search examinations..."
+                            autocomplete="off"
+                            disabled
+                        >
+
+                    </div>
+
+                    <div class="filter-control">
+
+                        <label
+                            class="visually-hidden"
+                            for="examSortFilter"
+                        >
+                            Sort examinations
+                        </label>
+
+                        <select
+                            id="examSortFilter"
+                            name="sort"
+                            disabled
+                        >
+
+                            <option value="order">
+                                Recommended Order
+                            </option>
+
+                            <option value="name-asc">
+                                Name: A to Z
+                            </option>
+
+                            <option value="name-desc">
+                                Name: Z to A
+                            </option>
+
+                            <option value="newest">
+                                Recently Added
+                            </option>
+
+                            <option value="oldest">
+                                Oldest First
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="resetExamFilters"
+                        disabled
+                    >
+                        Reset Filters
+                    </button>
+
+                </form>
+
+                <!-- ==================================
+                     RESULTS HEADER
+                =================================== -->
+
+                <div class="directory-results-header">
+
+                    <p
+                        id="examResultCount"
+                        role="status"
+                        aria-live="polite"
+                    >
+                        Loading examinations...
+                    </p>
+
+                </div>
+
+                <!-- ==================================
+                     DYNAMIC EXAMINATION GRID
+                =================================== -->
+
+                <div
+                    class="exam-grid"
+                    id="allExaminations"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
+
+                    <div class="content-placeholder">
+
+                        <span
+                            class="ui-spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <p>
+                            Loading available examinations...
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ==================================
+                     PAGINATION
+                =================================== -->
+
+                <nav
+                    class="pagination"
+                    id="examPagination"
+                    aria-label="Examination pagination"
+                    hidden
+                ></nav>
+
+                <!-- ==================================
+                     EMPTY STATE TEMPLATE
+                =================================== -->
+
+                <template id="examEmptyStateTemplate">
+
+                    <div class="empty-state">
+
+                        <div
+                            class="empty-state-icon"
+                            aria-hidden="true"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="32"
+                                height="32"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.5"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <rect
+                                    x="4"
+                                    y="3"
+                                    width="16"
+                                    height="18"
+                                    rx="2"
+                                ></rect>
+
+                                <path d="M8 8h8"></path>
+                                <path d="M8 12h8"></path>
+                                <path d="M8 16h5"></path>
+                            </svg>
+
+                        </div>
+
+                        <h2>
+                            No Examinations Found
+                        </h2>
+
+                        <p>
+                            No published examinations match
+                            the current search. Try changing
+                            your filters or visit again later.
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             HOW TO GET STARTED
+        =========================================== -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <div
+                    class="section-heading section-heading-centered reveal"
+                >
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Your Preparation Journey
+                        </span>
+
+                        <h2>
+                            A Simple Way to Get Started
+                        </h2>
+
+                        <p>
+                            Move from examination selection
+                            to focused preparation in three
+                            straightforward steps.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <div class="learning-grid">
+
+                    <article class="learning-card reveal">
+
+                        <span class="step-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Select Your Exam
+                        </h3>
+
+                        <p>
+                            Explore examinations published
+                            by the administrator and choose
+                            your preparation category.
+                        </p>
+
+                    </article>
+
+                    <article class="learning-card reveal">
+
+                        <span class="step-number">
+                            02
+                        </span>
+
+                        <h3>
+                            Explore Subjects
+                        </h3>
+
+                        <p>
+                            Browse available subjects,
+                            topics and lessons to build
+                            your understanding.
+                        </p>
+
+                    </article>
+
+                    <article class="learning-card reveal">
+
+                        <span class="step-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Practice &amp; Review
+                        </h3>
+
+                        <p>
+                            Attempt published mock tests,
+                            review your answers and track
+                            your learning progress.
+                        </p>
+
+                    </article>
+
+                </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             CALL TO ACTION
+        =========================================== -->
+
+        <section class="cta-section">
+
+            <div class="container">
+
+                <div class="cta-container reveal">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Free Preparation
+                        </span>
+
+                        <h2>
+                            Ready to Test Your Knowledge?
+                        </h2>
+
+                        <p>
+                            Access available mock tests
+                            without registration, payment
+                            or subscription.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="mock-tests.html"
+                        class="btn btn-primary"
+                    >
+
+                        Browse Mock Tests
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ==============================================
+         FOOTER
+    =============================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep Homepage"
+                    >
+
+                        <span
+                            class="logo-symbol"
+                            aria-hidden="true"
+                        >
+                            Y.
+                        </span>
+
+                        <span class="logo-text">
+                            Yadav<span>ExamPrep</span>
+                        </span>
+
+                    </a>
+
+                    <p>
+                        Free examination preparation,
+                        structured learning and mock
+                        tests for every learner.
+                    </p>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>
+                        Explore
+                    </h3>
+
+                    <a href="exams.html">
+                        Examinations
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="learn.html">
+                        Learning
+                    </a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>
+                        Information
+                    </h3>
+
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact Us
+                    </a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>
+                        Administration
+                    </h3>
+
+                    <a href="admin/index.html">
+                        Admin Login
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy;
+                    <span id="currentYear">2026</span>
+                    Yadav ExamPrep. All Rights Reserved.
+                </p>
+
+                <p class="developer-credit">
+                    Designed and Developed by
+                    <span>Yadav Web Technologies</span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
