@@ -1,299 +1,261 @@
 
 /*
-=========================================================
+=====================================================
 YADAV EXAMPREP
 File: js/script.js
 
-PUBLIC HOMEPAGE CONTROLLER
+SHARED PUBLIC CONTROLLER
 INTEGRATION PHASE — FULL FILE REPLACEMENT
 
 Designed and Developed by Yadav Web Technologies
 
-DATABASE:
-    public/exams
-    public/subjects
-    public/tests
-    public/settings/homepage
+Responsibilities:
+1. Update footer copyright year.
+2. Render the Firebase-powered homepage.
+3. Apply administrator-controlled homepage settings.
+4. Render administrator-configured contact information.
 
-IMPORTANT:
-- No visitor authentication.
-- No sample or fabricated educational records.
-- Only published records are displayed.
-- Firebase Realtime Database, NOT Firestore.
-- Educational records are never written by this file.
-=========================================================
+Firebase Realtime Database only.
+
+No default educational records.
+No public authentication.
+No fabricated contact information.
+=====================================================
 */
 
-"use strict";
-
 (() => {
+    "use strict";
 
-    /* =================================================
-       01. CONFIGURATION
-    ================================================= */
+    const PAGE = document.body?.dataset.page || "";
 
-    const CONFIG = Object.freeze({
-
-        paths: {
-
-            exams: "public/exams",
-
-            subjects: "public/subjects",
-
-            tests: "public/tests",
-
-            settings: "public/settings/homepage"
-
-        },
-
-        defaults: {
-
-            showFeaturedExams: true,
-
-            showFeaturedSubjects: true,
-
-            showFeaturedTests: true,
-
-            showLearningSection: true,
-
-            homepageExamLimit: 8,
-
-            homepageTestLimit: 6
-
-        }
-
+    const DEFAULT_HOMEPAGE_SETTINGS = Object.freeze({
+        showFeaturedExams: true,
+        showFeaturedSubjects: true,
+        showFeaturedTests: true,
+        showLearningSection: true,
+        homepageExamLimit: 8,
+        homepageSubjectLimit: 8,
+        homepageTestLimit: 6
     });
 
-
-    /* =================================================
-       02. STATE
-    ================================================= */
-
     const state = {
-
-        exams: [],
-
-        subjects: [],
-
-        tests: [],
-
+        exams: {},
+        subjects: {},
+        tests: {},
         settings: {
-            ...CONFIG.defaults
+            ...DEFAULT_HOMEPAGE_SETTINGS
         },
-
-        received: {
-
+        contact: {},
+        loaded: {
             exams: false,
-
             subjects: false,
-
-            tests: false
-
+            tests: false,
+            settings: false,
+            contact: false
         },
-
-        initialized: false,
-
-        connected: false,
-
-        unsubscribe: [],
-
-        error: null
-
+        errors: {},
+        unsubscribers: [],
+        disposed: false
     };
 
+    const ICONS = Object.freeze({
+        exam: `
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24" height="24"
+                 viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <rect x="4" y="3" width="16" height="18" rx="2"></rect>
+                <path d="M8 8h8M8 12h8M8 16h5"></path>
+            </svg>
+        `,
 
-    /* =================================================
-       03. ELEMENTS
-    ================================================= */
+        subject: `
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24" height="24"
+                 viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <path d="M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z"></path>
+                <path d="M4 17.5A2.5 2.5 0 0 1 6.5 15H20"></path>
+                <path d="M9 7h6"></path>
+            </svg>
+        `,
 
-    const elements = {
+        test: `
+            <svg xmlns="http://www.w3.org/2000/svg"
+                 width="24" height="24"
+                 viewBox="0 0 24 24"
+                 fill="none" stroke="currentColor"
+                 stroke-width="1.7"
+                 stroke-linecap="round"
+                 stroke-linejoin="round"
+                 aria-hidden="true">
+                <rect x="5" y="4" width="14" height="17" rx="2"></rect>
+                <path d="M9 4.5V3h6v1.5"></path>
+                <path d="m9 12 2 2 4-4"></path>
+                <path d="M9 17h6"></path>
+            </svg>
+        `
+    });
 
-        exams: document.getElementById(
-            "examCategories"
-        ),
+    /*
+    -----------------------------------------------------
+    GENERAL HELPERS
+    -----------------------------------------------------
+    */
 
-        subjects: document.getElementById(
-            "subjectCategories"
-        ),
+    function element(id) {
+        return document.getElementById(id);
+    }
 
-        tests: document.getElementById(
-            "featuredMockTests"
-        ),
+    function create(tag, className = "", content = "") {
+        const node = document.createElement(tag);
 
-        year: document.getElementById(
-            "currentYear"
-        )
+        if (className) {
+            node.className = className;
+        }
 
-    };
+        if (content !== "") {
+            node.textContent = String(content);
+        }
 
-
-    /* =================================================
-       04. HELPERS
-    ================================================= */
+        return node;
+    }
 
     function cleanText(value) {
-
         return typeof value === "string"
             ? value.trim()
             : "";
-
-    }
-
-    function createElement(
-        tag,
-        className = "",
-        content
-    ) {
-
-        const element = document.createElement(tag);
-
-        if (className) {
-            element.className = className;
-        }
-
-        if (content !== undefined) {
-            element.textContent = String(content);
-        }
-
-        return element;
-
     }
 
     function normalizeCollection(value) {
-
         if (!value || typeof value !== "object") {
-            return [];
+            return {};
         }
 
         if (Array.isArray(value)) {
+            return Object.fromEntries(
+                value
+                    .map((item, index) => [
+                        String(index),
+                        item
+                    ])
+                    .filter(([, item]) =>
+                        item &&
+                        typeof item === "object" &&
+                        !Array.isArray(item)
+                    )
+            );
+        }
 
-            return value
-                .filter(item =>
+        return Object.fromEntries(
+            Object.entries(value).filter(
+                ([, item]) =>
                     item &&
                     typeof item === "object" &&
                     !Array.isArray(item)
-                )
-                .map((item, index) => ({
-
-                    ...item,
-
-                    id: String(item.id ?? index)
-
-                }));
-
-        }
-
-        return Object.entries(value)
-            .filter(([, item]) =>
-                item &&
-                typeof item === "object" &&
-                !Array.isArray(item)
             )
-            .map(([id, item]) => ({
-
-                ...item,
-
-                id
-
-            }));
-
-    }
-
-    function validId(value) {
-
-        return (
-            typeof value === "string" &&
-            value.length > 0 &&
-            !/[.#$\[\]\/\u0000-\u001f\u007f]/.test(value)
         );
-
     }
 
-    function isPublished(record) {
-
-        return record?.published === true;
-
+    function publishedEntries(collection) {
+        return Object.entries(
+            normalizeCollection(collection)
+        ).filter(
+            ([, record]) => record.published === true
+        );
     }
 
-    function getOrder(record) {
+    function compareRecords(a, b) {
+        const aOrder = Number(a[1].order);
+        const bOrder = Number(b[1].order);
 
-        const value = Number(record.order);
-
-        return Number.isFinite(value)
-            ? value
+        const first = Number.isFinite(aOrder)
+            ? aOrder
             : Number.MAX_SAFE_INTEGER;
 
-    }
+        const second = Number.isFinite(bOrder)
+            ? bOrder
+            : Number.MAX_SAFE_INTEGER;
 
-    function sortRecords(records) {
+        if (first !== second) {
+            return first - second;
+        }
 
-        return [...records].sort((a, b) => {
+        const aName = cleanText(
+            a[1].name || a[1].title
+        );
 
-            return (
-                getOrder(a) - getOrder(b)
-            ) || cleanText(
-                a.name || a.title
-            ).localeCompare(
-                cleanText(b.name || b.title)
-            );
+        const bName = cleanText(
+            b[1].name || b[1].title
+        );
 
-        });
-
+        return aName.localeCompare(bName);
     }
 
     function getLimit(value, fallback) {
+        const parsed = Number(value);
 
-        const number = Number(value);
+        if (!Number.isInteger(parsed)) {
+            return fallback;
+        }
 
-        return Number.isSafeInteger(number) &&
-            number >= 1 &&
-            number <= 24
-                ? number
-                : fallback;
+        return Math.max(1, Math.min(24, parsed));
+    }
 
+    function updateCopyrightYear() {
+        const year = element("currentYear");
+
+        if (year) {
+            year.textContent = String(
+                new Date().getFullYear()
+            );
+        }
     }
 
     function refreshAnimations() {
-
         if (
-            typeof window.YadavAnimations?.refresh ===
-            "function"
+            window.YadavAnimations &&
+            typeof window.YadavAnimations.refresh === "function"
         ) {
-
             window.YadavAnimations.refresh();
-
         }
-
     }
 
-
-    /* =================================================
-       05. STATUS COMPONENTS
-    ================================================= */
+    /*
+    -----------------------------------------------------
+    STATUS RENDERING
+    -----------------------------------------------------
+    */
 
     function renderStatus(
         container,
         title,
-        description = "",
-        loading = false
+        description,
+        type = "empty"
     ) {
-
         if (!container) {
             return;
         }
 
         container.replaceChildren();
 
-        const wrapper = createElement(
+        const wrapper = create(
             "div",
-            loading
+            type === "loading"
                 ? "content-placeholder"
                 : "empty-state"
         );
 
-        if (loading) {
-
-            const spinner = createElement(
+        if (type === "loading") {
+            const spinner = create(
                 "span",
                 "ui-spinner"
             );
@@ -304,1046 +266,1047 @@ IMPORTANT:
             );
 
             wrapper.append(spinner);
-
         }
 
-        wrapper.append(
-            createElement(
-                loading ? "p" : "h3",
-                "",
-                title
-            )
-        );
+        if (title) {
+            wrapper.append(
+                create("h3", "", title)
+            );
+        }
 
         if (description) {
-
             wrapper.append(
-                createElement(
-                    "p",
-                    "",
-                    description
-                )
+                create("p", "", description)
             );
-
         }
 
         container.append(wrapper);
 
         container.setAttribute(
             "aria-busy",
-            String(loading)
+            type === "loading" ? "true" : "false"
         );
-
     }
 
-    function renderLoading() {
+    /*
+    -----------------------------------------------------
+    HOMEPAGE SETTINGS
+    -----------------------------------------------------
+    */
 
-        renderStatus(
-            elements.exams,
-            "Loading examinations...",
-            "",
-            true
-        );
+    function applyHomepageSettings() {
+        if (PAGE !== "home") {
+            return;
+        }
 
-        renderStatus(
-            elements.subjects,
-            "Loading subjects...",
-            "",
-            true
-        );
+        const settings = state.settings;
 
-        renderStatus(
-            elements.tests,
-            "Loading mock tests...",
-            "",
-            true
-        );
-
-    }
-
-    function renderError(message) {
-
-        state.error = message;
-
-        [
-            elements.exams,
-            elements.subjects,
-            elements.tests
-        ].forEach(container => {
-
-            renderStatus(
-                container,
-                "Content Unavailable",
-                message
-            );
-
-        });
-
-    }
-
-
-    /* =================================================
-       06. SVG ICON HELPER
-    ================================================= */
-
-    function createIcon(type) {
-
-        const namespace =
-            "http://www.w3.org/2000/svg";
-
-        const svg = document.createElementNS(
-            namespace,
-            "svg"
-        );
-
-        const attributes = {
-
-            width: "24",
-
-            height: "24",
-
-            viewBox: "0 0 24 24",
-
-            fill: "none",
-
-            stroke: "currentColor",
-
-            "stroke-width": "1.7",
-
-            "stroke-linecap": "round",
-
-            "stroke-linejoin": "round",
-
-            "aria-hidden": "true"
-
-        };
-
-        Object.entries(attributes).forEach(
-            ([key, value]) => {
-
-                svg.setAttribute(key, value);
-
+        const sections = [
+            {
+                id: "homeExamsSection",
+                visible: settings.showFeaturedExams !== false
+            },
+            {
+                id: "homeSubjectsSection",
+                visible: settings.showFeaturedSubjects !== false
+            },
+            {
+                id: "homeMockTestsSection",
+                visible: settings.showFeaturedTests !== false
+            },
+            {
+                id: "homeLearningSection",
+                visible: settings.showLearningSection !== false
             }
-        );
+        ];
 
-        const paths = {
+        sections.forEach(({ id, visible }) => {
+            const section = element(id);
 
-            exam: [
-                "M4 4h16v16H4z",
-                "M8 9h8",
-                "M8 13h8",
-                "M8 17h5"
-            ],
-
-            subject: [
-                "M4 5.5A2.5 2.5 0 0 1 6.5 3H20v17H6.5A2.5 2.5 0 0 1 4 17.5z",
-                "M4 17.5A2.5 2.5 0 0 1 6.5 15H20",
-                "M9 8h6"
-            ],
-
-            test: [
-                "M8 3h8",
-                "M9 2h6v4H9z",
-                "M6 4H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1",
-                "m8 13 2 2 5-5"
-            ]
-
-        };
-
-        (paths[type] || paths.exam).forEach(data => {
-
-            const path = document.createElementNS(
-                namespace,
-                "path"
-            );
-
-            path.setAttribute("d", data);
-
-            svg.append(path);
-
+            if (section) {
+                section.hidden = !visible;
+            }
         });
-
-        return svg;
-
     }
 
-
-    /* =================================================
-       07. PUBLISHED CONTENT
-    ================================================= */
-
-    function publishedExams() {
-
-        return sortRecords(
-            state.exams.filter(exam =>
-
-                isPublished(exam) &&
-
-                validId(exam.id) &&
-
-                Boolean(cleanText(exam.name))
-
-            )
-        );
-
-    }
-
-    function publishedSubjects() {
-
-        const availableExams = new Set(
-            publishedExams().map(exam => exam.id)
-        );
-
-        return sortRecords(
-            state.subjects.filter(subject =>
-
-                isPublished(subject) &&
-
-                validId(subject.id) &&
-
-                availableExams.has(subject.examId) &&
-
-                Boolean(cleanText(subject.name))
-
-            )
-        );
-
-    }
-
-    function publishedTests() {
-
-        const exams = new Set(
-            publishedExams().map(exam => exam.id)
-        );
-
-        const subjects = new Set(
-            publishedSubjects().map(subject => subject.id)
-        );
-
-        return sortRecords(
-            state.tests.filter(test =>
-
-                isPublished(test) &&
-
-                test.featured === true &&
-
-                validId(test.id) &&
-
-                exams.has(test.examId) &&
-
-                (
-                    !test.subjectId ||
-                    subjects.has(test.subjectId)
-                ) &&
-
-                Boolean(cleanText(test.title))
-
-            )
-        );
-
-    }
-
-
-    /* =================================================
-       08. EXAMINATION CARDS
-    ================================================= */
-
-    function createExamCard(exam) {
-
-        const card = createElement(
-            "article",
-            "exam-card reveal"
-        );
-
-        const icon = createElement(
-            "div",
-            "ui-icon"
-        );
-
-        icon.append(
-            createIcon("exam")
-        );
-
-        const title = createElement(
-            "h3",
-            "exam-card-title",
-            exam.name
-        );
-
-        const description = createElement(
-            "p",
-            "exam-card-description",
-            cleanText(exam.description) ||
-            "Explore published subjects and available preparation resources."
-        );
-
-        const link = createElement(
-            "a",
-            "text-link",
-            "Explore Subjects"
-        );
-
-        link.href =
-            `subjects.html?exam=${encodeURIComponent(exam.id)}`;
-
-        card.append(
-            icon,
-            title,
-            description,
-            link
-        );
-
-        return card;
-
-    }
-
-    function renderExams() {
-
-        if (!elements.exams) {
-            return;
-        }
-
-        const records = publishedExams().slice(
-            0,
-            getLimit(
-                state.settings.homepageExamLimit,
-                CONFIG.defaults.homepageExamLimit
-            )
-        );
-
-        if (!records.length) {
-
-            renderStatus(
-                elements.exams,
-                "No Examinations Published Yet",
-                "Published examinations will appear here when they become available."
-            );
-
-            return;
-
-        }
-
-        const fragment =
-            document.createDocumentFragment();
-
-        records.forEach(exam => {
-
-            fragment.append(
-                createExamCard(exam)
-            );
-
-        });
-
-        elements.exams.replaceChildren(fragment);
-
-        elements.exams.setAttribute(
-            "aria-busy",
-            "false"
-        );
-
-    }
-
-
-    /* =================================================
-       09. SUBJECT CARDS
-    ================================================= */
-
-    function createSubjectCard(subject) {
-
-        const card = createElement(
-            "article",
-            "subject-card reveal"
-        );
-
-        const icon = createElement(
-            "div",
-            "ui-icon"
-        );
-
-        icon.append(
-            createIcon("subject")
-        );
-
-        const title = createElement(
-            "h3",
-            "subject-card-title",
-            subject.name
-        );
-
-        const description = createElement(
-            "p",
-            "subject-card-description",
-            cleanText(subject.description) ||
-            "Access available topics and structured learning materials."
-        );
-
-        const link = createElement(
-            "a",
-            "text-link",
-            "Start Learning"
-        );
-
-        link.href =
-            `learn.html?subject=${encodeURIComponent(subject.id)}`;
-
-        card.append(
-            icon,
-            title,
-            description,
-            link
-        );
-
-        return card;
-
-    }
-
-    function renderSubjects() {
-
-        if (!elements.subjects) {
-            return;
-        }
-
-        const records = publishedSubjects().slice(
-            0,
-            getLimit(
-                state.settings.homepageExamLimit,
-                CONFIG.defaults.homepageExamLimit
-            )
-        );
-
-        if (!records.length) {
-
-            renderStatus(
-                elements.subjects,
-                "No Subjects Published Yet",
-                "Published subjects will appear here when they become available."
-            );
-
-            return;
-
-        }
-
-        const fragment =
-            document.createDocumentFragment();
-
-        records.forEach(subject => {
-
-            fragment.append(
-                createSubjectCard(subject)
-            );
-
-        });
-
-        elements.subjects.replaceChildren(fragment);
-
-        elements.subjects.setAttribute(
-            "aria-busy",
-            "false"
-        );
-
-    }
-
-
-    /* =================================================
-       10. FEATURED MOCK TEST CARDS
-    ================================================= */
-
-    function createTestCard(test) {
-
-        const card = createElement(
-            "article",
-            "mock-card reveal"
-        );
-
-        const icon = createElement(
-            "div",
-            "ui-icon"
-        );
-
-        icon.append(
-            createIcon("test")
-        );
-
-        const badge = createElement(
+    /*
+    -----------------------------------------------------
+    HOMEPAGE CARD BUILDERS
+    -----------------------------------------------------
+    */
+
+    function createCardIcon(type) {
+        const icon = create(
             "span",
-            "ui-badge",
-            "Featured Mock Test"
+            "ui-icon"
         );
 
-        const title = createElement(
+        icon.innerHTML = ICONS[type] || ICONS.exam;
+
+        return icon;
+    }
+
+    function createExamCard(id, exam) {
+        const card = create(
+            "article",
+            "exam-card"
+        );
+
+        const name = cleanText(exam.name);
+
+        const description = cleanText(
+            exam.description
+        );
+
+        const heading = create(
             "h3",
-            "mock-card-title",
-            test.title
+            "",
+            name
         );
 
-        const description = createElement(
-            "p",
-            "mock-card-description",
-            cleanText(test.description) ||
-            "Practise with this published mock examination."
-        );
-
-        const details = createElement(
-            "div",
-            "mock-card-details"
-        );
-
-        if (
-            Number.isFinite(Number(test.questionCount)) &&
-            Number(test.questionCount) > 0
-        ) {
-
-            details.append(
-                createElement(
-                    "span",
-                    "",
-                    `${Number(test.questionCount)} Questions`
-                )
-            );
-
-        }
-
-        if (
-            Number.isFinite(Number(test.duration)) &&
-            Number(test.duration) > 0
-        ) {
-
-            details.append(
-                createElement(
-                    "span",
-                    "",
-                    `${Number(test.duration)} Minutes`
-                )
-            );
-
-        }
-
-        const link = createElement(
+        const link = create(
             "a",
-            "btn btn-primary",
-            "Start Mock Test"
+            "text-link",
+            "Explore Examination"
         );
 
         link.href =
-            `mock-test.html?test=${encodeURIComponent(test.id)}`;
+            `subjects.html?exam=${encodeURIComponent(id)}`;
 
         card.append(
-            icon,
-            badge,
-            title,
-            description,
-            details,
-            link
+            createCardIcon("exam"),
+            heading
         );
+
+        if (description) {
+            card.append(
+                create("p", "", description)
+            );
+        }
+
+        card.append(link);
 
         return card;
-
     }
 
-    function renderTests() {
-
-        if (!elements.tests) {
-            return;
-        }
-
-        const records = publishedTests().slice(
-            0,
-            getLimit(
-                state.settings.homepageTestLimit,
-                CONFIG.defaults.homepageTestLimit
-            )
+    function createSubjectCard(id, subject) {
+        const card = create(
+            "article",
+            "subject-card"
         );
 
-        if (!records.length) {
-
-            renderStatus(
-                elements.tests,
-                "No Featured Mock Tests Yet",
-                "Featured published mock tests will appear here when available."
-            );
-
-            return;
-
-        }
-
-        const fragment =
-            document.createDocumentFragment();
-
-        records.forEach(test => {
-
-            fragment.append(
-                createTestCard(test)
-            );
-
-        });
-
-        elements.tests.replaceChildren(fragment);
-
-        elements.tests.setAttribute(
-            "aria-busy",
-            "false"
+        const heading = create(
+            "h3",
+            "",
+            cleanText(subject.name)
         );
 
+        const description = cleanText(
+            subject.description
+        );
+
+        const link = create(
+            "a",
+            "text-link",
+            "Explore Subject"
+        );
+
+        link.href =
+            `learn.html?subject=${encodeURIComponent(id)}`;
+
+        card.append(
+            createCardIcon("subject"),
+            heading
+        );
+
+        if (description) {
+            card.append(
+                create("p", "", description)
+            );
+        }
+
+        card.append(link);
+
+        return card;
     }
 
+    function createTestCard(id, test) {
+        const card = create(
+            "article",
+            "mock-card"
+        );
 
-    /* =================================================
-       11. HOMEPAGE SETTINGS
-    ================================================= */
+        const heading = create(
+            "h3",
+            "",
+            cleanText(test.title)
+        );
 
-    function applySectionVisibility(
+        const description = cleanText(
+            test.description
+        );
+
+        const details = create(
+            "div",
+            "mock-card-meta"
+        );
+
+        const questionCount = Number(
+            test.questionCount
+        );
+
+        const duration = Number(
+            test.duration
+        );
+
+        if (
+            Number.isFinite(questionCount) &&
+            questionCount > 0
+        ) {
+            details.append(
+                create(
+                    "span",
+                    "",
+                    `${questionCount} Questions`
+                )
+            );
+        }
+
+        if (
+            Number.isFinite(duration) &&
+            duration > 0
+        ) {
+            details.append(
+                create(
+                    "span",
+                    "",
+                    `${duration} Minutes`
+                )
+            );
+        }
+
+        const link = create(
+            "a",
+            "text-link",
+            "Attempt Mock Test"
+        );
+
+        link.href =
+            `mock-test.html?test=${encodeURIComponent(id)}`;
+
+        card.append(
+            createCardIcon("test"),
+            heading
+        );
+
+        if (description) {
+            card.append(
+                create("p", "", description)
+            );
+        }
+
+        if (details.childElementCount) {
+            card.append(details);
+        }
+
+        card.append(link);
+
+        return card;
+    }
+
+    /*
+    -----------------------------------------------------
+    HOMEPAGE DATA RENDERING
+    -----------------------------------------------------
+    */
+
+    function renderCollection(
         container,
-        visible
+        entries,
+        cardBuilder,
+        emptyTitle,
+        emptyDescription
     ) {
-
         if (!container) {
             return;
         }
 
-        const section = container.closest(
-            "section"
-        );
+        container.replaceChildren();
 
-        if (section) {
-            section.hidden = !visible;
+        if (!entries.length) {
+            renderStatus(
+                container,
+                emptyTitle,
+                emptyDescription
+            );
+
+            return;
         }
 
-    }
+        const fragment = document.createDocumentFragment();
 
-    function applySettings() {
+        entries.forEach(([id, record]) => {
+            fragment.append(
+                cardBuilder(id, record)
+            );
+        });
 
-        applySectionVisibility(
-            elements.exams,
-            state.settings.showFeaturedExams
+        container.append(fragment);
+
+        container.setAttribute(
+            "aria-busy",
+            "false"
         );
 
-        applySectionVisibility(
-            elements.subjects,
-            state.settings.showFeaturedSubjects
-        );
-
-        applySectionVisibility(
-            elements.tests,
-            state.settings.showFeaturedTests
-        );
-
-        /*
-         * The learning section has no dedicated ID
-         * in the original homepage HTML.
-         *
-         * Avoid guessing which section to hide.
-         * Its visibility will be connected when
-         * index.html receives its integration update.
-         */
-
-    }
-
-    function updateSettings(value) {
-
-        if (
-            !value ||
-            typeof value !== "object" ||
-            Array.isArray(value)
-        ) {
-
-            state.settings = {
-                ...CONFIG.defaults
-            };
-
-        } else {
-
-            state.settings = {
-
-                ...CONFIG.defaults,
-
-                showFeaturedExams:
-                    value.showFeaturedExams !== false,
-
-                showFeaturedSubjects:
-                    value.showFeaturedSubjects !== false,
-
-                showFeaturedTests:
-                    value.showFeaturedTests !== false,
-
-                showLearningSection:
-                    value.showLearningSection !== false,
-
-                homepageExamLimit: getLimit(
-                    value.homepageExamLimit,
-                    CONFIG.defaults.homepageExamLimit
-                ),
-
-                homepageTestLimit: getLimit(
-                    value.homepageTestLimit,
-                    CONFIG.defaults.homepageTestLimit
-                )
-
-            };
-
-        }
-
-        applySettings();
-
-        if (allCollectionsReceived()) {
-            renderHomepage();
-        }
-
-    }
-
-
-    /* =================================================
-       12. RENDER HOMEPAGE
-    ================================================= */
-
-    function allCollectionsReceived() {
-
-        return Object.values(
-            state.received
-        ).every(Boolean);
-
+        refreshAnimations();
     }
 
     function renderHomepage() {
-
-        if (!allCollectionsReceived()) {
+        if (PAGE !== "home" || state.disposed) {
             return;
         }
 
-        state.error = null;
+        applyHomepageSettings();
 
-        renderExams();
-
-        renderSubjects();
-
-        renderTests();
-
-        applySettings();
-
-        refreshAnimations();
-
-    }
-
-
-    /* =================================================
-       13. PUBLIC API
-    ================================================= */
-
-    function setData(data = {}) {
-
-        if (
-            !data ||
-            typeof data !== "object"
-        ) {
-            return;
-        }
-
-        ["exams", "subjects", "tests"].forEach(
-            collection => {
-
-                if (
-                    Object.prototype.hasOwnProperty.call(
-                        data,
-                        collection
-                    )
-                ) {
-
-                    state[collection] =
-                        normalizeCollection(
-                            data[collection]
-                        );
-
-                    state.received[collection] = true;
-
-                }
-
-            }
+        const examsContainer = element(
+            "examCategories"
         );
 
-        if (
-            Object.prototype.hasOwnProperty.call(
-                data,
-                "settings"
+        const subjectsContainer = element(
+            "subjectCategories"
+        );
+
+        const testsContainer = element(
+            "featuredMockTests"
+        );
+
+        /*
+            Render each collection independently.
+
+            A failed subscription must not prevent
+            unrelated published content from appearing.
+        */
+
+        if (state.errors.exams) {
+            renderStatus(
+                examsContainer,
+                "Examinations Unavailable",
+                "Unable to retrieve examinations. Please try again later.",
+                "error"
+            );
+        } else if (!state.loaded.exams) {
+            renderStatus(
+                examsContainer,
+                "Loading Examinations",
+                "Retrieving published examinations.",
+                "loading"
+            );
+        } else {
+            const exams = publishedEntries(
+                state.exams
             )
-        ) {
+                .filter(
+                    ([, exam]) =>
+                        Boolean(cleanText(exam.name))
+                )
+                .sort(compareRecords)
+                .slice(
+                    0,
+                    getLimit(
+                        state.settings.homepageExamLimit,
+                        8
+                    )
+                );
 
-            updateSettings(data.settings);
-
+            renderCollection(
+                examsContainer,
+                exams,
+                createExamCard,
+                "No Examinations Published Yet",
+                "Published examinations will appear here when available."
+            );
         }
 
-        renderHomepage();
+        if (state.errors.subjects) {
+            renderStatus(
+                subjectsContainer,
+                "Subjects Unavailable",
+                "Unable to retrieve subjects. Please try again later.",
+                "error"
+            );
+        } else if (
+            !state.loaded.subjects ||
+            !state.loaded.exams
+        ) {
+            renderStatus(
+                subjectsContainer,
+                "Loading Subjects",
+                "Retrieving published subjects.",
+                "loading"
+            );
+        } else {
+            const publishedExamIds = new Set(
+                publishedEntries(state.exams)
+                    .map(([id]) => id)
+            );
 
+            const subjects = publishedEntries(
+                state.subjects
+            )
+                .filter(
+                    ([, subject]) =>
+                        Boolean(cleanText(subject.name)) &&
+                        publishedExamIds.has(
+                            String(subject.examId || "")
+                        )
+                )
+                .sort(compareRecords)
+                .slice(
+                    0,
+                    getLimit(
+                        state.settings.homepageSubjectLimit,
+                        getLimit(
+                            state.settings.homepageExamLimit,
+                            8
+                        )
+                    )
+                );
+
+            renderCollection(
+                subjectsContainer,
+                subjects,
+                createSubjectCard,
+                "No Subjects Published Yet",
+                "Published subjects will appear here when available."
+            );
+        }
+
+        if (state.errors.tests) {
+            renderStatus(
+                testsContainer,
+                "Mock Tests Unavailable",
+                "Unable to retrieve featured mock tests. Please try again later.",
+                "error"
+            );
+        } else if (
+            !state.loaded.tests ||
+            !state.loaded.exams ||
+            !state.loaded.subjects
+        ) {
+            renderStatus(
+                testsContainer,
+                "Loading Mock Tests",
+                "Retrieving featured published mock tests.",
+                "loading"
+            );
+        } else {
+            const publishedExamIds = new Set(
+                publishedEntries(state.exams)
+                    .map(([id]) => id)
+            );
+
+            const publishedSubjectIds = new Set(
+                publishedEntries(state.subjects)
+                    .filter(
+                        ([, subject]) =>
+                            publishedExamIds.has(
+                                String(subject.examId || "")
+                            )
+                    )
+                    .map(([id]) => id)
+            );
+
+            const tests = publishedEntries(
+                state.tests
+            )
+                .filter(([id, test]) => {
+                    if (
+                        !id ||
+                        !cleanText(test.title) ||
+                        test.featured !== true
+                    ) {
+                        return false;
+                    }
+
+                    if (
+                        !publishedExamIds.has(
+                            String(test.examId || "")
+                        )
+                    ) {
+                        return false;
+                    }
+
+                    const subjectId = String(
+                        test.subjectId || ""
+                    );
+
+                    return (
+                        !subjectId ||
+                        publishedSubjectIds.has(subjectId)
+                    );
+                })
+                .sort(compareRecords)
+                .slice(
+                    0,
+                    getLimit(
+                        state.settings.homepageTestLimit,
+                        6
+                    )
+                );
+
+            renderCollection(
+                testsContainer,
+                tests,
+                createTestCard,
+                "No Featured Mock Tests Yet",
+                "Featured published mock tests will appear here when available."
+            );
+        }
     }
 
-    function setLoading() {
+    /*
+    -----------------------------------------------------
+    CONTACT PAGE
+    -----------------------------------------------------
+    */
 
-        renderLoading();
+    function showContactStatus(message, isError = false) {
+        const container = element("contactStatus");
+        const spinner = element("contactStatusSpinner");
+        const text = element("contactStatusText");
 
+        if (container) {
+            container.hidden = false;
+
+            container.setAttribute(
+                "role",
+                isError ? "alert" : "status"
+            );
+        }
+
+        if (spinner) {
+            spinner.hidden = true;
+        }
+
+        if (text) {
+            text.textContent = message;
+        }
     }
 
-    function getState() {
+    function configureContactCard(id, visible) {
+        const card = element(id);
 
-        return {
+        if (card) {
+            card.hidden = !visible;
+        }
+    }
 
-            connected: state.connected,
+    function safeEmail(value) {
+        const email = cleanText(value);
 
-            error: state.error,
+        if (
+            !email ||
+            email.length > 254 ||
+            /\s/.test(email) ||
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
+        ) {
+            return "";
+        }
 
-            received: {
-                ...state.received
-            },
+        return email;
+    }
 
-            counts: {
+    function safePhone(value) {
+        const phone = cleanText(value);
 
-                exams: publishedExams().length,
+        if (
+            !phone ||
+            !/^\+?[0-9\s().-]{6,25}$/.test(phone)
+        ) {
+            return "";
+        }
 
-                subjects: publishedSubjects().length,
+        return phone;
+    }
 
-                featuredTests: publishedTests().length
+    function renderContact() {
+        if (PAGE !== "contact" || state.disposed) {
+            return;
+        }
 
+        const grid = element(
+            "contactInformationGrid"
+        );
+
+        const empty = element(
+            "contactEmptyState"
+        );
+
+        if (state.errors.contact) {
+            showContactStatus(
+                "Contact information is currently unavailable. Please try again later.",
+                true
+            );
+
+            if (grid) {
+                grid.hidden = true;
             }
 
-        };
+            if (empty) {
+                empty.hidden = true;
+            }
 
+            return;
+        }
+
+        if (!state.loaded.contact) {
+            return;
+        }
+
+        const contact = state.contact || {};
+
+        /*
+            Only administrator-supplied values
+            are displayed. No fallback address,
+            email or telephone is invented.
+        */
+
+        const email = safeEmail(
+            contact.email ||
+            contact.contactEmail
+        );
+
+        const phone = safePhone(
+            contact.phone ||
+            contact.contactPhone
+        );
+
+        const address = cleanText(
+            contact.address ||
+            contact.contactAddress
+        );
+
+        const emailLink = element(
+            "contactEmailLink"
+        );
+
+        const phoneLink = element(
+            "contactPhoneLink"
+        );
+
+        const addressText = element(
+            "contactAddressText"
+        );
+
+        if (emailLink) {
+            if (email) {
+                emailLink.textContent = email;
+
+                emailLink.href =
+                    `mailto:${email}`;
+            } else {
+                emailLink.removeAttribute("href");
+                emailLink.textContent = "";
+            }
+        }
+
+        if (phoneLink) {
+            if (phone) {
+                phoneLink.textContent = phone;
+
+                phoneLink.href =
+                    `tel:${phone.replace(/[^+\d]/g, "")}`;
+            } else {
+                phoneLink.removeAttribute("href");
+                phoneLink.textContent = "";
+            }
+        }
+
+        if (addressText) {
+            addressText.textContent = address;
+
+            /*
+                Preserve multiline addresses without
+                adding inline CSS to the HTML file.
+            */
+
+            addressText.style.whiteSpace = "pre-line";
+        }
+
+        configureContactCard(
+            "contactEmailCard",
+            Boolean(email)
+        );
+
+        configureContactCard(
+            "contactPhoneCard",
+            Boolean(phone)
+        );
+
+        configureContactCard(
+            "contactAddressCard",
+            Boolean(address)
+        );
+
+        const hasContactInformation = Boolean(
+            email || phone || address
+        );
+
+        if (grid) {
+            grid.hidden = !hasContactInformation;
+        }
+
+        if (empty) {
+            empty.hidden = hasContactInformation;
+        }
+
+        const status = element("contactStatus");
+
+        if (status) {
+            status.hidden = true;
+        }
+
+        refreshAnimations();
     }
 
-    window.YadavExamPrep = {
+    /*
+    -----------------------------------------------------
+    FIREBASE SUBSCRIPTIONS
+    -----------------------------------------------------
+    */
 
-        setData,
+    function setData(key, value) {
+        if (
+            state.disposed ||
+            !Object.prototype.hasOwnProperty.call(
+                state.loaded,
+                key
+            )
+        ) {
+            return;
+        }
 
-        setLoading,
+        if (key === "settings") {
+            state.settings = {
+                ...DEFAULT_HOMEPAGE_SETTINGS,
+                ...(
+                    value &&
+                    typeof value === "object"
+                        ? value
+                        : {}
+                )
+            };
+        } else if (key === "contact") {
+            state.contact =
+                value &&
+                typeof value === "object"
+                    ? value
+                    : {};
+        } else {
+            state[key] = normalizeCollection(value);
+        }
 
-        refresh: renderHomepage,
+        state.loaded[key] = true;
 
-        normalizeCollection,
+        delete state.errors[key];
 
-        getState
+        if (PAGE === "home") {
+            renderHomepage();
+        }
 
-    };
+        if (PAGE === "contact") {
+            renderContact();
+        }
+    }
 
+    function setLoading(key, loading = true) {
+        if (
+            !Object.prototype.hasOwnProperty.call(
+                state.loaded,
+                key
+            )
+        ) {
+            return;
+        }
 
-    /* =================================================
-       14. FIREBASE CONNECTION
-    ================================================= */
+        state.loaded[key] = !loading;
+
+        if (loading) {
+            delete state.errors[key];
+        }
+
+        if (PAGE === "home") {
+            renderHomepage();
+        }
+
+        if (PAGE === "contact") {
+            renderContact();
+        }
+    }
+
+    function setError(key, error) {
+        if (state.disposed) {
+            return;
+        }
+
+        state.errors[key] =
+            error instanceof Error
+                ? error
+                : new Error(
+                    "Unable to retrieve Firebase data."
+                );
+
+        state.loaded[key] = true;
+
+        console.error(
+            `[Yadav ExamPrep] ${key}:`,
+            state.errors[key]
+        );
+
+        if (PAGE === "home") {
+            renderHomepage();
+        }
+
+        if (PAGE === "contact") {
+            renderContact();
+        }
+    }
 
     async function connectFirebase() {
+        if (
+            PAGE !== "home" &&
+            PAGE !== "contact"
+        ) {
+            return;
+        }
 
         try {
-
-            const firebase = await import(
+            const config = await import(
                 "./firebase-config.js"
             );
 
-            const databaseModule = await import(
-                "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js"
-            );
-
             if (
-                !firebase.isDatabaseConfigured() ||
-                !firebase.database
+                state.disposed ||
+                !config.isDatabaseConfigured ||
+                !config.database
             ) {
-
-                renderError(
-                    "The database connection is not configured yet. Please visit again later."
+                throw new Error(
+                    "Firebase Realtime Database URL is not configured."
                 );
-
-                return;
-
             }
 
             const {
                 ref,
                 onValue
-            } = databaseModule;
-
-            const database = firebase.database;
-
-            ["exams", "subjects", "tests"].forEach(
-                collection => {
-
-                    const unsubscribe = onValue(
-
-                        ref(
-                            database,
-                            CONFIG.paths[collection]
-                        ),
-
-                        snapshot => {
-
-                            state[collection] =
-                                normalizeCollection(
-                                    snapshot.val()
-                                );
-
-                            state.received[collection] =
-                                true;
-
-                            renderHomepage();
-
-                        },
-
-                        error => {
-
-                            console.error(
-                                `[Homepage] ${collection}:`,
-                                error?.code || error?.message
-                            );
-
-                            renderError(
-                                "We could not retrieve the published content. Please try again later."
-                            );
-
-                        }
-
-                    );
-
-                    state.unsubscribe.push(
-                        unsubscribe
-                    );
-
-                }
+            } = await import(
+                "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js"
             );
 
-            const settingsUnsubscribe = onValue(
+            if (state.disposed) {
+                return;
+            }
 
-                ref(
-                    database,
-                    CONFIG.paths.settings
-                ),
+            function subscribe(key, path) {
+                const unsubscribe = onValue(
+                    ref(config.database, path),
 
-                snapshot => {
+                    snapshot => {
+                        setData(
+                            key,
+                            snapshot.val()
+                        );
+                    },
 
-                    updateSettings(
-                        snapshot.val()
-                    );
+                    error => {
+                        setError(key, error);
+                    }
+                );
 
-                },
+                state.unsubscribers.push(
+                    unsubscribe
+                );
+            }
 
-                error => {
+            if (PAGE === "home") {
+                subscribe(
+                    "exams",
+                    "public/exams"
+                );
 
-                    console.warn(
-                        "[Homepage] Settings:",
-                        error?.code || error?.message
-                    );
+                subscribe(
+                    "subjects",
+                    "public/subjects"
+                );
 
-                    updateSettings(null);
+                subscribe(
+                    "tests",
+                    "public/tests"
+                );
 
-                }
+                subscribe(
+                    "settings",
+                    "public/settings/homepage"
+                );
+            }
 
-            );
-
-            state.unsubscribe.push(
-                settingsUnsubscribe
-            );
-
-            state.connected = true;
+            if (PAGE === "contact") {
+                subscribe(
+                    "contact",
+                    "public/settings/contact"
+                );
+            }
 
         } catch (error) {
-
             console.error(
-                "[Homepage] Firebase initialization:",
+                "[Yadav ExamPrep] Firebase connection:",
                 error
             );
 
-            renderError(
-                "The homepage content could not be loaded. Please try again later."
-            );
+            if (PAGE === "home") {
+                [
+                    "exams",
+                    "subjects",
+                    "tests"
+                ].forEach(
+                    key => setError(key, error)
+                );
+            }
 
+            if (PAGE === "contact") {
+                setError(
+                    "contact",
+                    error
+                );
+            }
         }
-
     }
 
+    /*
+    -----------------------------------------------------
+    CLEANUP
+    -----------------------------------------------------
+    */
 
-    /* =================================================
-       15. CLEANUP
-    ================================================= */
+    function dispose() {
+        if (state.disposed) {
+            return;
+        }
 
-    function cleanup() {
+        state.disposed = true;
 
-        state.unsubscribe.forEach(
+        state.unsubscribers.forEach(
             unsubscribe => {
-
-                if (
-                    typeof unsubscribe === "function"
-                ) {
-
+                try {
                     unsubscribe();
-
+                } catch (error) {
+                    console.warn(
+                        "[Yadav ExamPrep] Subscription cleanup:",
+                        error
+                    );
                 }
-
             }
         );
 
-        state.unsubscribe = [];
-
-        state.connected = false;
-
+        state.unsubscribers.length = 0;
     }
 
+    /*
+    -----------------------------------------------------
+    PUBLIC CONTROLLER API
 
-    /* =================================================
-       16. INITIALIZATION
-    ================================================= */
+    Retained for compatibility with the previous
+    integration version.
+    -----------------------------------------------------
+    */
+
+    window.YadavExamPrep = Object.freeze({
+        setData,
+        setLoading,
+
+        refresh() {
+            if (PAGE === "home") {
+                renderHomepage();
+            }
+
+            if (PAGE === "contact") {
+                renderContact();
+            }
+
+            refreshAnimations();
+        },
+
+        normalizeCollection,
+
+        getState() {
+            return {
+                page: PAGE,
+
+                loaded: {
+                    ...state.loaded
+                },
+
+                settings: {
+                    ...state.settings
+                },
+
+                hasErrors:
+                    Object.keys(state.errors).length > 0
+            };
+        }
+    });
+
+    /*
+    -----------------------------------------------------
+    INITIALIZATION
+    -----------------------------------------------------
+    */
 
     function initialize() {
+        updateCopyrightYear();
 
-        if (state.initialized) {
-            return;
+        if (PAGE === "home") {
+            renderHomepage();
         }
 
-        state.initialized = true;
+        if (PAGE === "contact") {
+            const empty = element(
+                "contactEmptyState"
+            );
 
-        if (elements.year) {
+            const grid = element(
+                "contactInformationGrid"
+            );
 
-            elements.year.textContent =
-                new Date().getFullYear();
+            if (empty) {
+                empty.hidden = true;
+            }
 
+            if (grid) {
+                grid.hidden = true;
+            }
         }
-
-        /*
-         * Shared script.js is referenced by other
-         * public pages, but homepage subscriptions
-         * must only run on the homepage.
-         */
-
-        if (
-            document.body.dataset.page !== "home"
-        ) {
-            return;
-        }
-
-        renderLoading();
 
         connectFirebase();
-
-        window.addEventListener(
-            "pagehide",
-            cleanup,
-            { once: true }
-        );
-
     }
 
-
-    /* =================================================
-       17. START
-    ================================================= */
+    window.addEventListener(
+        "pagehide",
+        dispose,
+        {
+            once: true
+        }
+    );
 
     if (document.readyState === "loading") {
-
         document.addEventListener(
             "DOMContentLoaded",
             initialize,
-            { once: true }
+            {
+                once: true
+            }
         );
-
     } else {
-
         initialize();
-
     }
 
 })();
-
-/* =====================================================
-   END OF SCRIPT.JS
-===================================================== */
