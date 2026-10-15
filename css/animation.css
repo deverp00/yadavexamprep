@@ -1,0 +1,635 @@
+
+/*
+=========================================================
+YADAV EXAMPREP
+File: css/animation.css
+
+Universal Animation and Transition System
+
+Designed and Developed by Yadav Web Technologies
+=========================================================
+*/
+
+
+/* =====================================================
+   01. ANIMATION VARIABLES
+===================================================== */
+
+:root {
+
+    --anim-fast: 180ms;
+    --anim-normal: 280ms;
+    --anim-medium: 400ms;
+    --anim-slow: 600ms;
+
+    --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+    --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+
+    --reveal-distance: 24px;
+
+}
+
+
+/* =====================================================
+   02. PAGE ENTRANCE AND EXIT
+===================================================== */
+
+/*
+JavaScript adds the page-ready class after initialization.
+
+Page exit is triggered by the page-exit class.
+
+Do not hide the body by default.
+This prevents invisible pages when JavaScript is disabled.
+*/
+
+body {
+    opacity: 1;
+}
+
+body.page-ready {
+    animation: pageFadeIn var(--anim-medium)
+               var(--ease-standard) both;
+}
+
+body.page-exit {
+    pointer-events: none;
+
+    animation: pageFadeOut var(--anim-fast)
+               var(--ease-smooth) both;
+}
+
+@keyframes pageFadeIn {
+
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes pageFadeOut {
+
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateY(-5px);
+    }
+
+}
+
+
+/* =====================================================
+   03. SCROLL REVEAL SYSTEM
+===================================================== */
+
+/*
+JavaScript adds .reveal-enabled to the body.
+
+Elements become visible when Intersection Observer
+adds the .is-visible class.
+
+Content remains accessible without JavaScript.
+*/
+
+.reveal {
+    opacity: 1;
+    transform: none;
+}
+
+.reveal-enabled .reveal {
+    opacity: 0;
+
+    transform: translate3d(
+        0,
+        var(--reveal-distance),
+        0
+    );
+
+    transition:
+        opacity var(--anim-slow) var(--ease-standard),
+        transform var(--anim-slow) var(--ease-standard);
+}
+
+.reveal-enabled .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+
+/* =====================================================
+   04. REVEAL VARIATIONS
+===================================================== */
+
+.reveal-enabled .reveal-left {
+    opacity: 0;
+    transform: translate3d(-24px, 0, 0);
+}
+
+.reveal-enabled .reveal-right {
+    opacity: 0;
+    transform: translate3d(24px, 0, 0);
+}
+
+.reveal-enabled .reveal-scale {
+    opacity: 0;
+    transform: scale(0.97);
+}
+
+.reveal-enabled .reveal-left.is-visible,
+.reveal-enabled .reveal-right.is-visible,
+.reveal-enabled .reveal-scale.is-visible {
+    opacity: 1;
+    transform: none;
+}
+
+
+/* =====================================================
+   05. STAGGERED ANIMATION
+===================================================== */
+
+.reveal-delay-1 {
+    transition-delay: 60ms !important;
+}
+
+.reveal-delay-2 {
+    transition-delay: 120ms !important;
+}
+
+.reveal-delay-3 {
+    transition-delay: 180ms !important;
+}
+
+.reveal-delay-4 {
+    transition-delay: 240ms !important;
+}
+
+.reveal-delay-5 {
+    transition-delay: 300ms !important;
+}
+
+
+/* =====================================================
+   06. HEADER SCROLL EFFECT
+===================================================== */
+
+.site-header {
+    transition:
+        background-color var(--anim-normal) var(--ease-smooth),
+        box-shadow var(--anim-normal) var(--ease-smooth),
+        border-color var(--anim-normal) var(--ease-smooth);
+}
+
+.site-header.is-scrolled {
+    background: rgba(255, 255, 255, 0.94);
+
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.035);
+}
+
+
+/* =====================================================
+   07. MOBILE NAVIGATION ANIMATION
+===================================================== */
+
+/*
+The mobile navigation is activated at the responsive
+breakpoint defined in responsive.css.
+
+JavaScript toggles the .is-open class.
+*/
+
+.mobile-nav {
+    overflow: hidden;
+
+    max-height: 0;
+
+    opacity: 0;
+    visibility: hidden;
+
+    border-top: 1px solid transparent;
+
+    transition:
+        max-height var(--anim-medium) var(--ease-standard),
+        opacity var(--anim-normal) ease,
+        visibility var(--anim-medium),
+        border-color var(--anim-normal) ease;
+}
+
+.mobile-nav.is-open {
+    max-height: min(75dvh, 650px);
+
+    opacity: 1;
+    visibility: visible;
+
+    overflow-y: auto;
+
+    border-top-color: var(--border-color);
+}
+
+.mobile-nav-inner {
+    display: flex;
+    flex-direction: column;
+
+    gap: 5px;
+
+    padding: 14px var(--container-padding) 22px;
+
+    opacity: 0;
+    transform: translateY(-8px);
+
+    transition:
+        opacity var(--anim-normal) var(--ease-standard),
+        transform var(--anim-normal) var(--ease-standard);
+}
+
+.mobile-nav.is-open .mobile-nav-inner {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+
+/* =====================================================
+   08. MOBILE NAVIGATION LINKS
+===================================================== */
+
+.mobile-nav-link {
+    display: flex;
+    align-items: center;
+
+    width: 100%;
+    min-height: 46px;
+
+    padding: 12px 14px;
+
+    color: var(--secondary);
+
+    border: 1px solid transparent;
+    border-radius: var(--radius);
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition:
+        background-color var(--anim-fast) ease,
+        color var(--anim-fast) ease,
+        border-color var(--anim-fast) ease,
+        transform var(--anim-fast) ease;
+}
+
+.mobile-nav-link:hover {
+    background: var(--surface-hover);
+    color: var(--primary);
+
+    transform: translateX(3px);
+}
+
+.mobile-nav-link.active {
+    background: var(--surface);
+    color: var(--primary);
+
+    border-color: var(--border-color);
+
+    font-weight: 700;
+}
+
+.mobile-cta {
+    width: 100%;
+    margin-top: 10px;
+}
+
+
+/* =====================================================
+   09. HAMBURGER BUTTON TRANSITION
+===================================================== */
+
+.menu-toggle {
+    transition:
+        background-color var(--anim-fast) ease,
+        border-color var(--anim-fast) ease,
+        transform var(--anim-normal) var(--ease-standard);
+}
+
+.menu-toggle svg {
+    transition: transform var(--anim-normal) var(--ease-standard);
+}
+
+.menu-toggle svg path {
+    transform-box: fill-box;
+    transform-origin: center;
+
+    transition:
+        transform var(--anim-normal) var(--ease-standard),
+        opacity var(--anim-fast) ease;
+}
+
+.menu-toggle.is-active {
+    background: var(--primary);
+    border-color: var(--primary);
+    color: #FFFFFF;
+}
+
+.menu-toggle.is-active svg {
+    transform: rotate(90deg);
+}
+
+.menu-toggle.is-active svg path:nth-child(1) {
+    transform: translateY(5px);
+}
+
+.menu-toggle.is-active svg path:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle.is-active svg path:nth-child(3) {
+    transform: translateY(-5px);
+}
+
+
+/* =====================================================
+   10. BUTTON INTERACTIONS
+===================================================== */
+
+.btn {
+    transition:
+        background-color var(--anim-fast) ease,
+        border-color var(--anim-fast) ease,
+        color var(--anim-fast) ease,
+        transform var(--anim-normal) var(--ease-standard);
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+}
+
+.btn:active {
+    transform: scale(0.985);
+}
+
+.btn svg {
+    transition: transform var(--anim-normal) var(--ease-standard);
+}
+
+.btn:hover svg {
+    transform: translateX(3px);
+}
+
+
+/* =====================================================
+   11. CARD HOVER INTERACTIONS
+===================================================== */
+
+.exam-card,
+.subject-card,
+.mock-card,
+.learning-card,
+.daily-card,
+.feature-card,
+.ui-card-hover {
+    transition:
+        background-color var(--anim-normal) ease,
+        border-color var(--anim-normal) ease,
+        transform var(--anim-normal) var(--ease-standard);
+}
+
+.exam-card:hover,
+.subject-card:hover,
+.mock-card:hover,
+.learning-card:hover,
+.daily-card:hover,
+.feature-card:hover,
+.ui-card-hover:hover {
+    transform: translateY(-3px);
+}
+
+
+/* =====================================================
+   12. LINK TRANSITIONS
+===================================================== */
+
+.text-link {
+    transition:
+        color var(--anim-fast) ease,
+        opacity var(--anim-fast) ease;
+}
+
+.text-link span {
+    transition: transform var(--anim-normal) var(--ease-standard);
+}
+
+.text-link:hover span {
+    transform: translateX(4px);
+}
+
+
+/* =====================================================
+   13. FORM FOCUS ANIMATION
+===================================================== */
+
+.form-input,
+.form-select,
+.form-textarea,
+.search-box {
+    transition:
+        border-color var(--anim-fast) ease,
+        box-shadow var(--anim-fast) ease,
+        background-color var(--anim-fast) ease;
+}
+
+
+/* =====================================================
+   14. QUESTION TRANSITION UTILITIES
+===================================================== */
+
+.question-enter {
+    animation: questionEnter var(--anim-normal)
+               var(--ease-standard) both;
+}
+
+.question-exit {
+    animation: questionExit var(--anim-fast)
+               var(--ease-smooth) both;
+}
+
+@keyframes questionEnter {
+
+    from {
+        opacity: 0;
+        transform: translateX(12px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+}
+
+@keyframes questionExit {
+
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    to {
+        opacity: 0;
+        transform: translateX(-8px);
+    }
+
+}
+
+
+/* =====================================================
+   15. MODAL ANIMATION
+===================================================== */
+
+.modal-overlay {
+    transition:
+        opacity var(--anim-normal) ease,
+        visibility var(--anim-normal);
+}
+
+.modal-dialog {
+    transition:
+        opacity var(--anim-normal) ease,
+        transform var(--anim-normal) var(--ease-standard);
+}
+
+.modal-overlay:not(.is-open) .modal-dialog {
+    opacity: 0;
+    transform: translateY(15px) scale(0.98);
+}
+
+.modal-overlay.is-open .modal-dialog {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+}
+
+
+/* =====================================================
+   16. PROGRESS ANIMATION
+===================================================== */
+
+.ui-progress-bar,
+.progress-fill {
+    transition:
+        width var(--anim-medium) var(--ease-standard),
+        background-color var(--anim-normal) ease;
+}
+
+
+/* =====================================================
+   17. UTILITY ANIMATIONS
+===================================================== */
+
+.animate-fade-in {
+    animation: simpleFadeIn var(--anim-medium)
+               var(--ease-standard) both;
+}
+
+.animate-slide-up {
+    animation: simpleSlideUp var(--anim-medium)
+               var(--ease-standard) both;
+}
+
+.animate-scale-in {
+    animation: simpleScaleIn var(--anim-medium)
+               var(--ease-standard) both;
+}
+
+@keyframes simpleFadeIn {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+@keyframes simpleSlideUp {
+
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+}
+
+@keyframes simpleScaleIn {
+
+    from {
+        opacity: 0;
+        transform: scale(0.96);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+
+}
+
+
+/* =====================================================
+   18. ACCESSIBILITY AND REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    body.page-ready,
+    body.page-exit,
+    .question-enter,
+    .question-exit,
+    .animate-fade-in,
+    .animate-slide-up,
+    .animate-scale-in {
+        animation: none !important;
+    }
+
+    .reveal-enabled .reveal,
+    .reveal-enabled .reveal-left,
+    .reveal-enabled .reveal-right,
+    .reveal-enabled .reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .mobile-nav,
+    .mobile-nav-inner,
+    .menu-toggle,
+    .menu-toggle svg,
+    .menu-toggle svg path {
+        transition: none !important;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+
+}
