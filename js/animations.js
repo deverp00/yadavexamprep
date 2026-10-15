@@ -1,632 +1,644 @@
 
 /*
-=========================================================
+=====================================================
 YADAV EXAMPREP
-File: js/animations.js
+File: css/animation.css
 
-Universal Animation Controller
+CSS INTEGRATION — FULL FILE REPLACEMENT
 
 Designed and Developed by Yadav Web Technologies
-=========================================================
+
+RESPONSIBILITIES:
+- Page entrance and exit transitions
+- Scroll reveal effects
+- Mobile navigation transitions
+- Sticky-header visual effects
+- Lightweight interaction animation
+- Reduced-motion accessibility
+
+IMPORTANT:
+- No global font-size overrides.
+- No grid layout definitions.
+- No card padding or dimension overrides.
+- No universal border-radius overrides.
+- Hidden content must remain hidden.
+=====================================================
 */
 
-"use strict";
+/* ================================================
+   01. MOTION TOKENS
+================================================ */
 
-(() => {
+:root {
+    --motion-fast: 150ms;
+    --motion-normal: 250ms;
+    --motion-slow: 450ms;
 
-    /* =================================================
-       01. CONFIGURATION
-    ================================================= */
-
-    const CONFIG = Object.freeze({
-
-        selectors: {
-            header: "#siteHeader",
-            reveal: ".reveal",
-            transitionLinks: 'a[href]'
-        },
-
-        classes: {
-            ready: "page-ready",
-            exit: "page-exit",
-            revealEnabled: "reveal-enabled",
-            visible: "is-visible",
-            scrolled: "is-scrolled"
-        },
-
-        revealThreshold: 0.08,
-
-        revealRootMargin: "0px 0px -35px 0px",
-
-        headerScrollThreshold: 12,
-
-        pageExitDuration: 180
-
-    });
-
-
-    /* =================================================
-       02. STATE
-    ================================================= */
-
-    const motionPreference = window.matchMedia(
-        "(prefers-reduced-motion: reduce)"
+    --motion-easing: cubic-bezier(
+        0.22,
+        1,
+        0.36,
+        1
     );
 
-    let revealObserver = null;
+    --motion-distance: 18px;
+}
 
-    let pageIsLeaving = false;
+/* ================================================
+   02. PAGE TRANSITIONS
+================================================ */
 
-    let headerFramePending = false;
+/*
+    Pages remain visible by default.
 
+    Animation starts only when the JavaScript
+    controller applies its transition classes.
+*/
 
-    /* =================================================
-       03. MOTION PREFERENCE
-    ================================================= */
+body.site-body {
+    opacity: 1;
+}
 
-    function prefersReducedMotion() {
+body.site-body.page-ready {
+    animation:
+        page-enter
+        350ms
+        var(--motion-easing)
+        both;
+}
 
-        return motionPreference.matches;
+body.site-body.page-exit {
+    pointer-events: none;
 
+    animation:
+        page-leave
+        180ms
+        ease-in
+        both;
+}
+
+@keyframes page-enter {
+
+    from {
+        opacity: 0;
     }
 
-
-    /* =================================================
-       04. PAGE ENTRANCE
-    ================================================= */
-
-    function initializePageEntrance() {
-
-        if (prefersReducedMotion()) {
-            return;
-        }
-
-        /*
-         * Restart the entrance animation safely
-         * when the browser restores a cached page.
-         */
-
-        document.body.classList.remove(
-            CONFIG.classes.exit
-        );
-
-        document.body.classList.add(
-            CONFIG.classes.ready
-        );
-
+    to {
+        opacity: 1;
     }
 
+}
 
-    /* =================================================
-       05. REVEAL OBSERVER
-    ================================================= */
+@keyframes page-leave {
 
-    function initializeRevealObserver() {
-
-        if (
-            prefersReducedMotion() ||
-            !("IntersectionObserver" in window)
-        ) {
-
-            revealAll();
-
-            return;
-
-        }
-
-        revealObserver = new IntersectionObserver(
-
-            (entries, observer) => {
-
-                entries.forEach((entry) => {
-
-                    if (!entry.isIntersecting) {
-                        return;
-                    }
-
-                    entry.target.classList.add(
-                        CONFIG.classes.visible
-                    );
-
-                    observer.unobserve(
-                        entry.target
-                    );
-
-                });
-
-            },
-
-            {
-                threshold: CONFIG.revealThreshold,
-                rootMargin: CONFIG.revealRootMargin
-            }
-
-        );
-
-        /*
-         * Enable hidden reveal states only after
-         * the observer is successfully created.
-         */
-
-        document.body.classList.add(
-            CONFIG.classes.revealEnabled
-        );
-
-        observeRevealElements();
-
+    from {
+        opacity: 1;
     }
 
-
-    /* =================================================
-       06. REGISTER REVEAL ELEMENTS
-    ================================================= */
-
-    function observeRevealElements(root = document) {
-
-        const elements = [];
-
-        /*
-         * Include the root itself when it has
-         * the reveal class.
-         */
-
-        if (
-            root.nodeType === Node.ELEMENT_NODE &&
-            root.matches(CONFIG.selectors.reveal)
-        ) {
-
-            elements.push(root);
-
-        }
-
-        if (typeof root.querySelectorAll === "function") {
-
-            elements.push(
-                ...root.querySelectorAll(
-                    CONFIG.selectors.reveal
-                )
-            );
-
-        }
-
-        elements.forEach((element) => {
-
-            if (
-                element.classList.contains(
-                    CONFIG.classes.visible
-                )
-            ) {
-                return;
-            }
-
-            if (
-                prefersReducedMotion() ||
-                !revealObserver
-            ) {
-
-                element.classList.add(
-                    CONFIG.classes.visible
-                );
-
-                return;
-
-            }
-
-            revealObserver.observe(element);
-
-        });
-
+    to {
+        opacity: 0;
     }
 
+}
 
-    /* =================================================
-       07. REVEAL ALL
-    ================================================= */
+/* ================================================
+   03. SCROLL REVEAL SYSTEM
+================================================ */
 
-    function revealAll() {
+/*
+    IMPORTANT:
 
-        document.body.classList.remove(
-            CONFIG.classes.revealEnabled
+    .reveal is visible by default.
+
+    JavaScript adds .reveal-enabled only when
+    the scroll-reveal controller is ready.
+
+    This prevents invisible content when JS
+    fails or IntersectionObserver is unavailable.
+*/
+
+.reveal {
+    opacity: 1;
+    transform: none;
+}
+
+/*
+    Only unfinished reveal elements are hidden.
+
+    Completed elements use .is-visible.
+*/
+
+.reveal-enabled .reveal:not(.is-visible) {
+    opacity: 0;
+
+    transform:
+        translate3d(
+            0,
+            var(--motion-distance),
+            0
+        );
+}
+
+.reveal-enabled .reveal {
+    transition:
+        opacity
+        var(--motion-slow)
+        var(--motion-easing),
+
+        transform
+        var(--motion-slow)
+        var(--motion-easing);
+}
+
+.reveal-enabled .reveal.is-visible {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+}
+
+/* Reveal Variations */
+
+.reveal-enabled .reveal-left:not(.is-visible) {
+    transform:
+        translate3d(
+            calc(var(--motion-distance) * -1),
+            0,
+            0
+        );
+}
+
+.reveal-enabled .reveal-right:not(.is-visible) {
+    transform:
+        translate3d(
+            var(--motion-distance),
+            0,
+            0
+        );
+}
+
+.reveal-enabled .reveal-scale:not(.is-visible) {
+    transform: scale(0.97);
+}
+
+.reveal-enabled .reveal-left.is-visible,
+.reveal-enabled .reveal-right.is-visible,
+.reveal-enabled .reveal-scale.is-visible {
+    transform: none;
+}
+
+/* Staggered Reveal */
+
+.reveal-enabled .reveal[data-delay="1"] {
+    transition-delay: 60ms;
+}
+
+.reveal-enabled .reveal[data-delay="2"] {
+    transition-delay: 120ms;
+}
+
+.reveal-enabled .reveal[data-delay="3"] {
+    transition-delay: 180ms;
+}
+
+.reveal-enabled .reveal[data-delay="4"] {
+    transition-delay: 240ms;
+}
+
+.reveal-enabled .reveal[data-delay="5"] {
+    transition-delay: 300ms;
+}
+
+.reveal-enabled .reveal[data-delay="6"] {
+    transition-delay: 360ms;
+}
+
+/* ================================================
+   04. STICKY HEADER EFFECT
+================================================ */
+
+/*
+    style.css owns header dimensions,
+    positioning and background.
+
+    This file owns transition effects only.
+*/
+
+.site-header {
+    transition:
+        background-color var(--motion-normal) ease,
+        border-color var(--motion-normal) ease,
+        box-shadow var(--motion-normal) ease;
+}
+
+.site-header.is-scrolled {
+    background: rgb(255 255 255 / 97%);
+    border-bottom-color: var(--border-color);
+    box-shadow: var(--shadow-sm);
+}
+
+/* ================================================
+   05. MOBILE NAVIGATION
+================================================ */
+
+/*
+    RESPONSIBILITY SPLIT:
+
+    style.css:
+        Desktop/mobile breakpoint and menu layout.
+
+    animation.css:
+        Closed/open transition states.
+
+    toggle.js:
+        aria-expanded, inert, .is-open and focus.
+
+    The menu is closed by default on mobile.
+*/
+
+@media (max-width: 900px) {
+
+    .mobile-nav {
+        max-height: 0;
+        overflow: hidden;
+
+        opacity: 0;
+        visibility: hidden;
+
+        pointer-events: none;
+
+        transition:
+            max-height
+            350ms
+            var(--motion-easing),
+
+            opacity
+            var(--motion-normal)
+            ease,
+
+            visibility
+            0s
+            linear
+            350ms;
+    }
+
+    .mobile-nav.is-open {
+        max-height: min(
+            650px,
+            calc(100dvh - var(--header-height))
         );
 
-        document.querySelectorAll(
-            CONFIG.selectors.reveal
-        ).forEach((element) => {
+        overflow-y: auto;
+        overscroll-behavior: contain;
 
-            element.classList.add(
-                CONFIG.classes.visible
-            );
+        opacity: 1;
+        visibility: visible;
 
-        });
+        pointer-events: auto;
 
+        transition:
+            max-height
+            350ms
+            var(--motion-easing),
+
+            opacity
+            var(--motion-normal)
+            ease,
+
+            visibility
+            0s
+            linear
+            0s;
     }
 
-
-    /* =================================================
-       08. STICKY HEADER EFFECT
-    ================================================= */
-
-    function updateHeaderState() {
-
-        const header = document.querySelector(
-            CONFIG.selectors.header
-        );
-
-        if (!header) {
-            return;
-        }
-
-        header.classList.toggle(
-
-            CONFIG.classes.scrolled,
-
-            window.scrollY >
-                CONFIG.headerScrollThreshold
-
-        );
-
+    .mobile-nav-inner {
+        transition:
+            transform
+            var(--motion-normal)
+            var(--motion-easing);
     }
 
-
-    function handleHeaderScroll() {
-
-        if (headerFramePending) {
-            return;
-        }
-
-        headerFramePending = true;
-
-        window.requestAnimationFrame(() => {
-
-            updateHeaderState();
-
-            headerFramePending = false;
-
-        });
-
+    .mobile-nav:not(.is-open) .mobile-nav-inner {
+        transform: translateY(-8px);
     }
 
-
-    function initializeHeaderEffect() {
-
-        updateHeaderState();
-
-        window.addEventListener(
-            "scroll",
-            handleHeaderScroll,
-            { passive: true }
-        );
-
+    .mobile-nav.is-open .mobile-nav-inner {
+        transform: translateY(0);
     }
-
-
-    /* =================================================
-       09. SAFE INTERNAL LINK DETECTION
-    ================================================= */
-
-    function isEligibleNavigationLink(link, event) {
-
-        if (!link || !link.href) {
-            return false;
-        }
-
-        /*
-         * Do not intercept modified clicks,
-         * downloads, new tabs, or cancelled events.
-         */
-
-        if (
-            event.defaultPrevented ||
-            event.button !== 0 ||
-            event.ctrlKey ||
-            event.metaKey ||
-            event.shiftKey ||
-            event.altKey
-        ) {
-            return false;
-        }
-
-        if (
-            link.hasAttribute("download") ||
-            link.hasAttribute("data-no-transition")
-        ) {
-            return false;
-        }
-
-        if (
-            link.target &&
-            link.target.toLowerCase() !== "_self"
-        ) {
-            return false;
-        }
-
-        let destination;
-
-        try {
-
-            destination = new URL(
-                link.href,
-                window.location.href
-            );
-
-        } catch {
-
-            return false;
-
-        }
-
-        /*
-         * Only transition normal HTTP(S) links
-         * belonging to the current website.
-         */
-
-        if (
-            !["http:", "https:"].includes(
-                destination.protocol
-            )
-        ) {
-            return false;
-        }
-
-        if (
-            destination.origin !==
-            window.location.origin
-        ) {
-            return false;
-        }
-
-        /*
-         * Let the browser handle same-page anchors.
-         */
-
-        const current = new URL(
-            window.location.href
-        );
-
-        const sameDocument =
-
-            destination.pathname === current.pathname &&
-
-            destination.search === current.search;
-
-        if (sameDocument) {
-            return false;
-        }
-
-        return true;
-
-    }
-
-
-    /* =================================================
-       10. PAGE EXIT TRANSITION
-    ================================================= */
-
-    function navigateWithTransition(url) {
-
-        if (pageIsLeaving) {
-            return;
-        }
-
-        if (prefersReducedMotion()) {
-
-            window.location.assign(url);
-
-            return;
-
-        }
-
-        pageIsLeaving = true;
-
-        document.body.classList.remove(
-            CONFIG.classes.ready
-        );
-
-        document.body.classList.add(
-            CONFIG.classes.exit
-        );
-
-        window.setTimeout(() => {
-
-            window.location.assign(url);
-
-        }, CONFIG.pageExitDuration);
-
-    }
-
-
-    /* =================================================
-       11. LINK EVENT DELEGATION
-    ================================================= */
-
-    function initializePageTransitions() {
-
-        document.addEventListener("click", (event) => {
-
-            const target = event.target;
-
-            if (!(target instanceof Element)) {
-                return;
-            }
-
-            const link = target.closest(
-                CONFIG.selectors.transitionLinks
-            );
-
-            if (
-                !isEligibleNavigationLink(
-                    link,
-                    event
-                )
-            ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            navigateWithTransition(link.href);
-
-        });
-
-    }
-
-
-    /* =================================================
-       12. DYNAMIC CONTENT SUPPORT
-    ================================================= */
 
     /*
-     * Firebase-loaded cards can be registered
-     * after their HTML has been inserted.
-     *
-     * Example:
-     *
-     * window.YadavAnimations.refresh();
-     */
+        The HTML inert attribute provides interaction
+        protection while the menu is closed.
+    */
 
-    function refreshAnimations(root = document) {
-
-        if (!root) {
-            return;
-        }
-
-        observeRevealElements(root);
-
+    .mobile-nav-link,
+    .mobile-cta {
+        transition:
+            background-color var(--motion-fast) ease,
+            color var(--motion-fast) ease;
     }
 
+}
 
-    /* =================================================
-       13. ACCESSIBILITY PREFERENCE CHANGES
-    ================================================= */
+/* ================================================
+   06. MOBILE MENU TOGGLE
+================================================ */
 
-    function handleMotionPreferenceChange(event) {
+.menu-toggle {
+    transition:
+        background-color var(--motion-fast) ease,
+        border-color var(--motion-fast) ease,
+        color var(--motion-fast) ease;
+}
 
-        if (event.matches) {
+.menu-toggle svg {
+    transition:
+        transform
+        var(--motion-normal)
+        var(--motion-easing);
+}
 
-            if (revealObserver) {
+.menu-toggle.is-active {
+    border-color: var(--primary);
+    background: var(--surface);
+}
 
-                revealObserver.disconnect();
+.menu-toggle.is-active svg {
+    transform: rotate(90deg);
+}
 
-                revealObserver = null;
+/* ================================================
+   07. BUTTON INTERACTION
+================================================ */
 
-            }
+/*
+    components.css owns button appearance.
 
-            revealAll();
+    Animation rules only affect movement.
+*/
 
-            document.body.classList.remove(
-                CONFIG.classes.ready,
-                CONFIG.classes.exit
-            );
+@media (hover: hover) and (pointer: fine) {
 
-            return;
-
-        }
-
-        /*
-         * Reinitialize the observer when the
-         * user enables animations again.
-         */
-
-        if (!revealObserver) {
-
-            initializeRevealObserver();
-
-        }
-
+    .btn:not(:disabled):not([aria-disabled="true"]):active {
+        transform: translateY(1px);
     }
 
-
-    /* =================================================
-       14. BROWSER PAGE RESTORATION
-    ================================================= */
-
-    function handlePageRestore() {
-
-        pageIsLeaving = false;
-
-        document.body.classList.remove(
-            CONFIG.classes.exit
-        );
-
-        if (!prefersReducedMotion()) {
-
-            document.body.classList.add(
-                CONFIG.classes.ready
-            );
-
-        }
-
-        updateHeaderState();
-
-        refreshAnimations();
-
+    .menu-toggle:not(:disabled):active {
+        transform: scale(0.97);
     }
 
+}
 
-    /* =================================================
-       15. INITIALIZATION
-    ================================================= */
+/* ================================================
+   08. CARD INTERACTION
+================================================ */
 
-    function initializeAnimations() {
+/*
+    Do not animate all generic articles or sections.
 
-        initializePageEntrance();
+    Only recognised card components may move.
+*/
 
-        initializeRevealObserver();
+@media (hover: hover) and (pointer: fine) {
 
-        initializeHeaderEffect();
-
-        initializePageTransitions();
-
-        window.addEventListener(
-            "pageshow",
-            handlePageRestore
-        );
-
-        motionPreference.addEventListener(
-            "change",
-            handleMotionPreferenceChange
-        );
-
+    :is(
+        .ui-card,
+        .exam-card,
+        .subject-card,
+        .mock-card,
+        .feature-card,
+        .learning-card
+    ):hover {
+        transform: translateY(-3px);
     }
 
-
-    /* =================================================
-       16. PUBLIC ANIMATION CONTROLLER
-    ================================================= */
-
-    window.YadavAnimations = Object.freeze({
-
-        refresh: refreshAnimations,
-
-        revealAll: revealAll,
-
-        navigate: navigateWithTransition,
-
-        prefersReducedMotion: prefersReducedMotion
-
-    });
-
-
-    /* =================================================
-       17. SAFE DOM INITIALIZATION
-    ================================================= */
-
-    if (document.readyState === "loading") {
-
-        document.addEventListener(
-
-            "DOMContentLoaded",
-
-            initializeAnimations,
-
-            { once: true }
-
-        );
-
-    } else {
-
-        initializeAnimations();
-
+    :is(
+        .ui-card,
+        .exam-card,
+        .subject-card,
+        .mock-card,
+        .feature-card,
+        .learning-card
+    ):active {
+        transform: translateY(-1px);
     }
 
-})();
+}
+
+/* ================================================
+   09. QUESTION AND ANSWER INTERACTION
+================================================ */
+
+/*
+    Avoid changing option height or font size.
+
+    This prevents the question layout from jumping
+    during answer selection.
+*/
+
+:is(
+    .exam-answer-option,
+    .answer-option,
+    .question-option
+) {
+    transition:
+        border-color var(--motion-fast) ease,
+        background-color var(--motion-fast) ease,
+        box-shadow var(--motion-fast) ease;
+}
+
+/* ================================================
+   10. MODAL ANIMATION
+================================================ */
+
+/*
+    components.css owns modal positioning and sizing.
+
+    Animations apply only to visible modals.
+*/
+
+.modal-overlay:not([hidden]) {
+    animation:
+        modal-backdrop-enter
+        180ms
+        ease-out
+        both;
+}
+
+.modal-overlay:not([hidden]) > :is(
+    .modal-dialog,
+    .modal-content
+) {
+    animation:
+        modal-content-enter
+        230ms
+        var(--motion-easing)
+        both;
+}
+
+@keyframes modal-backdrop-enter {
+
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+
+}
+
+@keyframes modal-content-enter {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.985);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+
+}
+
+/* ================================================
+   11. PROGRESS INTERACTION
+================================================ */
+
+/*
+    Width changes are already owned by
+    components.css.
+
+    No duplicate transition is defined here.
+*/
+
+/* ================================================
+   12. HIDDEN-STATE SAFETY
+================================================ */
+
+/*
+    Keep all hidden elements excluded from
+    layout regardless of animation state.
+
+    style.css already provides the global
+    [hidden] rule, so it is not duplicated here.
+*/
+
+.reveal[hidden],
+.modal-overlay[hidden],
+.mobile-nav[hidden] {
+    animation: none;
+}
+
+/* ================================================
+   13. REDUCED MOTION
+================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    :root {
+        --motion-fast: 0ms;
+        --motion-normal: 0ms;
+        --motion-slow: 0ms;
+        --motion-distance: 0px;
+    }
+
+    body.site-body.page-ready,
+    body.site-body.page-exit {
+        animation: none;
+    }
+
+    body.site-body.page-ready {
+        opacity: 1;
+    }
+
+    /*
+        Keep content accessible without requiring
+        IntersectionObserver animations.
+    */
+
+    .reveal-enabled .reveal,
+    .reveal-enabled .reveal:not(.is-visible),
+    .reveal-enabled .reveal.is-visible,
+    .reveal-enabled .reveal-left:not(.is-visible),
+    .reveal-enabled .reveal-right:not(.is-visible),
+    .reveal-enabled .reveal-scale:not(.is-visible) {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .site-header,
+    .mobile-nav,
+    .mobile-nav-inner,
+    .mobile-nav-link,
+    .mobile-cta,
+    .menu-toggle,
+    .menu-toggle svg,
+    .btn,
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card,
+    .exam-answer-option,
+    .answer-option,
+    .question-option {
+        transition: none;
+    }
+
+    .modal-overlay:not([hidden]),
+    .modal-overlay:not([hidden]) > :is(
+        .modal-dialog,
+        .modal-content
+    ) {
+        animation: none;
+    }
+
+    .modal-overlay:not([hidden]) > :is(
+        .modal-dialog,
+        .modal-content
+    ) {
+        opacity: 1;
+        transform: none;
+    }
+
+}
+
+/* ================================================
+   14. PRINT
+================================================ */
+
+@media print {
+
+    body.site-body,
+    body.site-body.page-ready,
+    body.site-body.page-exit {
+        opacity: 1;
+        animation: none;
+    }
+
+    .reveal,
+    .reveal-enabled .reveal,
+    .reveal-enabled .reveal:not(.is-visible) {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+
+    .site-header {
+        box-shadow: none;
+        -webkit-backdrop-filter: none;
+        backdrop-filter: none;
+    }
+
+    .mobile-nav,
+    .menu-toggle {
+        display: none !important;
+    }
+
+}
+
+/* ================================================
+   END OF FILE
+================================================ */
