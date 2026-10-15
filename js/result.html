@@ -1,0 +1,1071 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="View your Yadav ExamPrep mock test result, marks, accuracy, performance analysis, correct answers, and detailed question explanations."
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Examination Result | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="stylesheet" href="css/animation.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+    <!-- =============================================
+         SHARED JAVASCRIPT
+    ============================================== -->
+
+    <script src="js/toggle.js" defer></script>
+
+    <script src="js/animations.js" defer></script>
+
+    <script src="js/script.js" defer></script>
+
+
+    <!-- =============================================
+         RESULT PAGE CONTROLLER
+    ============================================== -->
+
+    <script
+        type="module"
+        src="js/result.js"
+    ></script>
+
+</head>
+
+
+<body class="site-body" data-page="result">
+
+
+    <!-- =============================================
+         ACCESSIBILITY
+    ============================================== -->
+
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+
+    <!-- =============================================
+         UNIVERSAL HEADER
+    ============================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-container">
+
+
+            <!-- Brand -->
+
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep homepage"
+            >
+
+                <span
+                    class="logo-symbol"
+                    aria-hidden="true"
+                >
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="desktop-nav"
+                aria-label="Main navigation"
+            >
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="nav-link active"
+                >
+                    Mock Tests
+                </a>
+
+                <a href="subjects.html" class="nav-link">
+                    Subjects
+                </a>
+
+                <a href="learn.html" class="nav-link">
+                    Learn
+                </a>
+
+            </nav>
+
+
+            <!-- Header Actions -->
+
+            <div class="header-actions">
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary header-cta"
+                >
+                    More Mock Tests
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
+                </a>
+
+
+                <!-- Mobile Navigation Toggle -->
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open navigation menu"
+                    aria-controls="mobileNavigation"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Navigation -->
+
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
+
+            <div class="mobile-nav-inner">
+
+                <a href="index.html" class="mobile-nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link active"
+                >
+                    Mock Tests
+                </a>
+
+                <a href="subjects.html" class="mobile-nav-link">
+                    Subjects
+                </a>
+
+                <a href="learn.html" class="mobile-nav-link">
+                    Learn
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary mobile-cta"
+                >
+                    Explore Mock Tests
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =============================================
+         MAIN CONTENT
+    ============================================== -->
+
+    <main id="mainContent">
+
+
+        <!-- =========================================
+             RESULT LOADING / ERROR STATE
+        ========================================== -->
+
+        <section
+            class="section result-status-section"
+            id="resultStatusSection"
+            aria-labelledby="resultStatusTitle"
+        >
+
+            <div class="container">
+
+                <div
+                    class="empty-state"
+                    id="resultStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="resultStatusSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <h1 id="resultStatusTitle">
+                        Preparing Your Result
+                    </h1>
+
+                    <p id="resultStatusDescription">
+                        Please wait while your examination
+                        performance is being displayed.
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="btn btn-primary"
+                        id="resultStatusBackLink"
+                        hidden
+                    >
+                        Explore Mock Tests
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             RESULT CONTENT
+        ========================================== -->
+
+        <div id="resultContent" hidden>
+
+
+            <!-- =====================================
+                 RESULT PAGE INTRODUCTION
+            ====================================== -->
+
+            <section
+                class="section result-intro-section"
+                aria-labelledby="resultPageTitle"
+            >
+
+                <div class="container">
+
+
+                    <!-- Breadcrumb -->
+
+                    <nav
+                        class="breadcrumb"
+                        aria-label="Breadcrumb"
+                    >
+
+                        <a href="index.html">
+                            Home
+                        </a>
+
+                        <span
+                            class="breadcrumb-separator"
+                            aria-hidden="true"
+                        >
+                            /
+                        </span>
+
+                        <a href="mock-tests.html">
+                            Mock Tests
+                        </a>
+
+                        <span
+                            class="breadcrumb-separator"
+                            aria-hidden="true"
+                        >
+                            /
+                        </span>
+
+                        <span
+                            class="current"
+                            aria-current="page"
+                        >
+                            Result
+                        </span>
+
+                    </nav>
+
+
+                    <!-- Result Heading -->
+
+                    <div class="page-intro-content">
+
+                        <span class="section-eyebrow">
+                            Examination Completed
+                        </span>
+
+                        <h1 id="resultPageTitle">
+                            Your Mock Test Result
+                        </h1>
+
+                        <p id="resultPageDescription">
+                            Review your examination performance,
+                            identify areas for improvement, and
+                            learn from your answers.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 RESULT SUMMARY
+            ====================================== -->
+
+            <section
+                class="section result-summary-section"
+                aria-labelledby="resultSummaryTitle"
+            >
+
+                <div class="container">
+
+
+                    <!-- Summary Heading -->
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-eyebrow">
+                                Performance Overview
+                            </span>
+
+                            <h2 id="resultSummaryTitle">
+                                Examination Summary
+                            </h2>
+
+                            <p id="resultTestTitle">
+                                Completed Mock Test
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Main Result Card -->
+
+                    <div class="ui-card result-overview-card">
+
+
+                        <!-- Score -->
+
+                        <div class="result-score-panel">
+
+                            <span class="result-score-label">
+                                Your Score
+                            </span>
+
+                            <div class="result-score-value">
+
+                                <strong id="resultObtainedMarks">
+                                    —
+                                </strong>
+
+                                <span class="result-score-divider">
+                                    /
+                                </span>
+
+                                <span id="resultMaximumMarks">
+                                    —
+                                </span>
+
+                            </div>
+
+                            <p class="result-score-caption">
+                                Marks Obtained
+                            </p>
+
+                        </div>
+
+
+                        <!-- Percentage -->
+
+                        <div class="result-percentage-panel">
+
+                            <div
+                                class="result-percentage-circle"
+                                id="resultPercentageCircle"
+                                role="img"
+                                aria-label="Result percentage"
+                            >
+
+                                <div class="result-percentage-inner">
+
+                                    <strong id="resultPercentage">
+                                        —
+                                    </strong>
+
+                                    <span>
+                                        Percentage
+                                    </span>
+
+                                </div>
+
+                            </div>
+
+                            <p id="resultPerformanceMessage">
+                                Performance summary
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         PERFORMANCE STATISTICS
+                    ================================== -->
+
+                    <div class="result-statistics-grid">
+
+
+                        <!-- Correct -->
+
+                        <article class="ui-card result-stat-card">
+
+                            <span class="result-stat-label">
+                                Correct Answers
+                            </span>
+
+                            <strong
+                                class="result-stat-value"
+                                id="resultCorrectCount"
+                            >
+                                —
+                            </strong>
+
+                            <span class="result-stat-description">
+                                Successfully answered
+                            </span>
+
+                        </article>
+
+
+                        <!-- Incorrect -->
+
+                        <article class="ui-card result-stat-card">
+
+                            <span class="result-stat-label">
+                                Incorrect Answers
+                            </span>
+
+                            <strong
+                                class="result-stat-value"
+                                id="resultIncorrectCount"
+                            >
+                                —
+                            </strong>
+
+                            <span class="result-stat-description">
+                                Need improvement
+                            </span>
+
+                        </article>
+
+
+                        <!-- Unanswered -->
+
+                        <article class="ui-card result-stat-card">
+
+                            <span class="result-stat-label">
+                                Unanswered
+                            </span>
+
+                            <strong
+                                class="result-stat-value"
+                                id="resultUnansweredCount"
+                            >
+                                —
+                            </strong>
+
+                            <span class="result-stat-description">
+                                Questions skipped
+                            </span>
+
+                        </article>
+
+
+                        <!-- Accuracy -->
+
+                        <article class="ui-card result-stat-card">
+
+                            <span class="result-stat-label">
+                                Answer Accuracy
+                            </span>
+
+                            <strong
+                                class="result-stat-value"
+                                id="resultAccuracy"
+                            >
+                                —
+                            </strong>
+
+                            <span class="result-stat-description">
+                                Correct out of attempted
+                            </span>
+
+                        </article>
+
+                    </div>
+
+
+                    <!-- =================================
+                         ADDITIONAL DETAILS
+                    ================================== -->
+
+                    <div class="ui-card result-details-card">
+
+                        <h3>
+                            Examination Details
+                        </h3>
+
+                        <dl class="result-details-list">
+
+                            <div>
+
+                                <dt>
+                                    Total Questions
+                                </dt>
+
+                                <dd id="resultTotalQuestions">
+                                    —
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Questions Attempted
+                                </dt>
+
+                                <dd id="resultAttempted">
+                                    —
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Test Duration
+                                </dt>
+
+                                <dd id="resultDuration">
+                                    —
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Time Taken
+                                </dt>
+
+                                <dd id="resultTimeTaken">
+                                    —
+                                </dd>
+
+                            </div>
+
+                            <div>
+
+                                <dt>
+                                    Submitted On
+                                </dt>
+
+                                <dd id="resultSubmittedAt">
+                                    —
+                                </dd>
+
+                            </div>
+
+                        </dl>
+
+                    </div>
+
+
+                    <!-- Result Actions -->
+
+                    <div class="result-primary-actions">
+
+                        <a
+                            href="#answerReviewSection"
+                            class="btn btn-primary"
+                        >
+                            Review Your Answers
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="printResultButton"
+                        >
+                            Print Result
+                        </button>
+
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            More Mock Tests
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 ANSWER REVIEW SECTION
+            ====================================== -->
+
+            <section
+                class="section answer-review-section"
+                id="answerReviewSection"
+                aria-labelledby="answerReviewTitle"
+            >
+
+                <div class="container">
+
+
+                    <!-- Section Heading -->
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-eyebrow">
+                                Learn From Your Attempt
+                            </span>
+
+                            <h2 id="answerReviewTitle">
+                                Question-wise Answer Review
+                            </h2>
+
+                            <p>
+                                Compare your responses with the
+                                correct answers and review available
+                                explanations.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         ANSWER REVIEW FILTERS
+                    ================================== -->
+
+                    <div class="ui-card answer-review-toolbar">
+
+                        <div
+                            class="ui-tabs"
+                            id="answerReviewFilters"
+                            role="group"
+                            aria-label="Filter answer review"
+                        >
+
+                            <button
+                                type="button"
+                                class="ui-tab active"
+                                data-filter="all"
+                                aria-pressed="true"
+                            >
+                                All Questions
+                            </button>
+
+                            <button
+                                type="button"
+                                class="ui-tab"
+                                data-filter="correct"
+                                aria-pressed="false"
+                            >
+                                Correct
+                            </button>
+
+                            <button
+                                type="button"
+                                class="ui-tab"
+                                data-filter="incorrect"
+                                aria-pressed="false"
+                            >
+                                Incorrect
+                            </button>
+
+                            <button
+                                type="button"
+                                class="ui-tab"
+                                data-filter="unanswered"
+                                aria-pressed="false"
+                            >
+                                Unanswered
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- Review Count -->
+
+                    <p
+                        class="directory-result-count"
+                        id="answerReviewCount"
+                        aria-live="polite"
+                    ></p>
+
+
+                    <!-- =================================
+                         DYNAMIC ANSWER REVIEW
+                    ================================== -->
+
+                    <div
+                        class="answer-review-list"
+                        id="answerReviewList"
+                        aria-live="polite"
+                    ></div>
+
+
+                    <!-- =================================
+                         EMPTY FILTER STATE
+                    ================================== -->
+
+                    <template id="answerReviewEmptyTemplate">
+
+                        <div class="empty-state">
+
+                            <h3>
+                                No Questions Found
+                            </h3>
+
+                            <p>
+                                There are no questions matching
+                                the selected review filter.
+                            </p>
+
+                        </div>
+
+                    </template>
+
+                </div>
+
+            </section>
+
+
+            <!-- =====================================
+                 REVISION CTA
+            ====================================== -->
+
+            <section
+                class="cta-section"
+                aria-labelledby="resultCtaTitle"
+            >
+
+                <div class="container">
+
+                    <div class="cta-container">
+
+                        <span class="section-eyebrow">
+                            Keep Improving
+                        </span>
+
+                        <h2 id="resultCtaTitle">
+                            Every Attempt Is an Opportunity to Learn
+                        </h2>
+
+                        <p>
+                            Review your mistakes, strengthen your
+                            understanding, and continue preparing
+                            with structured lessons and mock tests.
+                        </p>
+
+                        <div class="hero-actions">
+
+                            <a
+                                href="subjects.html"
+                                class="btn btn-primary btn-large"
+                            >
+                                Explore Subjects
+                            </a>
+
+                            <a
+                                href="mock-tests.html"
+                                class="btn btn-outline btn-large"
+                            >
+                                Attempt Another Test
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </div>
+
+    </main>
+
+
+    <!-- =============================================
+         UNIVERSAL FOOTER
+    ============================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+
+            <!-- Main Footer -->
+
+            <div class="footer-main">
+
+
+                <!-- Brand -->
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep homepage"
+                    >
+
+                        <span
+                            class="logo-symbol"
+                            aria-hidden="true"
+                        >
+                            Y.
+                        </span>
+
+                        <span class="logo-text">
+                            Yadav<span>ExamPrep</span>
+                        </span>
+
+                    </a>
+
+                    <p>
+                        Free examination preparation through
+                        structured learning, concept practice,
+                        and meaningful mock tests.
+                    </p>
+
+                </div>
+
+
+                <!-- Explore -->
+
+                <div class="footer-column">
+
+                    <h3>Explore</h3>
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="learn.html">
+                        Learn
+                    </a>
+
+                </div>
+
+
+                <!-- Preparation -->
+
+                <div class="footer-column">
+
+                    <h3>Preparation</h3>
+
+                    <a href="mock-tests.html">
+                        Practice Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subject Learning
+                    </a>
+
+                    <a href="learn.html">
+                        Concept Revision
+                    </a>
+
+                </div>
+
+
+                <!-- Information -->
+
+                <div class="footer-column">
+
+                    <h3>Information</h3>
+
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact
+                    </a>
+
+                    <a href="admin/index.html">
+                        Administration
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bottom Footer -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy;
+                    <span id="currentYear">2026</span>
+                    Yadav ExamPrep. All Rights Reserved.
+                </p>
+
+                <p class="developer-credit">
+                    Designed and Developed by
+                    <span>Yadav Web Technologies</span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
