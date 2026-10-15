@@ -1,1107 +1,1226 @@
 
 /*
-=========================================================
+=====================================================
 YADAV EXAMPREP
 File: css/components.css
 
-Universal Component Design System
+CSS INTEGRATION — FULL FILE REPLACEMENT
+
 Designed and Developed by Yadav Web Technologies
-=========================================================
+
+RESPONSIBILITIES:
+- Buttons and links
+- Shared cards
+- Form controls
+- Search and filter controls
+- Tables
+- Pagination
+- Alerts and status messages
+- Loading and empty states
+- Modal components
+- Breadcrumbs and tabs
+- Progress bars
+- Contact information components
+
+DESIGN RULES:
+- Inherit typography tokens from style.css.
+- Universal 9px border radius.
+- No independent global reset.
+- Avoid page-specific component overrides.
+- No educational sample records.
+=====================================================
 */
 
+/* ================================================
+   01. SHARED COMPONENT FOUNDATIONS
+================================================ */
 
-/* =====================================================
-   01. UNIVERSAL COMPONENT VARIABLES
-===================================================== */
-
-:root {
-
-    --component-bg: #FFFFFF;
-    --component-hover: #F8F9FA;
-
-    --component-border: 1px solid var(--border-color);
-    --component-radius: 9px;
-
-    --component-padding: 24px;
-
-    --input-height: 46px;
-
-    --card-transition:
-        background-color 250ms ease,
-        border-color 250ms ease,
-        transform 250ms ease;
-
-}
-
-
-/* =====================================================
-   02. UNIVERSAL CARD
-===================================================== */
-
-.ui-card {
+:where(
+    .btn,
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card,
+    .form-control,
+    .form-input,
+    .form-select,
+    .form-textarea,
+    .search-box,
+    .ui-alert,
+    .empty-state,
+    .modal-dialog
+) {
     min-width: 0;
-
-    padding: var(--component-padding);
-
-    background: var(--component-bg);
-
-    border: var(--component-border);
-    border-radius: var(--component-radius);
-
-    transition: var(--card-transition);
 }
 
-.ui-card-hover:hover {
-    background: var(--component-hover);
-    border-color: var(--secondary);
-
-    transform: translateY(-3px);
+:where(
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+) {
+    overflow-wrap: break-word;
 }
 
-.ui-card-header {
+/*
+    Shared cards use their own component styling.
+    Their grid arrangement remains in style.css.
+*/
+
+.ui-card,
+.exam-card,
+.subject-card,
+.mock-card,
+.feature-card,
+.learning-card {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
 
-    gap: 16px;
-    margin-bottom: 20px;
+    gap: var(--space-4);
+    padding: var(--space-6);
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--background);
+    box-shadow: var(--shadow-sm);
+
+    transition:
+        border-color var(--transition-base),
+        box-shadow var(--transition-base),
+        transform var(--transition-base);
 }
 
-.ui-card-title {
+:is(
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+):hover {
+    border-color: var(--border-strong);
+    box-shadow: var(--shadow-md);
+}
+
+:is(
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+) h3 {
     margin: 0;
 
-    font-size: 18px;
+    font-size: var(--font-lg);
     font-weight: 700;
-    letter-spacing: -0.025em;
+    line-height: var(--line-heading);
+    letter-spacing: -0.015em;
 }
 
-.ui-card-description {
-    margin: 10px 0 0;
-
-    font-size: 14px;
-    line-height: 1.75;
+:is(
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+) p {
+    margin: 0;
 
     color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
 }
 
-.ui-card-footer {
-    display: flex;
+:is(
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+) > .text-link {
+    margin-top: auto;
+}
+
+/* ================================================
+   02. BUTTON SYSTEM
+================================================ */
+
+.btn {
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    gap: var(--space-2);
 
-    gap: 12px;
+    min-height: 44px;
+    max-width: 100%;
+    padding: 11px 20px;
 
-    margin-top: 24px;
-    padding-top: 18px;
+    border: 1px solid transparent;
+    border-radius: var(--radius);
 
-    border-top: var(--border);
+    font-family: inherit;
+    font-size: var(--font-sm);
+    font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
+
+    white-space: normal;
+    overflow-wrap: break-word;
+
+    cursor: pointer;
+    user-select: none;
+
+    transition:
+        background-color var(--transition-fast),
+        border-color var(--transition-fast),
+        color var(--transition-fast),
+        box-shadow var(--transition-fast),
+        transform var(--transition-fast);
 }
 
+.btn svg {
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
 
-/* =====================================================
-   03. SVG ICON SYSTEM
-===================================================== */
+.btn-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+.btn-primary:hover:not(:disabled) {
+    border-color: var(--primary-hover);
+    background: var(--primary-hover);
+    color: var(--text-inverse);
+}
+
+.btn-outline,
+.btn-secondary {
+    border-color: var(--border-color);
+    background: var(--background);
+    color: var(--primary);
+}
+
+.btn-outline:hover:not(:disabled),
+.btn-secondary:hover:not(:disabled) {
+    border-color: var(--primary);
+    background: var(--surface);
+    color: var(--primary);
+}
+
+.btn-ghost {
+    border-color: transparent;
+    background: transparent;
+    color: var(--primary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+    background: var(--surface);
+}
+
+.btn-danger {
+    border-color: #991b1b;
+    background: #991b1b;
+    color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+    border-color: #7f1d1d;
+    background: #7f1d1d;
+    color: #ffffff;
+}
+
+.btn-sm {
+    min-height: 36px;
+    padding: 7px 12px;
+    font-size: var(--font-xs);
+}
+
+.btn-lg {
+    min-height: 50px;
+    padding: 13px 24px;
+    font-size: var(--font-base);
+}
+
+.btn-block,
+.btn-full {
+    display: flex;
+    width: 100%;
+}
+
+.btn:disabled,
+.btn[aria-disabled="true"] {
+    opacity: 0.5;
+    cursor: not-allowed;
+    box-shadow: none;
+}
+
+.btn:focus-visible {
+    outline-offset: 3px;
+}
+
+/* ================================================
+   03. TEXT LINKS
+================================================ */
+
+.text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+
+    max-width: 100%;
+    min-height: 30px;
+
+    color: var(--primary);
+    font-size: var(--font-sm);
+    font-weight: 700;
+    line-height: 1.5;
+
+    overflow-wrap: anywhere;
+
+    text-decoration: underline;
+    text-decoration-color: var(--border-strong);
+    text-underline-offset: 4px;
+}
+
+.text-link:hover {
+    color: var(--secondary);
+    text-decoration-color: currentColor;
+}
+
+.text-link svg {
+    width: 16px;
+    height: 16px;
+}
+
+/* ================================================
+   04. ICON COMPONENT
+================================================ */
 
 .ui-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
-    width: 42px;
-    height: 42px;
-
     flex-shrink: 0;
 
-    color: var(--primary);
-    background: var(--surface);
+    width: 48px;
+    height: 48px;
 
     border: var(--border);
     border-radius: var(--radius);
+
+    background: var(--surface);
+    color: var(--primary);
 }
 
 .ui-icon svg {
-    width: 21px;
-    height: 21px;
-
-    fill: none;
-    stroke: currentColor;
-
-    stroke-width: 1.8;
-    stroke-linecap: round;
-    stroke-linejoin: round;
+    display: block;
+    width: 24px;
+    height: 24px;
+    max-width: 100%;
 }
 
 .ui-icon-sm {
-    width: 34px;
-    height: 34px;
+    width: 36px;
+    height: 36px;
 }
 
 .ui-icon-sm svg {
-    width: 17px;
-    height: 17px;
-}
-
-.ui-icon-lg {
-    width: 52px;
-    height: 52px;
-}
-
-.ui-icon-lg svg {
-    width: 25px;
-    height: 25px;
-}
-
-
-/* =====================================================
-   04. EXAMINATION CARDS
-===================================================== */
-
-.exam-card {
-    display: flex;
-    flex-direction: column;
-
-    min-width: 0;
-    height: 100%;
-
-    padding: 24px;
-
-    background: #FFFFFF;
-
-    border: var(--border);
-    border-radius: var(--radius);
-
-    transition: var(--card-transition);
-}
-
-.exam-card:hover {
-    background: var(--surface-hover);
-    border-color: var(--secondary);
-
-    transform: translateY(-3px);
-}
-
-.exam-card-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-
-    gap: 12px;
-    margin-bottom: 26px;
-}
-
-.exam-card h3 {
-    margin: 0 0 10px;
-
-    font-size: 18px;
-    letter-spacing: -0.025em;
-}
-
-.exam-card p {
-    margin: 0;
-
-    font-size: 13px;
-    line-height: 1.75;
-}
-
-.exam-card-meta {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-
-    gap: 8px 14px;
-
-    margin-top: 20px;
-
-    font-size: 12px;
-    color: var(--secondary);
-}
-
-.exam-card-footer {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 12px;
-
-    margin-top: auto;
-    padding-top: 22px;
-}
-
-.exam-card-footer a {
-    display: inline-flex;
-    align-items: center;
-
-    gap: 8px;
-
-    font-size: 13px;
-    font-weight: 700;
-}
-
-.exam-card-footer a:hover {
-    text-decoration: underline;
-}
-
-
-/* =====================================================
-   05. SUBJECT CARDS
-===================================================== */
-
-.subject-card {
-    display: flex;
-    align-items: center;
-
-    gap: 16px;
-
-    min-width: 0;
-    min-height: 105px;
-
-    padding: 20px;
-
-    background: #FFFFFF;
-
-    border: var(--border);
-    border-radius: var(--radius);
-
-    transition: var(--card-transition);
-}
-
-.subject-card:hover {
-    background: var(--surface-hover);
-    border-color: var(--secondary);
-
-    transform: translateY(-3px);
-}
-
-.subject-card-content {
-    flex: 1;
-    min-width: 0;
-}
-
-.subject-card h3 {
-    margin: 0 0 5px;
-
-    font-size: 15px;
-    font-weight: 700;
-}
-
-.subject-card p {
-    margin: 0;
-
-    font-size: 12px;
-    color: var(--secondary);
-}
-
-.subject-card-arrow {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 28px;
-    height: 28px;
-
-    color: var(--secondary);
-
-    transition:
-        color var(--transition-normal),
-        transform var(--transition-normal);
-}
-
-.subject-card-arrow svg {
     width: 18px;
     height: 18px;
 }
 
-.subject-card:hover .subject-card-arrow {
-    color: var(--primary);
-    transform: translateX(4px);
+.ui-icon-lg {
+    width: 56px;
+    height: 56px;
 }
 
-
-/* =====================================================
-   06. MOCK TEST CARDS
-===================================================== */
-
-.mock-card {
-    display: flex;
-    flex-direction: column;
-
-    min-width: 0;
-    height: 100%;
-
-    padding: 24px;
-
-    background: #FFFFFF;
-
-    border: var(--border);
-    border-radius: var(--radius);
-
-    transition: var(--card-transition);
+.ui-icon-lg svg {
+    width: 28px;
+    height: 28px;
 }
 
-.mock-card:hover {
-    border-color: var(--secondary);
-    transform: translateY(-3px);
-}
-
-.mock-card-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 12px;
-    margin-bottom: 22px;
-}
-
-.mock-card h3 {
-    margin: 0 0 12px;
-
-    font-size: 18px;
-    letter-spacing: -0.025em;
-}
-
-.mock-card-description {
-    margin-bottom: 22px;
-
-    font-size: 13px;
-    line-height: 1.8;
-}
-
-.mock-card-details {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-
-    gap: 16px;
-    padding: 18px 0;
-
-    border-top: var(--border);
-    border-bottom: var(--border);
-}
-
-.mock-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
-}
-
-.mock-detail-label {
-    font-size: 11px;
-    color: var(--secondary);
-}
-
-.mock-detail-value {
-    font-size: 14px;
-    font-weight: 700;
-    color: var(--primary);
-}
-
-.mock-card-footer {
-    margin-top: auto;
-    padding-top: 22px;
-}
-
-.mock-card-footer .btn {
-    width: 100%;
-}
-
-
-/* =====================================================
-   07. UNIVERSAL BADGES
-===================================================== */
+/* ================================================
+   05. BADGES
+================================================ */
 
 .ui-badge {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-
     gap: 6px;
 
     max-width: 100%;
-    padding: 5px 10px;
-
-    background: var(--surface);
-    color: var(--secondary);
+    min-height: 26px;
+    padding: 4px 10px;
 
     border: var(--border);
     border-radius: var(--radius);
 
-    font-size: 11px;
+    background: var(--surface);
+    color: var(--text-secondary);
+
+    font-size: var(--font-xs);
+    font-weight: 600;
+    line-height: 1.4;
+
+    overflow-wrap: anywhere;
+}
+
+.badge-primary {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+.badge-success {
+    border-color: #bbd7c4;
+    background: #f0fdf4;
+    color: #166534;
+}
+
+.badge-warning {
+    border-color: #f2d9a5;
+    background: #fffbeb;
+    color: #92400e;
+}
+
+.badge-danger,
+.badge-error {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.badge-muted {
+    border-color: var(--border-color);
+    background: var(--surface);
+    color: var(--text-muted);
+}
+
+/* ================================================
+   06. EXAM, SUBJECT AND MOCK CARDS
+================================================ */
+
+.exam-card,
+.subject-card,
+.mock-card {
+    height: 100%;
+}
+
+.exam-card > .ui-icon,
+.subject-card > .ui-icon,
+.mock-card > .ui-icon {
+    margin-bottom: var(--space-1);
+}
+
+.exam-card h3,
+.subject-card h3,
+.mock-card h3 {
+    width: 100%;
+}
+
+.exam-card > p,
+.subject-card > p,
+.mock-card > p {
+    flex-grow: 1;
+}
+
+.mock-card-meta,
+.exam-card-meta,
+.subject-card-meta {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2) var(--space-4);
+
+    width: 100%;
+}
+
+.mock-card-meta > span,
+.exam-card-meta > span,
+.subject-card-meta > span {
+    color: var(--text-muted);
+    font-size: var(--font-xs);
+    font-weight: 500;
+    line-height: 1.5;
+}
+
+.mock-card-meta > span + span::before {
+    content: "";
+    display: inline-block;
+
+    width: 4px;
+    height: 4px;
+    margin-right: var(--space-2);
+
+    border-radius: 50%;
+    background: var(--border-strong);
+
+    vertical-align: middle;
+}
+
+/* ================================================
+   07. FEATURE AND LEARNING CARDS
+================================================ */
+
+.feature-card,
+.learning-card {
+    height: 100%;
+}
+
+.feature-card .ui-icon,
+.learning-card .ui-icon {
+    margin-bottom: var(--space-1);
+}
+
+.step-number {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 40px;
+    height: 40px;
+
+    border: var(--border);
+    border-radius: var(--radius);
+
+    background: var(--surface);
+    color: var(--primary);
+
+    font-size: var(--font-sm);
+    font-weight: 700;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+}
+
+.learning-card .text-link {
+    margin-top: auto;
+}
+
+/* ================================================
+   08. FORM SYSTEM
+================================================ */
+
+.form-group,
+.form-field {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: var(--space-2);
+
+    min-width: 0;
+}
+
+.form-group > label,
+.form-field > label,
+.form-label {
+    display: block;
+
+    margin: 0;
+
+    color: var(--text-primary);
+    font-size: var(--font-sm);
     font-weight: 600;
     line-height: 1.5;
 }
 
-.badge-dark {
-    background: var(--primary);
-    border-color: var(--primary);
-    color: #FFFFFF;
+.form-help,
+.form-hint {
+    margin: 0;
+
+    color: var(--text-muted);
+    font-size: var(--font-xs);
+    line-height: 1.6;
 }
 
-.badge-success {
-    background: #F0FDF4;
-    border-color: #BBF7D0;
-    color: var(--success);
+.form-error {
+    margin: 0;
+
+    color: #991b1b;
+    font-size: var(--font-xs);
+    font-weight: 500;
+    line-height: 1.5;
 }
 
-.badge-error {
-    background: #FEF2F2;
-    border-color: #FECACA;
-    color: var(--error);
-}
+/*
+    Input appearance belongs to the component layer.
 
-.badge-warning {
-    background: #FFFBEB;
-    border-color: #FDE68A;
-    color: var(--warning);
-}
+    Do not apply full borders/backgrounds to every
+    input globally because checkbox/radio controls
+    require different presentation.
+*/
 
-
-/* =====================================================
-   08. UNIVERSAL FORM SYSTEM
-===================================================== */
-
-.ui-form {
-    width: 100%;
-}
-
-.form-group {
-    display: flex;
-    flex-direction: column;
-
-    gap: 8px;
-    margin-bottom: 20px;
-}
-
-.form-label {
-    font-size: 13px;
-    font-weight: 600;
-    color: var(--primary);
-}
-
-.form-required {
-    color: var(--error);
-}
-
+.form-control,
 .form-input,
 .form-select,
-.form-textarea {
+.form-textarea,
+.form-group > :is(
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+    select,
+    textarea
+),
+.form-field > :is(
+    input:not([type="checkbox"]):not([type="radio"]):not([type="hidden"]),
+    select,
+    textarea
+) {
     display: block;
 
     width: 100%;
     min-width: 0;
+    min-height: 44px;
 
-    padding: 11px 14px;
-
-    background: #FFFFFF;
-    color: var(--primary);
+    padding: 10px 13px;
 
     border: var(--border);
     border-radius: var(--radius);
 
-    font-size: 14px;
+    background-color: var(--background);
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: var(--font-sm);
+    font-weight: 400;
     line-height: 1.5;
+
+    box-shadow: none;
 
     transition:
         border-color var(--transition-fast),
-        box-shadow var(--transition-fast),
-        background-color var(--transition-fast);
+        background-color var(--transition-fast),
+        box-shadow var(--transition-fast);
 }
 
-.form-input,
-.form-select {
-    min-height: var(--input-height);
+.form-control::placeholder,
+.form-input::placeholder,
+.form-textarea::placeholder,
+.form-group input::placeholder,
+.form-group textarea::placeholder,
+.form-field input::placeholder,
+.form-field textarea::placeholder {
+    color: var(--text-muted);
+    opacity: 1;
 }
 
-.form-textarea {
+.form-control:hover:not(:disabled),
+.form-input:hover:not(:disabled),
+.form-select:hover:not(:disabled),
+.form-textarea:hover:not(:disabled),
+.form-group > :is(input, select, textarea):hover:not(:disabled),
+.form-field > :is(input, select, textarea):hover:not(:disabled) {
+    border-color: var(--border-strong);
+}
+
+.form-control:focus,
+.form-input:focus,
+.form-select:focus,
+.form-textarea:focus,
+.form-group > :is(input, select, textarea):focus,
+.form-field > :is(input, select, textarea):focus {
+    border-color: var(--primary);
+    outline: 2px solid rgb(17 17 17 / 10%);
+    outline-offset: 1px;
+}
+
+.form-control:disabled,
+.form-input:disabled,
+.form-select:disabled,
+.form-textarea:disabled,
+.form-group > :is(input, select, textarea):disabled,
+.form-field > :is(input, select, textarea):disabled {
+    background-color: var(--surface);
+    color: var(--text-muted);
+    cursor: not-allowed;
+    opacity: 0.75;
+}
+
+:is(
+    .form-control,
+    .form-input,
+    .form-select,
+    .form-textarea
+)[aria-invalid="true"],
+.form-group > :is(input, select, textarea)[aria-invalid="true"] {
+    border-color: #991b1b;
+}
+
+/* ================================================
+   09. SELECT CONTROLS
+================================================ */
+
+.form-select,
+.form-group > select,
+.form-field > select {
+    padding-right: 38px;
+
+    appearance: none;
+    -webkit-appearance: none;
+
+    background-image:
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 16px 16px;
+}
+
+.form-select option,
+.form-group select option,
+.form-field select option {
+    color: var(--text-primary);
+    background-color: var(--background);
+}
+
+/* ================================================
+   10. TEXTAREA AND CHECK CONTROLS
+================================================ */
+
+.form-textarea,
+.form-group > textarea,
+.form-field > textarea {
     min-height: 110px;
     resize: vertical;
 }
 
-.form-input::placeholder,
-.form-textarea::placeholder {
-    color: var(--text-muted);
-}
-
-.form-input:hover,
-.form-select:hover,
-.form-textarea:hover {
-    border-color: var(--secondary);
-}
-
-.form-input:focus,
-.form-select:focus,
-.form-textarea:focus {
-    outline: none;
-
-    border-color: var(--primary);
-    box-shadow: 0 0 0 3px rgba(17, 17, 17, 0.08);
-}
-
-.form-input:disabled,
-.form-select:disabled,
-.form-textarea:disabled {
-    background: var(--surface);
-    cursor: not-allowed;
-    opacity: 0.7;
-}
-
-.form-help {
-    font-size: 12px;
-    color: var(--secondary);
-}
-
-.form-error {
-    font-size: 12px;
-    color: var(--error);
-}
-
-.form-input.is-invalid,
-.form-select.is-invalid,
-.form-textarea.is-invalid {
-    border-color: var(--error);
-}
-
-.form-select {
-    appearance: none;
-    -webkit-appearance: none;
-
-    padding-right: 42px;
-
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23111111' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
-
-    background-repeat: no-repeat;
-    background-position: right 14px center;
-    background-size: 16px;
-}
-
-
-/* =====================================================
-   09. CHECKBOX AND RADIO
-===================================================== */
-
-.form-check {
-    display: flex;
-    align-items: flex-start;
-
-    gap: 10px;
-
-    font-size: 13px;
-    color: var(--text-primary);
-
-    cursor: pointer;
-}
-
-.form-check input {
-    width: 17px;
-    height: 17px;
-
+input[type="checkbox"],
+input[type="radio"] {
     flex-shrink: 0;
 
-    margin: 2px 0 0;
+    width: 17px;
+    height: 17px;
+    margin: 0;
 
     accent-color: var(--primary);
     cursor: pointer;
 }
 
+input[type="checkbox"]:disabled,
+input[type="radio"]:disabled {
+    cursor: not-allowed;
+}
 
-/* =====================================================
-   10. SEARCH COMPONENT
-===================================================== */
+.checkbox-label,
+.radio-label {
+    display: inline-flex;
+    align-items: flex-start;
+    gap: var(--space-2);
+
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+
+    cursor: pointer;
+}
+
+.form-grid,
+.learning-selection-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-5);
+}
+
+.form-grid > *,
+.learning-selection-grid > * {
+    min-width: 0;
+}
+
+.form-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+
+    margin-top: var(--space-6);
+}
+
+/* ================================================
+   11. SEARCH AND FILTER COMPONENTS
+================================================ */
 
 .search-box {
+    position: relative;
     display: flex;
     align-items: center;
 
-    gap: 10px;
-
     width: 100%;
-    min-height: 46px;
+    min-width: 0;
+}
 
-    padding: 0 14px;
+.search-box > svg,
+.search-box > .search-icon {
+    position: absolute;
+    top: 50%;
+    left: 13px;
 
-    background: #FFFFFF;
+    width: 18px;
+    height: 18px;
+
+    color: var(--text-muted);
+
+    pointer-events: none;
+    transform: translateY(-50%);
+}
+
+.search-box input {
+    width: 100%;
+    min-width: 0;
+    min-height: 44px;
+
+    padding: 10px 13px 10px 42px;
 
     border: var(--border);
     border-radius: var(--radius);
 
-    transition: border-color var(--transition-fast);
+    background: var(--background);
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: var(--font-sm);
+    line-height: 1.5;
 }
 
-.search-box:focus-within {
+.search-box input:focus {
     border-color: var(--primary);
-}
-
-.search-box svg {
-    width: 18px;
-    height: 18px;
-
-    color: var(--secondary);
-}
-
-.search-box input {
-    flex: 1;
-    min-width: 0;
-
-    border: none;
-    outline: none;
-
-    background: transparent;
-    color: var(--primary);
-
-    font-size: 14px;
+    outline: 2px solid rgb(17 17 17 / 10%);
+    outline-offset: 1px;
 }
 
 .search-box input::placeholder {
     color: var(--text-muted);
+    opacity: 1;
 }
-
-
-/* =====================================================
-   11. FILTER BAR
-===================================================== */
 
 .filter-bar {
     display: flex;
-    align-items: center;
+    align-items: end;
     flex-wrap: wrap;
+    gap: var(--space-4);
 
-    gap: 12px;
-
-    margin-bottom: 24px;
+    width: 100%;
+    min-width: 0;
+    margin-bottom: var(--space-6);
 }
 
-.filter-bar .search-box {
+.filter-bar > .search-box,
+.filter-bar > .form-group:first-child {
     flex: 1 1 250px;
 }
 
-.filter-bar .form-select {
-    flex: 0 1 190px;
+.filter-bar > .form-group {
+    flex: 0 1 200px;
 }
 
+.filter-bar > .btn {
+    flex-shrink: 0;
+}
 
-/* =====================================================
-   12. UNIVERSAL TABLE
-===================================================== */
+.filter-results,
+.result-count {
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+}
+
+/* ================================================
+   12. TABLES
+================================================ */
 
 .table-container {
     width: 100%;
     min-width: 0;
+    max-width: 100%;
 
     overflow-x: auto;
-
-    background: #FFFFFF;
+    overscroll-behavior-x: contain;
 
     border: var(--border);
     border-radius: var(--radius);
 
+    background: var(--background);
+
     -webkit-overflow-scrolling: touch;
 }
 
+/*
+    Any necessary horizontal table scrolling
+    remains inside the table container, never
+    across the entire page.
+*/
+
 .ui-table {
     width: 100%;
+    min-width: 640px;
 
     border-collapse: collapse;
 
-    font-size: 13px;
+    background: var(--background);
+
+    font-size: var(--font-sm);
+    line-height: 1.5;
+    text-align: left;
+}
+
+.ui-table thead {
+    background: var(--surface);
+}
+
+.ui-table th,
+.ui-table td {
+    padding: 13px 16px;
+
+    border-bottom: var(--border);
+
+    vertical-align: middle;
     text-align: left;
 }
 
 .ui-table th {
-    padding: 15px 18px;
-
-    background: var(--surface);
-
-    color: var(--secondary);
-
-    font-size: 11px;
+    color: var(--text-primary);
+    font-size: var(--font-xs);
     font-weight: 700;
-
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-
-    border-bottom: var(--border);
+    letter-spacing: 0.025em;
 }
 
 .ui-table td {
-    padding: 15px 18px;
-
-    color: var(--text-primary);
-    border-bottom: var(--border);
-
-    vertical-align: middle;
+    color: var(--text-secondary);
+    overflow-wrap: anywhere;
 }
 
 .ui-table tbody tr:last-child td {
-    border-bottom: none;
+    border-bottom: 0;
 }
 
 .ui-table tbody tr:hover {
-    background: var(--surface-hover);
+    background: var(--surface);
 }
 
+.ui-table .table-primary {
+    color: var(--text-primary);
+    font-weight: 600;
+}
 
-/* =====================================================
+.table-actions {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+}
+
+/* ================================================
    13. PAGINATION
-===================================================== */
+================================================ */
 
 .pagination {
     display: flex;
     align-items: center;
     justify-content: center;
-
     flex-wrap: wrap;
-    gap: 8px;
+    gap: var(--space-2);
 
-    margin-top: 30px;
+    width: 100%;
+    margin-top: var(--space-8);
 }
 
-.page-btn {
+.pagination button,
+.pagination a,
+.pagination .page-number {
     display: inline-flex;
     align-items: center;
     justify-content: center;
 
-    min-width: 40px;
-    min-height: 40px;
-
-    padding: 8px 12px;
-
-    background: #FFFFFF;
-    color: var(--primary);
+    min-width: 38px;
+    min-height: 38px;
+    padding: 7px 11px;
 
     border: var(--border);
     border-radius: var(--radius);
 
-    font-size: 13px;
+    background: var(--background);
+    color: var(--text-primary);
+
+    font-family: inherit;
+    font-size: var(--font-sm);
     font-weight: 600;
+    line-height: 1.4;
+    text-align: center;
+    text-decoration: none;
 
-    transition:
-        background-color var(--transition-fast),
-        border-color var(--transition-fast);
+    cursor: pointer;
 }
 
-.page-btn:hover {
-    background: var(--surface-hover);
-    border-color: var(--secondary);
-}
-
-.page-btn.active {
-    background: var(--primary);
+.pagination button:hover:not(:disabled),
+.pagination a:hover {
     border-color: var(--primary);
-    color: #FFFFFF;
+    background: var(--surface);
+    color: var(--primary);
 }
 
-.page-btn:disabled {
+.pagination :is(
+    button,
+    a,
+    .page-number
+).active,
+.pagination [aria-current="page"] {
+    border-color: var(--primary);
+    background: var(--primary);
+    color: var(--text-inverse);
+}
+
+.pagination button:disabled {
     opacity: 0.45;
     cursor: not-allowed;
 }
 
-
-/* =====================================================
+/* ================================================
    14. ALERTS
-===================================================== */
+================================================ */
 
 .ui-alert {
     display: flex;
     align-items: flex-start;
+    gap: var(--space-3);
 
-    gap: 12px;
-
-    padding: 16px;
-
-    background: var(--surface);
+    width: 100%;
+    padding: var(--space-4);
 
     border: var(--border);
     border-radius: var(--radius);
 
-    font-size: 13px;
-    line-height: 1.7;
+    background: var(--surface);
+    color: var(--text-primary);
 }
 
-.ui-alert svg {
-    width: 19px;
-    height: 19px;
-
+.ui-alert > svg {
+    width: 20px;
+    height: 20px;
     flex-shrink: 0;
 }
 
-.alert-success {
-    background: #F0FDF4;
-    border-color: #BBF7D0;
-    color: var(--success);
+.ui-alert h3,
+.ui-alert h4 {
+    margin: 0 0 var(--space-1);
+
+    font-size: var(--font-sm);
+    font-weight: 700;
 }
 
-.alert-error {
-    background: #FEF2F2;
-    border-color: #FECACA;
-    color: var(--error);
+.ui-alert p {
+    color: inherit;
+    font-size: var(--font-sm);
+    line-height: 1.6;
 }
 
-.alert-warning {
-    background: #FFFBEB;
-    border-color: #FDE68A;
-    color: var(--warning);
+.ui-alert-success {
+    border-color: #bbd7c4;
+    background: #f0fdf4;
+    color: #166534;
 }
 
+.ui-alert-warning {
+    border-color: #f2d9a5;
+    background: #fffbeb;
+    color: #92400e;
+}
 
-/* =====================================================
-   15. EMPTY STATES
-===================================================== */
+.ui-alert-error,
+.ui-alert-danger {
+    border-color: #fecaca;
+    background: #fef2f2;
+    color: #991b1b;
+}
 
-.empty-state {
+.ui-alert-info {
+    border-color: var(--border-color);
+    background: var(--surface);
+    color: var(--text-primary);
+}
+
+/* ================================================
+   15. EMPTY AND LOADING STATES
+================================================ */
+
+.empty-state,
+.content-placeholder {
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    gap: var(--space-3);
 
-    min-height: 240px;
+    width: 100%;
+    min-width: 0;
+    min-height: 210px;
 
-    padding: 32px 20px;
-
-    background: var(--surface);
+    padding: var(--space-10) var(--space-6);
 
     border: var(--border);
     border-radius: var(--radius);
 
+    background: var(--surface);
     text-align: center;
 }
 
 .empty-state .ui-icon {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-2);
 }
 
-.empty-state h3 {
-    margin-bottom: 10px;
-    font-size: 17px;
-}
-
-.empty-state p {
-    max-width: 380px;
-
+.empty-state h3,
+.content-placeholder h1,
+.content-placeholder h2,
+.content-placeholder h3 {
     margin: 0;
 
-    font-size: 13px;
-    line-height: 1.8;
+    font-size: var(--font-lg);
+    font-weight: 700;
+    line-height: var(--line-heading);
 }
 
+.empty-state p,
+.content-placeholder p {
+    max-width: 480px;
 
-/* =====================================================
-   16. LOADING COMPONENTS
-===================================================== */
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
+}
+
+.empty-state .btn,
+.content-placeholder .btn {
+    margin-top: var(--space-3);
+}
+
+/* Spinner */
 
 .ui-spinner {
     display: inline-block;
+    flex-shrink: 0;
 
-    width: 26px;
-    height: 26px;
+    width: 24px;
+    height: 24px;
 
     border: 2px solid var(--border-color);
     border-top-color: var(--primary);
-
     border-radius: 50%;
 
-    animation: ui-spin 750ms linear infinite;
+    animation: ui-spinner-rotate 750ms linear infinite;
 }
 
-@keyframes ui-spin {
+@keyframes ui-spinner-rotate {
     to {
         transform: rotate(360deg);
     }
 }
 
-.loading-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    gap: 14px;
-
-    min-height: 180px;
-}
-
-.loading-text {
-    font-size: 13px;
-    color: var(--secondary);
-}
+/* Skeleton */
 
 .skeleton {
+    display: block;
+
+    border-radius: var(--radius);
+
     background: linear-gradient(
         90deg,
-        #F3F4F6 25%,
-        #E5E7EB 50%,
-        #F3F4F6 75%
+        #e5e7eb 0%,
+        #f3f4f6 45%,
+        #e5e7eb 100%
     );
 
     background-size: 200% 100%;
 
-    border-radius: var(--radius);
-
-    animation: skeleton-loading 1.5s ease-in-out infinite;
+    animation: ui-skeleton-pulse 1.4s ease-in-out infinite;
 }
 
-@keyframes skeleton-loading {
-    from {
-        background-position: 200% 0;
-    }
-
-    to {
-        background-position: -200% 0;
-    }
-}
-
-
-/* =====================================================
-   17. MODAL SYSTEM
-===================================================== */
-
-.modal-overlay {
-    position: fixed;
-    inset: 0;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    padding: 20px;
-
-    background: rgba(17, 17, 17, 0.55);
-
-    z-index: var(--z-modal);
-
-    opacity: 0;
-    visibility: hidden;
-    pointer-events: none;
-
-    transition:
-        opacity var(--transition-normal),
-        visibility var(--transition-normal);
-}
-
-.modal-overlay.is-open {
-    opacity: 1;
-    visibility: visible;
-    pointer-events: auto;
-}
-
-.modal-dialog {
+.skeleton-text {
     width: 100%;
-    max-width: 520px;
-    max-height: calc(100dvh - 40px);
-
-    overflow-y: auto;
-
-    padding: 28px;
-
-    background: #FFFFFF;
-
-    border: var(--border);
-    border-radius: var(--radius);
-
-    transform: translateY(15px);
-
-    transition: transform var(--transition-normal);
+    height: 14px;
 }
 
-.modal-overlay.is-open .modal-dialog {
-    transform: translateY(0);
+.skeleton-title {
+    width: 65%;
+    height: 24px;
 }
 
-.modal-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 16px;
-
-    margin-bottom: 20px;
+.skeleton-card {
+    min-height: 180px;
 }
 
-.modal-title {
-    margin: 0;
-    font-size: 20px;
+@keyframes ui-skeleton-pulse {
+    0% {
+        background-position: 100% 0;
+    }
+
+    100% {
+        background-position: -100% 0;
+    }
 }
 
-.modal-close {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    width: 38px;
-    height: 38px;
-
-    background: #FFFFFF;
-
-    border: var(--border);
-    border-radius: var(--radius);
-}
-
-.modal-close:hover {
-    background: var(--surface-hover);
-}
-
-.modal-close svg {
-    width: 18px;
-    height: 18px;
-}
-
-.modal-footer {
-    display: flex;
-    align-items: center;
-    justify-content: flex-end;
-
-    flex-wrap: wrap;
-    gap: 10px;
-
-    margin-top: 26px;
-}
-
-
-/* =====================================================
-   18. BREADCRUMBS
-===================================================== */
+/* ================================================
+   16. BREADCRUMBS
+================================================ */
 
 .breadcrumb {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
+    gap: var(--space-2);
 
-    gap: 9px;
+    min-width: 0;
+    margin-bottom: var(--space-8);
 
-    margin-bottom: 24px;
+    color: var(--text-muted);
+    font-size: var(--font-xs);
+    line-height: 1.6;
+}
 
-    font-size: 12px;
-    color: var(--secondary);
+.breadcrumb a {
+    color: var(--text-secondary);
+    text-decoration: none;
 }
 
 .breadcrumb a:hover {
     color: var(--primary);
     text-decoration: underline;
+    text-underline-offset: 3px;
 }
 
-.breadcrumb .current {
+.breadcrumb [aria-current="page"] {
     color: var(--primary);
     font-weight: 600;
+    overflow-wrap: anywhere;
 }
 
-.breadcrumb-separator {
-    color: var(--text-muted);
-}
-
-
-/* =====================================================
-   19. TABS
-===================================================== */
+/* ================================================
+   17. TABS
+================================================ */
 
 .ui-tabs {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-2);
 
-    gap: 6px;
+    width: 100%;
+    min-width: 0;
 
-    padding-bottom: 10px;
-    margin-bottom: 24px;
+    padding: var(--space-1);
 
-    border-bottom: var(--border);
+    border: var(--border);
+    border-radius: var(--radius);
 
-    overflow-x: auto;
-    scrollbar-width: thin;
+    background: var(--surface);
 }
 
 .ui-tab {
@@ -1109,163 +1228,367 @@ Designed and Developed by Yadav Web Technologies
     align-items: center;
     justify-content: center;
 
-    min-height: 40px;
-
-    padding: 9px 16px;
-
-    flex-shrink: 0;
-
-    background: transparent;
-    color: var(--secondary);
+    min-height: 38px;
+    padding: 8px 14px;
 
     border: 1px solid transparent;
     border-radius: var(--radius);
 
-    font-size: 13px;
-    font-weight: 600;
+    background: transparent;
+    color: var(--text-secondary);
 
-    transition:
-        background-color var(--transition-fast),
-        color var(--transition-fast);
+    font-family: inherit;
+    font-size: var(--font-sm);
+    font-weight: 500;
+    line-height: 1.4;
+
+    cursor: pointer;
 }
 
 .ui-tab:hover {
-    background: var(--surface);
+    background: var(--surface-hover);
     color: var(--primary);
 }
 
-.ui-tab.active {
-    background: var(--primary);
-    color: #FFFFFF;
+.ui-tab.active,
+.ui-tab[aria-selected="true"],
+.ui-tab[aria-pressed="true"] {
+    border-color: var(--border-color);
+    background: var(--background);
+    color: var(--primary);
+    font-weight: 700;
+    box-shadow: var(--shadow-sm);
 }
 
-
-/* =====================================================
-   20. PROGRESS COMPONENT
-===================================================== */
+/* ================================================
+   18. PROGRESS BARS
+================================================ */
 
 .ui-progress {
+    position: relative;
+
     width: 100%;
-    height: 8px;
+    height: 9px;
 
     overflow: hidden;
 
-    background: #E5E7EB;
     border-radius: var(--radius);
+
+    background: #e5e7eb;
 }
 
-.ui-progress-bar {
+.ui-progress-fill {
     width: 0;
     height: 100%;
 
+    border-radius: inherit;
+
     background: var(--primary);
+
+    transition: width var(--transition-base);
+}
+
+.progress-info {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+
+    width: 100%;
+
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+    line-height: 1.5;
+}
+
+.progress-info strong {
+    color: var(--primary);
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+}
+
+/* ================================================
+   19. MODAL COMPONENTS
+================================================ */
+
+.modal-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: var(--z-modal);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    min-height: 100%;
+    padding: var(--space-4);
+
+    overflow-y: auto;
+    overscroll-behavior: contain;
+
+    background: rgb(17 17 17 / 55%);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
+}
+
+.modal-dialog,
+.modal-content {
+    width: min(100%, 520px);
+    max-height: calc(100dvh - 32px);
+    margin: auto;
+
+    overflow-y: auto;
+
+    border: var(--border);
     border-radius: var(--radius);
 
-    transition: width 350ms ease;
+    background: var(--background);
+    box-shadow: var(--shadow-lg);
 }
 
-.ui-progress-bar.success {
-    background: var(--success);
+.modal-header {
+    padding: var(--space-6);
+    border-bottom: var(--border);
 }
 
-.ui-progress-bar.error {
-    background: var(--error);
+.modal-header h2,
+.modal-header h3 {
+    margin: 0;
+    font-size: var(--font-xl);
+    line-height: var(--line-heading);
 }
 
+.modal-header p {
+    margin-top: var(--space-3);
+    font-size: var(--font-sm);
+}
 
-/* =====================================================
-   21. RESPONSIVE COMPONENT BEHAVIOUR
-===================================================== */
+.modal-body {
+    padding: var(--space-6);
+}
+
+.modal-actions {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+
+    padding: var(--space-5) var(--space-6);
+
+    border-top: var(--border);
+}
+
+.modal-actions .btn {
+    flex: 0 1 auto;
+}
+
+/* ================================================
+   20. CONTACT COMPONENTS
+================================================ */
+
+.contact-address-text {
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+    line-height: var(--line-relaxed);
+
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+#contactInformationGrid > [hidden] {
+    display: none !important;
+}
+
+/* ================================================
+   21. RESPONSIVE COMPONENTS
+================================================ */
+
+@media (max-width: 900px) {
+
+    .filter-bar > .search-box,
+    .filter-bar > .form-group:first-child {
+        flex-basis: 100%;
+    }
+
+    .filter-bar > .form-group {
+        flex: 1 1 180px;
+    }
+
+}
 
 @media (max-width: 768px) {
 
-    :root {
-        --component-padding: 20px;
-    }
-
     .ui-card,
     .exam-card,
-    .mock-card {
-        padding: 20px;
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card {
+        padding: var(--space-5);
+    }
+
+    .form-grid,
+    .learning-selection-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: var(--space-4);
+    }
+
+    .modal-header,
+    .modal-body {
+        padding: var(--space-5);
+    }
+
+    .modal-actions {
+        padding: var(--space-4) var(--space-5);
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    .btn {
+        padding-inline: 16px;
     }
 
     .filter-bar {
         align-items: stretch;
         flex-direction: column;
+        gap: var(--space-3);
     }
 
-    .filter-bar .search-box,
-    .filter-bar .form-select {
+    .filter-bar > .search-box,
+    .filter-bar > .form-group,
+    .filter-bar > .form-group:first-child {
         width: 100%;
-        flex: none;
+        flex: 0 0 auto;
     }
 
-    .ui-table th,
-    .ui-table td {
-        padding: 12px;
+    .filter-bar > .btn {
+        width: 100%;
     }
 
-    .modal-dialog {
-        padding: 22px;
+    .pagination {
+        gap: 6px;
     }
 
-}
-
-@media (max-width: 480px) {
-
-    .ui-card-header {
-        align-items: flex-start;
-        flex-direction: column;
+    .pagination button,
+    .pagination a,
+    .pagination .page-number {
+        min-width: 36px;
+        min-height: 36px;
+        padding: 6px 9px;
     }
 
-    .subject-card {
-        padding: 16px;
-        gap: 12px;
+    .empty-state,
+    .content-placeholder {
+        min-height: 180px;
+        padding: var(--space-8) var(--space-4);
     }
 
-    .mock-card-details {
-        gap: 12px;
-    }
-
-    .modal-overlay {
-        padding: 12px;
-    }
-
-    .modal-dialog {
-        max-height: calc(100dvh - 24px);
-        padding: 20px;
-    }
-
-    .modal-footer {
-        flex-direction: column-reverse;
+    .ui-tabs {
         align-items: stretch;
     }
 
-    .modal-footer .btn {
+    .ui-tab {
+        flex: 1 1 auto;
+        padding-inline: 10px;
+        font-size: var(--font-xs);
+    }
+
+    .modal-overlay {
+        padding: var(--space-3);
+    }
+
+    .modal-dialog,
+    .modal-content {
+        max-height: calc(100dvh - 24px);
+    }
+
+    .modal-actions {
+        align-items: stretch;
+        flex-direction: column;
+    }
+
+    .modal-actions .btn {
         width: 100%;
     }
 
 }
 
+@media (max-width: 400px) {
 
-/* =====================================================
-   22. REDUCED MOTION ACCESSIBILITY
-===================================================== */
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card {
+        padding: var(--space-4);
+    }
+
+    .ui-tabs {
+        gap: 4px;
+    }
+
+    .ui-tab {
+        min-height: 36px;
+    }
+
+}
+
+/* ================================================
+   22. PRINT ADJUSTMENTS
+================================================ */
+
+@media print {
+
+    .btn,
+    .pagination,
+    .modal-overlay,
+    .ui-spinner {
+        display: none !important;
+    }
+
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card {
+        box-shadow: none;
+        break-inside: avoid;
+    }
+
+    .table-container {
+        overflow: visible;
+    }
+
+    .ui-table {
+        min-width: 0;
+    }
+
+}
+
+/* ================================================
+   23. REDUCED MOTION
+================================================ */
 
 @media (prefers-reduced-motion: reduce) {
 
     .ui-spinner,
     .skeleton {
-        animation: none !important;
+        animation: none;
     }
 
-    .ui-progress-bar,
-    .modal-dialog,
-    .ui-card,
-    .exam-card,
-    .subject-card,
-    .mock-card {
-        transition: none !important;
+    .ui-progress-fill {
+        transition: none;
     }
 
 }
+
+/* ================================================
+   END OF FILE
+================================================ */
