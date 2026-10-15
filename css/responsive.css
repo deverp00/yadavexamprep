@@ -1,0 +1,919 @@
+
+/*
+=========================================================
+YADAV EXAMPREP
+File: css/responsive.css
+
+Universal Responsive Design System
+
+Designed and Developed by Yadav Web Technologies
+=========================================================
+*/
+
+
+/* =====================================================
+   01. UNIVERSAL RESPONSIVE PROTECTION
+===================================================== */
+
+html {
+    width: 100%;
+    min-width: 0;
+}
+
+body {
+    width: 100%;
+    min-width: 0;
+}
+
+main,
+section,
+header,
+footer,
+nav {
+    min-width: 0;
+}
+
+.container,
+.hero-content,
+.hero-preview,
+.section-heading,
+.ui-card,
+.exam-card,
+.subject-card,
+.mock-card {
+    min-width: 0;
+}
+
+img,
+video,
+canvas {
+    max-width: 100%;
+    height: auto;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+a {
+    overflow-wrap: break-word;
+}
+
+input,
+select,
+textarea,
+button {
+    max-width: 100%;
+}
+
+
+/* =====================================================
+   02. LARGE DESKTOP
+   1440px AND ABOVE
+===================================================== */
+
+@media (min-width: 1440px) {
+
+    :root {
+        --container-width: 1280px;
+    }
+
+    .hero-section {
+        padding-block: 125px;
+    }
+
+    .hero-container {
+        gap: 85px;
+    }
+
+    .hero-title {
+        font-size: 4.6rem;
+    }
+
+    .section {
+        padding-block: 105px;
+    }
+
+}
+
+
+/* =====================================================
+   03. LAPTOP AND SMALL DESKTOP
+   1025px - 1199px
+===================================================== */
+
+@media (min-width: 1025px) and (max-width: 1199px) {
+
+    :root {
+        --container-padding: 28px;
+    }
+
+    .header-container {
+        gap: 18px;
+    }
+
+    .desktop-nav {
+        gap: 18px;
+    }
+
+    .hero-container {
+        gap: 35px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.8rem, 4.4vw, 3.7rem);
+    }
+
+    .exam-grid,
+    .subject-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .learning-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   04. TABLET LANDSCAPE
+   901px - 1024px
+===================================================== */
+
+@media (min-width: 901px) and (max-width: 1024px) {
+
+    :root {
+        --container-padding: 25px;
+        --header-height: 78px;
+    }
+
+    .desktop-nav {
+        gap: 13px;
+    }
+
+    .nav-link {
+        font-size: 13px;
+    }
+
+    .header-cta {
+        padding-inline: 13px;
+        font-size: 12px;
+    }
+
+    .hero-container {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        gap: 30px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.5rem, 4.3vw, 3.3rem);
+    }
+
+    .hero-description {
+        font-size: 15px;
+    }
+
+    .hero-actions .btn {
+        padding-inline: 15px;
+        font-size: 13px;
+    }
+
+    .exam-grid,
+    .subject-grid,
+    .learning-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .mock-grid,
+    .daily-grid,
+    .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   05. TABLET AND MOBILE NAVIGATION
+   900px AND BELOW
+===================================================== */
+
+@media (max-width: 900px) {
+
+    :root {
+        --header-height: 74px;
+    }
+
+    .site-header {
+        width: 100%;
+    }
+
+    .header-container {
+        min-height: var(--header-height);
+    }
+
+    .desktop-nav,
+    .header-cta {
+        display: none;
+    }
+
+    .menu-toggle {
+        display: inline-flex;
+        flex-shrink: 0;
+    }
+
+    /*
+       Mobile navigation uses max-height transitions
+       defined in animation.css.
+    */
+
+    .mobile-nav {
+        display: block;
+
+        width: 100%;
+        max-height: 0;
+
+        overflow: hidden;
+
+        background: rgba(255, 255, 255, 0.98);
+
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
+    }
+
+    .mobile-nav-inner {
+        width: min(
+            calc(100% - (var(--container-padding) * 2)),
+            var(--container-width)
+        );
+
+        margin-inline: auto;
+
+        padding: 14px 0 22px;
+    }
+
+    .mobile-nav.is-open {
+        max-height: min(75dvh, 650px);
+    }
+
+    .hero-container {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .hero-content {
+        max-width: 720px;
+    }
+
+    .hero-preview {
+        width: 100%;
+        max-width: 650px;
+
+        margin-inline: auto;
+    }
+
+    .hero-title {
+        max-width: 720px;
+    }
+
+    .section {
+        padding-block: 75px;
+    }
+
+    .exam-grid,
+    .subject-grid,
+    .learning-grid,
+    .mock-grid,
+    .daily-grid,
+    .features-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+}
+
+
+/* =====================================================
+   06. TABLET PORTRAIT
+   601px - 768px
+===================================================== */
+
+@media (min-width: 601px) and (max-width: 768px) {
+
+    :root {
+        --container-padding: 24px;
+    }
+
+    .hero-section {
+        padding-block: 75px;
+    }
+
+    .hero-title {
+        font-size: clamp(3rem, 6vw, 3.8rem);
+    }
+
+    .hero-description {
+        max-width: 650px;
+    }
+
+    .section-heading {
+        align-items: flex-start;
+    }
+
+    .section-heading h2 {
+        font-size: 32px;
+    }
+
+    .learning-card,
+    .feature-card,
+    .daily-card {
+        padding: 22px;
+    }
+
+    .daily-card {
+        min-height: 230px;
+    }
+
+    .footer-main {
+        gap: 40px;
+    }
+
+}
+
+
+/* =====================================================
+   07. MOBILE DEVICES
+   600px AND BELOW
+===================================================== */
+
+@media (max-width: 600px) {
+
+    :root {
+        --container-padding: 18px;
+        --header-height: 68px;
+    }
+
+    html {
+        scroll-padding-top: 85px;
+    }
+
+    .container {
+        width: calc(100% - 36px);
+    }
+
+    .section {
+        padding-block: 58px;
+    }
+
+    .header-container {
+        gap: 12px;
+    }
+
+    .site-logo {
+        gap: 9px;
+    }
+
+    .logo-symbol {
+        width: 35px;
+        height: 35px;
+
+        font-size: 17px;
+    }
+
+    .logo-text {
+        font-size: 18px;
+    }
+
+    .menu-toggle {
+        width: 42px;
+        height: 42px;
+    }
+
+    .mobile-nav-inner {
+        padding-block: 12px 20px;
+    }
+
+    .mobile-nav-link {
+        min-height: 46px;
+        padding: 12px 14px;
+    }
+
+    .mobile-cta {
+        min-height: 46px;
+        margin-top: 10px;
+    }
+
+    /* Hero */
+
+    .hero-section {
+        padding-block: 52px 65px;
+    }
+
+    .hero-container {
+        gap: 42px;
+    }
+
+    .hero-title {
+        margin: 18px 0 22px;
+
+        font-size: clamp(2.3rem, 9.5vw, 3.5rem);
+        line-height: 1.1;
+    }
+
+    .hero-description {
+        margin-bottom: 25px;
+
+        font-size: 15px;
+        line-height: 1.8;
+    }
+
+    .hero-actions {
+        flex-direction: column;
+        align-items: stretch;
+
+        gap: 11px;
+    }
+
+    .hero-actions .btn {
+        width: 100%;
+        min-height: 50px;
+    }
+
+    .hero-benefits {
+        gap: 10px 16px;
+        margin-top: 25px;
+    }
+
+    /* Hero preview */
+
+    .preview-header {
+        align-items: flex-start;
+        gap: 12px;
+    }
+
+    .preview-header h2 {
+        font-size: 16px;
+    }
+
+    .preview-status {
+        font-size: 10px;
+    }
+
+    .preview-question h3 {
+        font-size: 17px;
+    }
+
+    .preview-option {
+        min-height: 47px;
+        font-size: 12px;
+    }
+
+    /* Section headings */
+
+    .section-heading {
+        align-items: flex-start;
+        flex-direction: column;
+
+        gap: 18px;
+        margin-bottom: 30px;
+    }
+
+    .section-heading-centered {
+        align-items: center;
+    }
+
+    .section-heading h2 {
+        font-size: clamp(1.65rem, 7vw, 2rem);
+        line-height: 1.25;
+    }
+
+    .section-heading p {
+        font-size: 14px;
+        line-height: 1.8;
+    }
+
+    /* Grids */
+
+    .exam-grid,
+    .subject-grid,
+    .learning-grid,
+    .mock-grid,
+    .daily-grid,
+    .features-grid {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 14px;
+    }
+
+    /* Cards */
+
+    .exam-card,
+    .mock-card,
+    .learning-card,
+    .daily-card,
+    .feature-card {
+        padding: 22px;
+    }
+
+    .subject-card {
+        min-height: 90px;
+        padding: 16px;
+    }
+
+    .daily-card {
+        min-height: 205px;
+    }
+
+    .step-number {
+        margin-bottom: 22px;
+    }
+
+    /* CTA */
+
+    .cta-section {
+        padding-block: 55px;
+    }
+
+    .cta-container {
+        padding: 38px 20px;
+    }
+
+    .cta-container h2 {
+        font-size: clamp(1.7rem, 7vw, 2.3rem);
+    }
+
+    .cta-container p {
+        font-size: 14px;
+    }
+
+    .cta-container .btn {
+        width: 100%;
+    }
+
+    /* Footer */
+
+    .footer-main {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        gap: 32px 20px;
+        padding-block: 42px;
+    }
+
+    .footer-brand {
+        grid-column: 1 / -1;
+    }
+
+    .footer-brand p {
+        max-width: 420px;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+
+        gap: 10px;
+    }
+
+}
+
+
+/* =====================================================
+   08. SMALL MOBILE
+   400px AND BELOW
+===================================================== */
+
+@media (max-width: 400px) {
+
+    :root {
+        --container-padding: 15px;
+    }
+
+    .container {
+        width: calc(100% - 30px);
+    }
+
+    .logo-text {
+        font-size: 16px;
+    }
+
+    .hero-title {
+        font-size: clamp(2.1rem, 9vw, 2.6rem);
+    }
+
+    .hero-description {
+        font-size: 14px;
+    }
+
+    .hero-benefits {
+        gap: 8px 12px;
+        font-size: 11px;
+    }
+
+    .preview-header,
+    .preview-progress,
+    .preview-question,
+    .preview-footer {
+        padding-inline: 15px;
+    }
+
+    .preview-footer {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .learning-card,
+    .feature-card,
+    .daily-card,
+    .exam-card,
+    .mock-card {
+        padding: 18px;
+    }
+
+    .footer-main {
+        grid-template-columns: minmax(0, 1fr);
+        gap: 28px;
+    }
+
+    .footer-brand {
+        grid-column: auto;
+    }
+
+}
+
+
+/* =====================================================
+   09. EXTRA SMALL MOBILE
+   320px AND BELOW
+===================================================== */
+
+@media (max-width: 320px) {
+
+    :root {
+        --container-padding: 12px;
+    }
+
+    .container {
+        width: calc(100% - 24px);
+    }
+
+    .logo-text {
+        font-size: 15px;
+    }
+
+    .logo-symbol {
+        width: 32px;
+        height: 32px;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .hero-actions .btn {
+        font-size: 13px;
+    }
+
+    .preview-option {
+        padding: 8px;
+        gap: 8px;
+    }
+
+}
+
+
+/* =====================================================
+   10. LANDSCAPE MOBILE DEVICES
+===================================================== */
+
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .mobile-nav.is-open {
+        max-height: 75dvh;
+        overflow-y: auto;
+    }
+
+    .hero-section {
+        padding-block: 45px;
+    }
+
+    .section {
+        padding-block: 50px;
+    }
+
+}
+
+
+/* =====================================================
+   11. TOUCH DEVICE OPTIMIZATION
+===================================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    .btn,
+    .menu-toggle,
+    .mobile-nav-link,
+    .page-btn,
+    .ui-tab {
+        min-height: 44px;
+    }
+
+    .exam-card:hover,
+    .subject-card:hover,
+    .mock-card:hover,
+    .learning-card:hover,
+    .daily-card:hover,
+    .feature-card:hover {
+        transform: none;
+    }
+
+    .btn:hover {
+        transform: none;
+    }
+
+    .btn:active {
+        opacity: 0.85;
+        transform: scale(0.985);
+    }
+
+}
+
+
+/* =====================================================
+   12. RESPONSIVE FORM BEHAVIOUR
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .form-input,
+    .form-select,
+    .form-textarea,
+    .search-box input {
+        font-size: 16px;
+    }
+
+    .filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .filter-bar .search-box,
+    .filter-bar .form-select {
+        width: 100%;
+        flex: none;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+}
+
+
+/* =====================================================
+   13. RESPONSIVE TABLE PROTECTION
+===================================================== */
+
+.table-container {
+    max-width: 100%;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+}
+
+@media (max-width: 600px) {
+
+    .ui-table {
+        font-size: 12px;
+    }
+
+    .ui-table th,
+    .ui-table td {
+        padding: 12px 10px;
+    }
+
+    .pagination {
+        gap: 6px;
+    }
+
+    .page-btn {
+        min-width: 38px;
+        min-height: 40px;
+    }
+
+}
+
+
+/* =====================================================
+   14. RESPONSIVE MODAL
+===================================================== */
+
+@media (max-width: 600px) {
+
+    .modal-overlay {
+        padding: 12px;
+    }
+
+    .modal-dialog {
+        width: 100%;
+        max-height: calc(100dvh - 24px);
+
+        padding: 20px;
+
+        overscroll-behavior: contain;
+    }
+
+    .modal-header {
+        align-items: flex-start;
+    }
+
+    .modal-footer {
+        flex-direction: column-reverse;
+        align-items: stretch;
+    }
+
+    .modal-footer .btn {
+        width: 100%;
+    }
+
+}
+
+
+/* =====================================================
+   15. ACCESSIBILITY
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+    html {
+        scroll-behavior: auto !important;
+    }
+
+    .reveal,
+    .reveal-left,
+    .reveal-right,
+    .reveal-scale {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .mobile-nav,
+    .mobile-nav-inner {
+        transition: none !important;
+    }
+
+}
+
+
+/* =====================================================
+   16. PRINT OPTIMIZATION
+===================================================== */
+
+@media print {
+
+    :root {
+        --background: #FFFFFF;
+        --surface: #FFFFFF;
+    }
+
+    body {
+        background: #FFFFFF;
+        color: #000000;
+    }
+
+    .site-header,
+    .site-footer,
+    .mobile-nav,
+    .menu-toggle,
+    .hero-actions,
+    .cta-section {
+        display: none !important;
+    }
+
+    .container {
+        width: 100%;
+        max-width: none;
+    }
+
+    .section {
+        padding-block: 20px;
+    }
+
+    .reveal,
+    .reveal-enabled .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+    }
+
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card {
+        break-inside: avoid;
+        box-shadow: none;
+    }
+
+}
