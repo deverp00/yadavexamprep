@@ -1,0 +1,828 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Explore free online mock tests for competitive examination preparation. Practice subject-wise questions, attempt timed tests, and improve your preparation with Yadav ExamPrep."
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <title>Free Mock Tests | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="stylesheet" href="css/animation.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+    <!-- =============================================
+         JAVASCRIPT
+    ============================================== -->
+
+    <script src="js/toggle.js" defer></script>
+
+    <script src="js/animations.js" defer></script>
+
+    <script src="js/script.js" defer></script>
+
+</head>
+
+
+<body class="site-body" data-page="mock-tests">
+
+
+    <!-- =============================================
+         ACCESSIBILITY: SKIP NAVIGATION
+    ============================================== -->
+
+    <a class="skip-link" href="#mainContent">
+        Skip to main content
+    </a>
+
+
+    <!-- =============================================
+         UNIVERSAL HEADER
+    ============================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-container">
+
+            <!-- Brand -->
+
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep homepage"
+            >
+
+                <span class="logo-symbol" aria-hidden="true">
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="desktop-nav"
+                aria-label="Main navigation"
+            >
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+                    Mock Tests
+                </a>
+
+                <a href="subjects.html" class="nav-link">
+                    Subjects
+                </a>
+
+                <a href="learn.html" class="nav-link">
+                    Learn
+                </a>
+
+            </nav>
+
+
+            <!-- Header Actions -->
+
+            <div class="header-actions">
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary header-cta"
+                >
+                    Start Practicing
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="18"
+                        height="18"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
+                </a>
+
+
+                <!-- Mobile Menu Toggle -->
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open navigation menu"
+                    aria-controls="mobileNavigation"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Navigation -->
+
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
+
+            <div class="mobile-nav-inner">
+
+                <a
+                    href="index.html"
+                    class="mobile-nav-link"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link active"
+                    aria-current="page"
+                >
+                    Mock Tests
+                </a>
+
+                <a
+                    href="subjects.html"
+                    class="mobile-nav-link"
+                >
+                    Subjects
+                </a>
+
+                <a
+                    href="learn.html"
+                    class="mobile-nav-link"
+                >
+                    Learn
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary mobile-cta"
+                >
+                    Start Practicing
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =============================================
+         MAIN CONTENT
+    ============================================== -->
+
+    <main id="mainContent">
+
+
+        <!-- =========================================
+             PAGE INTRODUCTION
+        ========================================== -->
+
+        <section
+            class="section page-intro-section"
+            aria-labelledby="pageTitle"
+        >
+
+            <div class="container">
+
+                <!-- Breadcrumb -->
+
+                <nav
+                    class="breadcrumb"
+                    aria-label="Breadcrumb"
+                >
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <span
+                        class="breadcrumb-separator"
+                        aria-hidden="true"
+                    >
+                        /
+                    </span>
+
+                    <span
+                        class="current"
+                        aria-current="page"
+                    >
+                        Mock Tests
+                    </span>
+
+                </nav>
+
+
+                <!-- Introduction -->
+
+                <div class="page-intro-content reveal">
+
+                    <span class="section-eyebrow">
+                        Practice and Preparation
+                    </span>
+
+                    <h1 id="pageTitle">
+                        Explore Free Mock Tests
+                    </h1>
+
+                    <p>
+                        Find examination-wise and subject-wise mock
+                        tests, practice important questions, and
+                        evaluate your preparation. Every mock test
+                        is completely free, with no registration
+                        required.
+                    </p>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             MOCK TEST DIRECTORY
+        ========================================== -->
+
+        <section
+            class="section mock-directory-section"
+            aria-labelledby="directoryTitle"
+        >
+
+            <div class="container">
+
+
+                <!-- Directory Heading -->
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Test Directory
+                        </span>
+
+                        <h2 id="directoryTitle">
+                            Available Mock Tests
+                        </h2>
+
+                        <p>
+                            Browse published tests or use the filters
+                            to narrow your preparation.
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     SEARCH AND FILTER CONTROLS
+                ================================== -->
+
+                <div
+                    class="mock-filter-panel ui-card"
+                    id="mockFilterPanel"
+                >
+
+                    <form
+                        id="mockFilterForm"
+                        class="ui-form"
+                        role="search"
+                    >
+
+                        <div class="filter-bar">
+
+
+                            <!-- Search -->
+
+                            <div class="search-box">
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <circle
+                                        cx="11"
+                                        cy="11"
+                                        r="8"
+                                    ></circle>
+
+                                    <path d="m21 21-4.35-4.35"></path>
+                                </svg>
+
+                                <input
+                                    type="search"
+                                    id="mockSearch"
+                                    name="search"
+                                    placeholder="Search mock tests..."
+                                    aria-label="Search mock tests"
+                                    autocomplete="off"
+                                >
+
+                            </div>
+
+
+                            <!-- Examination Filter -->
+
+                            <select
+                                id="examFilter"
+                                name="exam"
+                                class="form-select"
+                                aria-label="Filter by examination"
+                            >
+
+                                <option value="">
+                                    All Examinations
+                                </option>
+
+                            </select>
+
+
+                            <!-- Subject Filter -->
+
+                            <select
+                                id="subjectFilter"
+                                name="subject"
+                                class="form-select"
+                                aria-label="Filter by subject"
+                            >
+
+                                <option value="">
+                                    All Subjects
+                                </option>
+
+                            </select>
+
+
+                            <!-- Sort -->
+
+                            <select
+                                id="sortFilter"
+                                name="sort"
+                                class="form-select"
+                                aria-label="Sort mock tests"
+                            >
+
+                                <option value="newest">
+                                    Newest First
+                                </option>
+
+                                <option value="oldest">
+                                    Oldest First
+                                </option>
+
+                                <option value="title-asc">
+                                    Title: A to Z
+                                </option>
+
+                                <option value="title-desc">
+                                    Title: Z to A
+                                </option>
+
+                                <option value="questions-asc">
+                                    Questions: Low to High
+                                </option>
+
+                                <option value="questions-desc">
+                                    Questions: High to Low
+                                </option>
+
+                            </select>
+
+                        </div>
+
+
+                        <!-- Filter Actions -->
+
+                        <div class="filter-actions">
+
+                            <button
+                                type="reset"
+                                id="resetMockFilters"
+                                class="btn btn-outline"
+                            >
+                                Reset Filters
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </div>
+
+
+                <!-- =================================
+                     DIRECTORY STATUS
+                ================================== -->
+
+                <div
+                    class="directory-toolbar"
+                    aria-live="polite"
+                    aria-atomic="true"
+                >
+
+                    <p
+                        id="mockResultCount"
+                        class="directory-result-count"
+                    >
+                        Loading available mock tests...
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     DYNAMIC MOCK TEST GRID
+                ================================== -->
+
+                <div
+                    class="mock-grid"
+                    id="allMockTests"
+                    aria-label="Available mock tests"
+                    aria-busy="true"
+                >
+
+                    <div
+                        class="loading-container"
+                        role="status"
+                    >
+
+                        <span
+                            class="ui-spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <span class="loading-text">
+                            Loading mock tests...
+                        </span>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     PAGINATION
+                ================================== -->
+
+                <nav
+                    class="pagination"
+                    id="mockPagination"
+                    aria-label="Mock test pages"
+                    hidden
+                ></nav>
+
+
+                <!-- =================================
+                     OPTIONAL EMPTY STATE TEMPLATE
+                ================================== -->
+
+                <template id="mockEmptyStateTemplate">
+
+                    <div class="empty-state">
+
+                        <span
+                            class="ui-icon"
+                            aria-hidden="true"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="22"
+                                height="22"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                            >
+                                <circle
+                                    cx="11"
+                                    cy="11"
+                                    r="8"
+                                ></circle>
+
+                                <path d="m21 21-4.35-4.35"></path>
+                            </svg>
+
+                        </span>
+
+                        <h3>
+                            No matching mock tests
+                        </h3>
+
+                        <p>
+                            Try another search term or reset the
+                            filters to explore available tests.
+                        </p>
+
+                    </div>
+
+                </template>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             LEARNING CTA
+        ========================================== -->
+
+        <section
+            class="cta-section"
+            aria-labelledby="learningCtaTitle"
+        >
+
+            <div class="container">
+
+                <div class="cta-container reveal">
+
+                    <span class="section-eyebrow">
+                        Learn Before You Practice
+                    </span>
+
+                    <h2 id="learningCtaTitle">
+                        Strengthen Your Concepts First
+                    </h2>
+
+                    <p>
+                        Explore subject-wise lessons, understand
+                        important concepts, and build confidence
+                        before attempting your next mock test.
+                    </p>
+
+                    <a
+                        href="subjects.html"
+                        class="btn btn-primary btn-large"
+                    >
+                        Explore Subjects
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =============================================
+         UNIVERSAL FOOTER
+    ============================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+
+            <!-- Main Footer -->
+
+            <div class="footer-main">
+
+
+                <!-- Brand -->
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep homepage"
+                    >
+
+                        <span
+                            class="logo-symbol"
+                            aria-hidden="true"
+                        >
+                            Y.
+                        </span>
+
+                        <span class="logo-text">
+                            Yadav<span>ExamPrep</span>
+                        </span>
+
+                    </a>
+
+                    <p>
+                        Free examination preparation through
+                        structured learning, concept practice,
+                        and meaningful mock tests.
+                    </p>
+
+                </div>
+
+
+                <!-- Explore -->
+
+                <div class="footer-column">
+
+                    <h3>Explore</h3>
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="learn.html">
+                        Learn
+                    </a>
+
+                </div>
+
+
+                <!-- Preparation -->
+
+                <div class="footer-column">
+
+                    <h3>Preparation</h3>
+
+                    <a href="mock-tests.html">
+                        Practice Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subject Learning
+                    </a>
+
+                    <a href="learn.html">
+                        Concept Revision
+                    </a>
+
+                </div>
+
+
+                <!-- Information -->
+
+                <div class="footer-column">
+
+                    <h3>Information</h3>
+
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact
+                    </a>
+
+                    <a href="admin/index.html">
+                        Administration
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bottom Footer -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy;
+                    <span id="currentYear">2026</span>
+                    Yadav ExamPrep. All Rights Reserved.
+                </p>
+
+                <p class="developer-credit">
+                    Designed and Developed by
+                    <span>Yadav Web Technologies</span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
