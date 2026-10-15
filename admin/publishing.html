@@ -1,0 +1,1226 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: admin/publishing.html
+
+    Centralized Publishing Management
+
+    Designed and Developed by Yadav Web Technologies
+    =====================================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Manage publication and visibility of Yadav ExamPrep educational content."
+    >
+
+    <meta name="theme-color" content="#111111">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Publishing Management | Yadav ExamPrep</title>
+
+    <!-- Typography -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <!-- Publishing Controller -->
+
+    <script
+        type="module"
+        src="../js/admin-publishing.js"
+    ></script>
+
+</head>
+
+<body class="admin-body" data-page="admin-publishing">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         AUTHENTICATION GATE
+    =============================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Checking your administrator session.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ==============================================
+         PROTECTED APPLICATION
+    =============================================== -->
+
+    <div
+        class="admin-app"
+        id="adminPublishingApp"
+        hidden
+    >
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+        <!-- ==========================================
+             SIDEBAR
+        =========================================== -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link"
+                    >
+                        Dashboard
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link"
+                    >
+                        Exams
+                    </a>
+
+                    <a
+                        href="subjects.html"
+                        class="admin-nav-link"
+                    >
+                        Subjects
+                    </a>
+
+                    <a
+                        href="topics.html"
+                        class="admin-nav-link"
+                    >
+                        Topics
+                    </a>
+
+                    <a
+                        href="lessons.html"
+                        class="admin-nav-link"
+                    >
+                        Lessons
+                    </a>
+
+                    <a
+                        href="questions.html"
+                        class="admin-nav-link"
+                    >
+                        Question Bank
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link"
+                    >
+                        Mock Tests
+                    </a>
+
+                    <a
+                        href="publishing.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+                        Publishing
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+                    <a
+                        href="import-export.html"
+                        class="admin-nav-link"
+                    >
+                        Import / Export
+                    </a>
+
+                    <a
+                        href="settings.html"
+                        class="admin-nav-link"
+                    >
+                        Settings
+                    </a>
+
+                </div>
+
+            </nav>
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Public Website ↗
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    Sign Out
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- ==========================================
+             MAIN AREA
+        =========================================== -->
+
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Publishing Management
+                    </h2>
+
+                </div>
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ======================================
+                 PUBLISHING CONTENT
+            ======================================= -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+                <!-- Heading -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Content Visibility
+                        </span>
+
+                        <h1>Publishing Management</h1>
+
+                        <p>
+                            Review publication status, resolve
+                            dependency issues, and control which
+                            educational records are available publicly.
+                        </p>
+
+                    </div>
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="refreshPublishingButton"
+                            disabled
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M20 11a8 8 0 0 0-14-5L4 8"></path>
+                                <path d="M4 4v4h4"></path>
+                                <path d="M4 13a8 8 0 0 0 14 5l2-2"></path>
+                                <path d="M16 16h4v4"></path>
+                            </svg>
+
+                            Refresh Status
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Database Status -->
+
+                <div
+                    class="admin-alert"
+                    id="publishingManagementStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="publishingManagementSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="publishingManagementStatusText">
+                        Checking publication records...
+                    </span>
+
+                </div>
+
+                <!-- ==================================
+                     PUBLICATION STATISTICS
+                =================================== -->
+
+                <section
+                    class="admin-stats-grid"
+                    aria-label="Publishing statistics"
+                >
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Total Records
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="publishingTotalCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Across managed collections
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Published
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="publishingPublishedCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Marked for public visibility
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Drafts
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="publishingDraftCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Unpublished master records
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Issues
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="publishingIssueCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Records requiring attention
+                        </span>
+
+                    </article>
+
+                </section>
+
+                <!-- ==================================
+                     COLLECTION OVERVIEW
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="publishingOverviewTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="publishingOverviewTitle">
+                                Collection Overview
+                            </h2>
+
+                            <p>
+                                Publication summary for each
+                                educational content collection.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        class="admin-content-grid"
+                        id="publishingCollectionOverview"
+                        aria-live="polite"
+                    >
+
+                        <div class="admin-loading-state">
+
+                            <span
+                                class="ui-spinner"
+                                aria-hidden="true"
+                            ></span>
+
+                            <span>
+                                Loading collection statistics...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- ==================================
+                     PUBLICATION DEPENDENCY RULES
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="publishingRulesTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="publishingRulesTitle">
+                                Publication Dependencies
+                            </h2>
+
+                            <p>
+                                A child record can appear publicly
+                                only when its required parent records
+                                are also published.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-content-grid">
+
+                        <article class="admin-quick-link">
+
+                            <h3>Examination</h3>
+
+                            <p>
+                                The top-level parent of subjects,
+                                topics, questions, and tests.
+                            </p>
+
+                        </article>
+
+                        <article class="admin-quick-link">
+
+                            <h3>Subject</h3>
+
+                            <p>
+                                Requires its parent examination
+                                to be published.
+                            </p>
+
+                        </article>
+
+                        <article class="admin-quick-link">
+
+                            <h3>Topic</h3>
+
+                            <p>
+                                Requires its examination and
+                                subject to be published.
+                            </p>
+
+                        </article>
+
+                        <article class="admin-quick-link">
+
+                            <h3>Lesson</h3>
+
+                            <p>
+                                Requires its examination, subject,
+                                and topic to be published.
+                            </p>
+
+                        </article>
+
+                        <article class="admin-quick-link">
+
+                            <h3>Question</h3>
+
+                            <p>
+                                Requires its parent hierarchy
+                                to be published.
+                            </p>
+
+                        </article>
+
+                        <article class="admin-quick-link">
+
+                            <h3>Mock Test</h3>
+
+                            <p>
+                                Requires valid published questions
+                                and published parent records.
+                            </p>
+
+                        </article>
+
+                    </div>
+
+                </section>
+
+                <!-- ==================================
+                     PUBLICATION DIRECTORY
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="publishingDirectoryTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="publishingDirectoryTitle">
+                                Publication Directory
+                            </h2>
+
+                            <p>
+                                Search and manage individual
+                                publication records.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Filters -->
+
+                    <form
+                        class="admin-toolbar"
+                        id="publishingFilterForm"
+                        role="search"
+                    >
+
+                        <div class="admin-toolbar-group">
+
+                            <label
+                                class="sr-only"
+                                for="publishingSearch"
+                            >
+                                Search content
+                            </label>
+
+                            <input
+                                type="search"
+                                class="admin-search"
+                                id="publishingSearch"
+                                placeholder="Search content..."
+                                autocomplete="off"
+                                disabled
+                            >
+
+                            <label
+                                class="sr-only"
+                                for="publishingCollectionFilter"
+                            >
+                                Filter by collection
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="publishingCollectionFilter"
+                                disabled
+                            >
+
+                                <option value="all">
+                                    All Collections
+                                </option>
+
+                                <option value="exams">
+                                    Exams
+                                </option>
+
+                                <option value="subjects">
+                                    Subjects
+                                </option>
+
+                                <option value="topics">
+                                    Topics
+                                </option>
+
+                                <option value="lessons">
+                                    Lessons
+                                </option>
+
+                                <option value="questions">
+                                    Questions
+                                </option>
+
+                                <option value="tests">
+                                    Mock Tests
+                                </option>
+
+                            </select>
+
+                            <label
+                                class="sr-only"
+                                for="publishingStatusFilter"
+                            >
+                                Filter by publication status
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="publishingStatusFilter"
+                                disabled
+                            >
+
+                                <option value="all">
+                                    All Statuses
+                                </option>
+
+                                <option value="published">
+                                    Published
+                                </option>
+
+                                <option value="draft">
+                                    Draft
+                                </option>
+
+                                <option value="issue">
+                                    Requires Attention
+                                </option>
+
+                            </select>
+
+                            <label
+                                class="sr-only"
+                                for="publishingSortFilter"
+                            >
+                                Sort content
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="publishingSortFilter"
+                                disabled
+                            >
+
+                                <option value="newest">
+                                    Recently Updated
+                                </option>
+
+                                <option value="oldest">
+                                    Oldest Updated
+                                </option>
+
+                                <option value="title-asc">
+                                    Name A–Z
+                                </option>
+
+                                <option value="title-desc">
+                                    Name Z–A
+                                </option>
+
+                                <option value="collection">
+                                    Collection
+                                </option>
+
+                            </select>
+
+                        </div>
+
+                        <div class="admin-toolbar-group">
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="resetPublishingFilters"
+                                disabled
+                            >
+                                Reset Filters
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- Table -->
+
+                    <div class="admin-table-container">
+
+                        <table class="admin-table">
+
+                            <thead>
+
+                                <tr>
+
+                                    <th scope="col">
+                                        Content
+                                    </th>
+
+                                    <th scope="col">
+                                        Collection
+                                    </th>
+
+                                    <th scope="col">
+                                        Publication
+                                    </th>
+
+                                    <th scope="col">
+                                        Dependency Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Updated
+                                    </th>
+
+                                    <th scope="col">
+                                        Actions
+                                    </th>
+
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="publishingTableBody">
+
+                                <tr>
+
+                                    <td colspan="6">
+
+                                        <div class="admin-loading-state">
+
+                                            <span
+                                                class="ui-spinner"
+                                                aria-hidden="true"
+                                            ></span>
+
+                                            <span>
+                                                Loading publication records...
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Pagination -->
+
+                    <div
+                        class="admin-pagination"
+                        id="publishingPagination"
+                        hidden
+                    >
+
+                        <span
+                            class="admin-pagination-info"
+                            id="publishingPaginationInfo"
+                        ></span>
+
+                        <div
+                            class="admin-pagination-actions"
+                            id="publishingPaginationButtons"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+                <!-- Empty State -->
+
+                <template id="publishingEmptyStateTemplate">
+
+                    <tr>
+
+                        <td colspan="6">
+
+                            <div class="admin-empty-state">
+
+                                <h3>No matching records</h3>
+
+                                <p>
+                                    There are no records matching
+                                    the selected publishing filters.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </template>
+
+                <!-- ==================================
+                     DEPENDENCY ISSUE REVIEW
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="publishingIssuesTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="publishingIssuesTitle">
+                                Dependency Review
+                            </h2>
+
+                            <p>
+                                Identify records with missing,
+                                unpublished, or inconsistent
+                                publication dependencies.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div
+                        id="publishingIssueList"
+                        aria-live="polite"
+                    >
+
+                        <div class="admin-loading-state">
+
+                            <span
+                                class="ui-spinner"
+                                aria-hidden="true"
+                            ></span>
+
+                            <span>
+                                Checking content dependencies...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- Footer -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==============================================
+         PUBLICATION CONFIRMATION MODAL
+    =============================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="publishingConfirmModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="publishingConfirmTitle"
+            aria-describedby="publishingConfirmDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <h2 id="publishingConfirmTitle">
+                        Confirm Publication Change
+                    </h2>
+
+                    <p
+                        class="admin-form-help"
+                        id="publishingConfirmDescription"
+                    >
+                        Review the selected publication action.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closePublishingConfirmModal"
+                    aria-label="Close confirmation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <div class="admin-modal-body">
+
+                <p>
+                    Selected content:
+                </p>
+
+                <p>
+                    <strong id="publishingConfirmRecordName"></strong>
+                </p>
+
+                <div
+                    class="admin-alert"
+                    id="publishingConfirmNotice"
+                    role="status"
+                    aria-live="polite"
+                >
+                    The controller will display the publication
+                    impact before applying changes.
+                </div>
+
+                <div
+                    id="publishingAffectedRecords"
+                    aria-live="polite"
+                ></div>
+
+            </div>
+
+            <div class="admin-modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelPublishingChange"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmPublishingChange"
+                >
+
+                    <span id="confirmPublishingButtonText">
+                        Confirm Change
+                    </span>
+
+                    <span
+                        class="ui-spinner"
+                        id="confirmPublishingSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
