@@ -1,0 +1,1300 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- ==========================================
+         YADAV EXAMPREP — TOPIC MANAGEMENT
+         Designed and Developed by
+         Yadav Web Technologies
+    =========================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Manage examination topics in the Yadav ExamPrep administration panel."
+    >
+
+    <meta name="theme-color" content="#111111">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Manage Topics | Yadav ExamPrep</title>
+
+    <!-- Font -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <!-- Page Controller -->
+
+    <script
+        type="module"
+        src="../js/admin-topics.js"
+    ></script>
+
+</head>
+
+<body class="admin-body" data-page="admin-topics">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==========================================
+         ADMIN AUTHENTICATION GATE
+    =========================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Please wait while your administrator
+                session is being verified.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ==========================================
+         PROTECTED ADMIN APPLICATION
+    =========================================== -->
+
+    <div
+        class="admin-app"
+        id="adminTopicsApp"
+        hidden
+    >
+
+        <!-- Mobile Sidebar Backdrop -->
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+        <!-- ======================================
+             ADMIN SIDEBAR
+        ======================================= -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <!-- Navigation -->
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Dashboard</span>
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Exams</span>
+                    </a>
+
+                    <a
+                        href="subjects.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Subjects</span>
+                    </a>
+
+                    <a
+                        href="topics.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+                        <span>Topics</span>
+                    </a>
+
+                    <a
+                        href="lessons.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Lessons</span>
+                    </a>
+
+                    <a
+                        href="questions.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Question Bank</span>
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Mock Tests</span>
+                    </a>
+
+                    <a
+                        href="publishing.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Publishing</span>
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+                    <a
+                        href="import-export.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Import / Export</span>
+                    </a>
+
+                    <a
+                        href="settings.html"
+                        class="admin-nav-link"
+                    >
+                        <span>Settings</span>
+                    </a>
+
+                </div>
+
+            </nav>
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    <span>View Public Website ↗</span>
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    <span>Sign Out</span>
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- ======================================
+             MAIN ADMIN AREA
+        ======================================= -->
+
+        <div class="admin-main">
+
+            <!-- Topbar -->
+
+            <header class="admin-topbar">
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Topic Management
+                    </h2>
+
+                </div>
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ==================================
+                 TOPIC MANAGEMENT CONTENT
+            =================================== -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+                <!-- Page Heading -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Content Management
+                        </span>
+
+                        <h1>Manage Topics</h1>
+
+                        <p>
+                            Create topics under existing subjects,
+                            organize learning sequences, and
+                            manage publication.
+                        </p>
+
+                    </div>
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="addTopicButton"
+                            disabled
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="17"
+                                height="17"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M12 5v14"></path>
+                                <path d="M5 12h14"></path>
+                            </svg>
+
+                            Add New Topic
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- Status -->
+
+                <div
+                    class="admin-alert"
+                    id="topicManagementStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="topicManagementSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="topicManagementStatusText">
+                        Connecting to Firebase Realtime Database...
+                    </span>
+
+                </div>
+
+                <!-- ==================================
+                     STATISTICS
+                =================================== -->
+
+                <section
+                    class="admin-stats-grid"
+                    aria-label="Topic statistics"
+                >
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Total Topics
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="topicTotalCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            All managed topic records
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Published
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="topicPublishedCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Published topic records
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Drafts
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="topicDraftCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Unpublished topic records
+                        </span>
+
+                    </article>
+
+                    <article class="admin-stat-card">
+
+                        <span class="admin-stat-label">
+                            Search Results
+                        </span>
+
+                        <strong
+                            class="admin-stat-value"
+                            id="topicFilteredCount"
+                        >
+                            —
+                        </strong>
+
+                        <span class="admin-stat-description">
+                            Matching current filters
+                        </span>
+
+                    </article>
+
+                </section>
+
+                <!-- ==================================
+                     TOPIC DIRECTORY
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="topicDirectoryTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="topicDirectoryTitle">
+                                Topic Directory
+                            </h2>
+
+                            <p>
+                                Search, filter, reorder, and manage
+                                examination topics.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Filters -->
+
+                    <form
+                        class="admin-toolbar"
+                        id="topicFilterForm"
+                        role="search"
+                    >
+
+                        <div class="admin-toolbar-group">
+
+                            <label
+                                for="topicSearch"
+                                class="sr-only"
+                            >
+                                Search topics
+                            </label>
+
+                            <input
+                                type="search"
+                                class="admin-search"
+                                id="topicSearch"
+                                placeholder="Search topics..."
+                                autocomplete="off"
+                                disabled
+                            >
+
+                            <label
+                                for="topicExamFilter"
+                                class="sr-only"
+                            >
+                                Filter by examination
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="topicExamFilter"
+                                disabled
+                            >
+                                <option value="all">
+                                    All Exams
+                                </option>
+                            </select>
+
+                            <label
+                                for="topicSubjectFilter"
+                                class="sr-only"
+                            >
+                                Filter by subject
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="topicSubjectFilter"
+                                disabled
+                            >
+                                <option value="all">
+                                    All Subjects
+                                </option>
+                            </select>
+
+                            <label
+                                for="topicStatusFilter"
+                                class="sr-only"
+                            >
+                                Filter by publication status
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="topicStatusFilter"
+                                disabled
+                            >
+                                <option value="all">
+                                    All Statuses
+                                </option>
+
+                                <option value="published">
+                                    Published
+                                </option>
+
+                                <option value="draft">
+                                    Drafts
+                                </option>
+                            </select>
+
+                            <label
+                                for="topicSortFilter"
+                                class="sr-only"
+                            >
+                                Sort topics
+                            </label>
+
+                            <select
+                                class="admin-filter"
+                                id="topicSortFilter"
+                                disabled
+                            >
+                                <option value="newest">
+                                    Newest First
+                                </option>
+
+                                <option value="oldest">
+                                    Oldest First
+                                </option>
+
+                                <option value="name-asc">
+                                    Name A–Z
+                                </option>
+
+                                <option value="name-desc">
+                                    Name Z–A
+                                </option>
+
+                                <option value="order-asc">
+                                    Display Order
+                                </option>
+                            </select>
+
+                        </div>
+
+                        <div class="admin-toolbar-group">
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="resetTopicFilters"
+                                disabled
+                            >
+                                Reset Filters
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                    <!-- Topic Table -->
+
+                    <div class="admin-table-container">
+
+                        <table class="admin-table">
+
+                            <thead>
+
+                                <tr>
+                                    <th scope="col">
+                                        Topic
+                                    </th>
+
+                                    <th scope="col">
+                                        Examination
+                                    </th>
+
+                                    <th scope="col">
+                                        Subject
+                                    </th>
+
+                                    <th scope="col">
+                                        Order
+                                    </th>
+
+                                    <th scope="col">
+                                        Status
+                                    </th>
+
+                                    <th scope="col">
+                                        Updated
+                                    </th>
+
+                                    <th scope="col">
+                                        Actions
+                                    </th>
+                                </tr>
+
+                            </thead>
+
+                            <tbody id="topicTableBody">
+
+                                <tr>
+
+                                    <td colspan="7">
+
+                                        <div class="admin-loading-state">
+
+                                            <span
+                                                class="ui-spinner"
+                                                aria-hidden="true"
+                                            ></span>
+
+                                            <span>
+                                                Loading topic records...
+                                            </span>
+
+                                        </div>
+
+                                    </td>
+
+                                </tr>
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    <!-- Pagination -->
+
+                    <div
+                        class="admin-pagination"
+                        id="topicPagination"
+                        hidden
+                    >
+
+                        <span
+                            class="admin-pagination-info"
+                            id="topicPaginationInfo"
+                        ></span>
+
+                        <div
+                            class="admin-pagination-actions"
+                            id="topicPaginationButtons"
+                        ></div>
+
+                    </div>
+
+                </section>
+
+                <!-- Empty State Template -->
+
+                <template id="topicEmptyStateTemplate">
+
+                    <tr>
+
+                        <td colspan="7">
+
+                            <div class="admin-empty-state">
+
+                                <h3>No topics found</h3>
+
+                                <p>
+                                    Create a topic under an existing
+                                    subject or adjust your filters.
+                                </p>
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+
+                </template>
+
+                <!-- Footer -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+    <!-- ==========================================
+         ADD / EDIT TOPIC MODAL
+    =========================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="topicFormModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="topicFormModalTitle"
+            aria-describedby="topicFormModalDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <div>
+
+                    <h2 id="topicFormModalTitle">
+                        Add New Topic
+                    </h2>
+
+                    <p
+                        class="admin-form-help"
+                        id="topicFormModalDescription"
+                    >
+                        Choose an examination and subject,
+                        then enter the topic details.
+                    </p>
+
+                </div>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeTopicFormModal"
+                    aria-label="Close topic form"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <form
+                class="admin-form"
+                id="topicForm"
+            >
+
+                <div class="admin-modal-body">
+
+                    <input
+                        type="hidden"
+                        id="topicRecordId"
+                        name="topicRecordId"
+                    >
+
+                    <div class="admin-form-grid">
+
+                        <!-- Parent Examination -->
+
+                        <div class="admin-form-field">
+
+                            <label for="topicParentExam">
+                                Parent Examination *
+                            </label>
+
+                            <select
+                                id="topicParentExam"
+                                name="examId"
+                                required
+                            >
+
+                                <option value="">
+                                    Select an examination
+                                </option>
+
+                            </select>
+
+                            <span class="admin-form-help">
+                                Loaded from existing examination
+                                records.
+                            </span>
+
+                        </div>
+
+                        <!-- Parent Subject -->
+
+                        <div class="admin-form-field">
+
+                            <label for="topicParentSubject">
+                                Parent Subject *
+                            </label>
+
+                            <select
+                                id="topicParentSubject"
+                                name="subjectId"
+                                required
+                                disabled
+                            >
+
+                                <option value="">
+                                    Select a subject
+                                </option>
+
+                            </select>
+
+                            <span class="admin-form-help">
+                                Only subjects belonging to the
+                                selected examination are shown.
+                            </span>
+
+                        </div>
+
+                        <!-- Topic Name -->
+
+                        <div class="admin-form-field is-full">
+
+                            <label for="topicName">
+                                Topic Name *
+                            </label>
+
+                            <input
+                                type="text"
+                                id="topicName"
+                                name="name"
+                                placeholder="Enter topic name"
+                                maxlength="150"
+                                autocomplete="off"
+                                required
+                            >
+
+                        </div>
+
+                        <!-- Description -->
+
+                        <div class="admin-form-field is-full">
+
+                            <label for="topicDescription">
+                                Topic Description
+                            </label>
+
+                            <textarea
+                                id="topicDescription"
+                                name="description"
+                                rows="4"
+                                maxlength="800"
+                                placeholder="Briefly describe what learners will study in this topic..."
+                            ></textarea>
+
+                        </div>
+
+                        <!-- Display Order -->
+
+                        <div class="admin-form-field">
+
+                            <label for="topicDisplayOrder">
+                                Display Order
+                            </label>
+
+                            <input
+                                type="number"
+                                id="topicDisplayOrder"
+                                name="order"
+                                min="0"
+                                max="99999"
+                                step="1"
+                                value="0"
+                                required
+                            >
+
+                            <span class="admin-form-help">
+                                Controls topic sequence within
+                                its parent subject.
+                            </span>
+
+                        </div>
+
+                        <!-- Publication -->
+
+                        <div class="admin-form-field">
+
+                            <label for="topicPublicationStatus">
+                                Publication Status
+                            </label>
+
+                            <select
+                                id="topicPublicationStatus"
+                                name="published"
+                                required
+                            >
+
+                                <option value="false">
+                                    Save as Draft
+                                </option>
+
+                                <option value="true">
+                                    Publish
+                                </option>
+
+                            </select>
+
+                            <span class="admin-form-help">
+                                Publishing requires both the
+                                examination and subject to
+                                be published.
+                            </span>
+
+                        </div>
+
+                        <!-- Optional Topic Practice Test -->
+
+                        <div class="admin-form-field is-full">
+
+                            <label for="topicPracticeTest">
+                                Topic Practice Test
+                            </label>
+
+                            <select
+                                id="topicPracticeTest"
+                                name="practiceTestId"
+                                disabled
+                            >
+
+                                <option value="">
+                                    No practice test linked
+                                </option>
+
+                            </select>
+
+                            <span class="admin-form-help">
+                                Optional. Available tests will be
+                                loaded from Firebase when the Mock
+                                Test Manager is integrated. A linked
+                                test must belong to this topic and
+                                be published before its public
+                                practice link is displayed.
+                            </span>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <!-- Form Actions -->
+
+                <div class="admin-modal-footer">
+
+                    <button
+                        type="button"
+                        class="btn btn-outline"
+                        id="cancelTopicForm"
+                    >
+                        Cancel
+                    </button>
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary"
+                        id="saveTopicButton"
+                    >
+
+                        <span id="saveTopicButtonText">
+                            Save Topic
+                        </span>
+
+                        <span
+                            class="ui-spinner"
+                            id="saveTopicSpinner"
+                            aria-hidden="true"
+                            hidden
+                        ></span>
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </section>
+
+    </div>
+
+    <!-- ==========================================
+         DELETE CONFIRMATION MODAL
+    =========================================== -->
+
+    <div
+        class="admin-modal-overlay"
+        id="deleteTopicModal"
+        hidden
+    >
+
+        <section
+            class="admin-modal"
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="deleteTopicModalTitle"
+            aria-describedby="deleteTopicModalDescription"
+        >
+
+            <div class="admin-modal-header">
+
+                <h2 id="deleteTopicModalTitle">
+                    Delete Topic?
+                </h2>
+
+                <button
+                    type="button"
+                    class="admin-icon-button"
+                    id="closeDeleteTopicModal"
+                    aria-label="Close delete confirmation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <div class="admin-modal-body">
+
+                <p id="deleteTopicModalDescription">
+                    You are about to permanently delete
+                    the selected topic. This action cannot
+                    be undone.
+                </p>
+
+                <p>
+                    <strong id="deleteTopicName"></strong>
+                </p>
+
+                <div class="admin-alert is-warning">
+
+                    Deletion must be blocked while lessons,
+                    questions, or mock tests still reference
+                    this topic.
+
+                </div>
+
+            </div>
+
+            <div class="admin-modal-footer">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelDeleteTopic"
+                >
+                    Cancel
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmDeleteTopic"
+                >
+
+                    <span id="deleteTopicButtonText">
+                        Delete Topic
+                    </span>
+
+                    <span
+                        class="ui-spinner"
+                        id="deleteTopicSpinner"
+                        aria-hidden="true"
+                        hidden
+                    ></span>
+
+                </button>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</body>
+
+</html>
