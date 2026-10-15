@@ -1,53 +1,112 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: index.html
+
+    PUBLIC HOMEPAGE — INTEGRATION REPLACEMENT
+
+    Designed and Developed by Yadav Web Technologies
+
+    Dynamic educational content:
+        public/exams
+        public/subjects
+        public/tests
+
+    Homepage configuration:
+        public/settings/homepage
+
+    IMPORTANT:
+    - No default educational records.
+    - No visitor authentication.
+    - No payment requirements.
+    - Firebase Realtime Database only.
+    =====================================================
+    -->
+
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <meta name="theme-color" content="#FFFFFF">
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
 
-    <meta name="description" content="Yadav ExamPrep is a free online learning and mock test platform. Prepare for competitive examinations through interactive lessons, subject-wise practice, and detailed performance analysis.">
+    <meta
+        name="description"
+        content="Yadav ExamPrep offers free examination preparation, structured learning, topic-wise question practice and mock tests without requiring registration."
+    >
 
-    <meta name="keywords" content="Free Mock Test, Online Exam Preparation, ADRE, APSC, SSC, Assam GK, Competitive Exams, Yadav ExamPrep">
+    <meta name="theme-color" content="#111111">
 
-    <meta name="author" content="Yadav Web Technologies">
+    <title>
+        Yadav ExamPrep | Free Exam Preparation &amp; Mock Tests
+    </title>
 
-    <meta property="og:type" content="website">
-    <meta property="og:title" content="Yadav ExamPrep | Learn. Practise. Improve.">
-    <meta property="og:description" content="Free interactive learning and competitive examination preparation platform.">
+    <!-- Typography -->
 
-    <title>Yadav ExamPrep | Learn. Practise. Improve.</title>
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
 
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
 
     <!-- Stylesheets -->
+
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/components.css">
     <link rel="stylesheet" href="css/animation.css">
     <link rel="stylesheet" href="css/responsive.css">
 
-    <!-- JavaScript -->
+    <!-- Shared Controllers -->
+
     <script src="js/toggle.js" defer></script>
     <script src="js/animations.js" defer></script>
     <script src="js/script.js" defer></script>
+
 </head>
 
 <body class="site-body" data-page="home">
 
-    <!-- ================= HEADER ================= -->
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         HEADER
+    =============================================== -->
 
     <header class="site-header" id="siteHeader">
 
         <div class="container header-container">
 
-            <a href="index.html" class="site-logo" aria-label="Yadav ExamPrep Home">
+            <!-- Brand -->
 
-                <span class="logo-symbol" aria-hidden="true">Y.</span>
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep Homepage"
+            >
+
+                <span
+                    class="logo-symbol"
+                    aria-hidden="true"
+                >
+                    Y.
+                </span>
 
                 <span class="logo-text">
                     Yadav<span>ExamPrep</span>
@@ -55,24 +114,78 @@
 
             </a>
 
-            <nav class="desktop-nav" aria-label="Main navigation">
+            <!-- Desktop Navigation -->
 
-                <a href="index.html" class="nav-link active" aria-current="page">Home</a>
+            <nav
+                class="desktop-nav"
+                aria-label="Primary navigation"
+            >
 
-                <a href="mock-tests.html" class="nav-link">Mock Tests</a>
+                <a
+                    href="index.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+                    Home
+                </a>
 
-                <a href="subjects.html" class="nav-link">Subjects</a>
+                <a
+                    href="exams.html"
+                    class="nav-link"
+                >
+                    Exams
+                </a>
 
-                <a href="learn.html" class="nav-link">Learn</a>
+                <a
+                    href="subjects.html"
+                    class="nav-link"
+                >
+                    Subjects
+                </a>
 
-                <a href="#features" class="nav-link">Features</a>
+                <a
+                    href="mock-tests.html"
+                    class="nav-link"
+                >
+                    Mock Tests
+                </a>
+
+                <a
+                    href="learn.html"
+                    class="nav-link"
+                >
+                    Learn
+                </a>
 
             </nav>
 
+            <!-- Header Actions -->
+
             <div class="header-actions">
 
-                <a href="mock-tests.html" class="btn btn-primary header-cta">
-                    Start Practising
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary header-cta"
+                >
+
+                    Start Practicing
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
                 </a>
 
                 <button
@@ -84,14 +197,21 @@
                     aria-expanded="false"
                 >
 
-                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                         stroke-width="1.8" stroke-linecap="round"
-                         stroke-linejoin="round" aria-hidden="true">
-
-                        <path d="M4 7h16"/>
-                        <path d="M4 12h16"/>
-                        <path d="M4 17h16"/>
-
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
                     </svg>
 
                 </button>
@@ -102,23 +222,56 @@
 
         <!-- Mobile Navigation -->
 
-        <nav class="mobile-nav" id="mobileNavigation"
-             aria-label="Mobile navigation" inert>
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
 
             <div class="mobile-nav-inner">
 
-                <a href="index.html" class="mobile-nav-link active" aria-current="page">Home</a>
+                <a
+                    href="index.html"
+                    class="mobile-nav-link active"
+                    aria-current="page"
+                >
+                    Home
+                </a>
 
-                <a href="mock-tests.html" class="mobile-nav-link">Mock Tests</a>
+                <a
+                    href="exams.html"
+                    class="mobile-nav-link"
+                >
+                    Exams
+                </a>
 
-                <a href="subjects.html" class="mobile-nav-link">Subjects</a>
+                <a
+                    href="subjects.html"
+                    class="mobile-nav-link"
+                >
+                    Subjects
+                </a>
 
-                <a href="learn.html" class="mobile-nav-link">Learn</a>
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link"
+                >
+                    Mock Tests
+                </a>
 
-                <a href="#features" class="mobile-nav-link">Features</a>
+                <a
+                    href="learn.html"
+                    class="mobile-nav-link"
+                >
+                    Learn
+                </a>
 
-                <a href="mock-tests.html" class="btn btn-primary mobile-cta">
-                    Start Practising
+                <a
+                    href="practice.html"
+                    class="btn btn-primary mobile-cta"
+                >
+                    Question Practice
                 </a>
 
             </div>
@@ -127,69 +280,107 @@
 
     </header>
 
-    <!-- ================= MAIN ================= -->
+    <!-- ==============================================
+         MAIN CONTENT
+    =============================================== -->
 
     <main id="mainContent">
 
-        <!-- HERO SECTION -->
+        <!-- ==========================================
+             HERO SECTION
+        =========================================== -->
 
-        <section class="hero-section">
+        <section
+            class="hero-section"
+            id="homeHeroSection"
+            aria-labelledby="heroTitle"
+        >
 
             <div class="container hero-container">
+
+                <!-- Hero Content -->
 
                 <div class="hero-content reveal">
 
                     <span class="section-eyebrow">
-                        YOUR FREE LEARNING COMPANION
+                        Free Online Exam Preparation
                     </span>
 
-                    <h1 class="hero-title">
-                        Learn Smarter.<br>
-                        Practise Better.<br>
-                        <span>Achieve More.</span>
+                    <h1
+                        class="hero-title"
+                        id="heroTitle"
+                    >
+                        Prepare Smarter.
+                        Learn Better.
+                        Practice Freely.
                     </h1>
 
                     <p class="hero-description">
-                        Prepare for competitive examinations with
-                        concept-based learning, interactive practice,
-                        realistic mock tests, and detailed performance
-                        analysis. Completely free. No registration required.
+                        Explore structured learning,
+                        practise topic-wise questions
+                        and attempt free mock tests
+                        without registration or payment.
                     </p>
 
                     <div class="hero-actions">
 
-                        <a href="mock-tests.html" class="btn btn-primary btn-large">
-                            Explore Mock Tests
+                        <a
+                            href="exams.html"
+                            class="btn btn-primary"
+                        >
 
-                            <svg viewBox="0 0 24 24" fill="none"
-                                 stroke="currentColor" stroke-width="1.8"
-                                 stroke-linecap="round" stroke-linejoin="round"
-                                 aria-hidden="true">
+                            Explore Examinations
 
-                                <path d="M5 12h14"/>
-                                <path d="m13 6 6 6-6 6"/>
-
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
                             </svg>
 
                         </a>
 
-                        <a href="learn.html" class="btn btn-outline btn-large">
-                            Start Learning
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            Browse Mock Tests
                         </a>
 
                     </div>
 
                     <div class="hero-benefits">
 
-                        <span>No Login Required</span>
-                        <span>100% Free</span>
-                        <span>Learn at Your Pace</span>
+                        <span>
+                            Free Access
+                        </span>
+
+                        <span>
+                            No Login Required
+                        </span>
+
+                        <span>
+                            Mobile Friendly
+                        </span>
 
                     </div>
 
                 </div>
 
-                <!-- Hero Preview -->
+                <!--
+                    This preview demonstrates the interface
+                    only. It is not an educational question
+                    and does not represent a real test record.
+                -->
 
                 <div class="hero-preview reveal">
 
@@ -197,24 +388,43 @@
 
                         <div class="preview-header">
 
-                            <div>
-                                <span class="preview-label">PRACTICE PREVIEW</span>
-                                <h2>Test Your Knowledge</h2>
-                            </div>
+                            <span class="preview-label">
+                                Preparation Workspace
+                            </span>
 
-                            <span class="preview-status">Practice Mode</span>
+                            <span class="preview-status">
+                                Self-Paced Learning
+                            </span>
 
                         </div>
 
                         <div class="preview-progress">
 
                             <div class="progress-info">
-                                <span>Question 01 of 10</span>
-                                <span>10%</span>
+
+                                <span>
+                                    Learn
+                                </span>
+
+                                <span>
+                                    Practice
+                                </span>
+
+                                <span>
+                                    Improve
+                                </span>
+
                             </div>
 
-                            <div class="progress-track">
-                                <div class="progress-fill progress-ten"></div>
+                            <div
+                                class="progress-track"
+                                aria-hidden="true"
+                            >
+
+                                <div
+                                    class="progress-fill progress-ten"
+                                ></div>
+
                             </div>
 
                         </div>
@@ -222,34 +432,50 @@
                         <div class="preview-question">
 
                             <span class="question-category">
-                                GENERAL KNOWLEDGE
+                                Your Preparation Journey
                             </span>
 
-                            <h3>
-                                Which is the largest state in India
-                                by geographical area?
-                            </h3>
+                            <h2>
+                                One platform for structured
+                                examination preparation.
+                            </h2>
 
                             <div class="preview-options">
 
                                 <div class="preview-option">
-                                    <span class="option-letter">A</span>
-                                    <span>Maharashtra</span>
+
+                                    <span class="option-letter">
+                                        01
+                                    </span>
+
+                                    <span>
+                                        Explore available subjects
+                                    </span>
+
                                 </div>
 
                                 <div class="preview-option">
-                                    <span class="option-letter">B</span>
-                                    <span>Madhya Pradesh</span>
+
+                                    <span class="option-letter">
+                                        02
+                                    </span>
+
+                                    <span>
+                                        Study published lessons
+                                    </span>
+
                                 </div>
 
                                 <div class="preview-option correct">
-                                    <span class="option-letter">C</span>
-                                    <span>Rajasthan</span>
-                                </div>
 
-                                <div class="preview-option">
-                                    <span class="option-letter">D</span>
-                                    <span>Uttar Pradesh</span>
+                                    <span class="option-letter">
+                                        03
+                                    </span>
+
+                                    <span>
+                                        Practise and review results
+                                    </span>
+
                                 </div>
 
                             </div>
@@ -258,10 +484,15 @@
 
                         <div class="preview-footer">
 
-                            <span>Understand every answer.</span>
+                            <span>
+                                Learn at your own pace
+                            </span>
 
-                            <a href="mock-tests.html">
-                                Try Practice Mode
+                            <a
+                                href="learn.html"
+                                class="text-link"
+                            >
+                                Start Learning
                             </a>
 
                         </div>
@@ -274,9 +505,15 @@
 
         </section>
 
-        <!-- EXAM CATEGORIES -->
+        <!-- ==========================================
+             EXAMINATION DIRECTORY
+        =========================================== -->
 
-        <section class="section exams-section" id="examinations">
+        <section
+            class="section"
+            id="homeExamsSection"
+            aria-labelledby="homeExamsTitle"
+        >
 
             <div class="container">
 
@@ -285,32 +522,50 @@
                     <div>
 
                         <span class="section-eyebrow">
-                            EXAMINATION PREPARATION
+                            Examination Directory
                         </span>
 
-                        <h2>Explore Examinations</h2>
+                        <h2 id="homeExamsTitle">
+                            Explore Examinations
+                        </h2>
 
                         <p>
-                            Choose your target examination and begin
-                            practising with structured learning resources.
+                            Discover the examinations
+                            currently published on
+                            Yadav ExamPrep.
                         </p>
 
                     </div>
 
-                    <a href="mock-tests.html" class="text-link">
-                        View All Exams
-                        <span aria-hidden="true">&rarr;</span>
+                    <a
+                        href="exams.html"
+                        class="text-link"
+                    >
+                        View All Examinations
                     </a>
 
                 </div>
 
-                <div class="exam-grid" id="examCategories"
-                     aria-live="polite">
+                <!-- Firebase renders published exams here -->
 
-                    <!-- Dynamically rendered examination cards -->
+                <div
+                    class="exam-grid"
+                    id="examCategories"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
 
                     <div class="content-placeholder">
-                        <p>Examination categories will appear here.</p>
+
+                        <span
+                            class="ui-spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <p>
+                            Loading examinations...
+                        </p>
+
                     </div>
 
                 </div>
@@ -319,135 +574,136 @@
 
         </section>
 
-        <!-- LEARNING JOURNEY -->
+        <!-- ==========================================
+             STRUCTURED LEARNING
+        =========================================== -->
 
-        <section class="section learning-section">
+        <section
+            class="section"
+            id="homeLearningSection"
+            aria-labelledby="homeLearningTitle"
+        >
 
             <div class="container">
 
-                <div class="section-heading section-heading-centered reveal">
+                <div
+                    class="section-heading section-heading-centered reveal"
+                >
 
-                    <span class="section-eyebrow">
-                        A BETTER WAY TO PREPARE
-                    </span>
+                    <div>
 
-                    <h2>Don't Just Memorise. Understand.</h2>
+                        <span class="section-eyebrow">
+                            Guided Preparation
+                        </span>
 
-                    <p>
-                        Follow a structured learning journey designed
-                        to build strong concepts and improve performance.
-                    </p>
+                        <h2 id="homeLearningTitle">
+                            A Clear Path to Better Learning
+                        </h2>
+
+                        <p>
+                            Move from understanding a topic
+                            to practising what you have
+                            learned.
+                        </p>
+
+                    </div>
 
                 </div>
+
+                <!--
+                    These are generic learning-process steps,
+                    not database educational records.
+                -->
 
                 <div class="learning-grid">
 
                     <article class="learning-card reveal">
 
-                        <span class="step-number">01</span>
+                        <span class="step-number">
+                            01
+                        </span>
 
-                        <h3>Learn the Concept</h3>
+                        <h3>
+                            Choose Your Examination
+                        </h3>
 
                         <p>
-                            Understand important topics through clear
-                            explanations, examples, and essential notes.
+                            Browse available examinations
+                            and select the preparation
+                            area you want to explore.
                         </p>
 
                     </article>
 
                     <article class="learning-card reveal">
 
-                        <span class="step-number">02</span>
+                        <span class="step-number">
+                            02
+                        </span>
 
-                        <h3>Practise Questions</h3>
+                        <h3>
+                            Study Subjects and Topics
+                        </h3>
 
                         <p>
-                            Strengthen your understanding with
-                            topic-based interactive practice.
+                            Access administrator-published
+                            lessons in a structured
+                            learning sequence.
                         </p>
 
                     </article>
 
                     <article class="learning-card reveal">
 
-                        <span class="step-number">03</span>
+                        <span class="step-number">
+                            03
+                        </span>
 
-                        <h3>Attempt Mock Tests</h3>
-
-                        <p>
-                            Experience examination-style questions,
-                            time limits, and realistic test conditions.
-                        </p>
-
-                    </article>
-
-                    <article class="learning-card reveal">
-
-                        <span class="step-number">04</span>
-
-                        <h3>Analyse & Improve</h3>
+                        <h3>
+                            Practise and Improve
+                        </h3>
 
                         <p>
-                            Review your mistakes, understand correct
-                            answers, and focus on weaker topics.
+                            Check your understanding
+                            through question practice
+                            and available mock tests.
                         </p>
 
                     </article>
 
                 </div>
 
-            </div>
+                <div class="hero-actions">
 
-        </section>
+                    <a
+                        href="learn.html"
+                        class="btn btn-primary"
+                    >
+                        Explore Learning
+                    </a>
 
-        <!-- SUBJECTS -->
-
-        <section class="section subjects-section" id="subjects">
-
-            <div class="container">
-
-                <div class="section-heading reveal">
-
-                    <div>
-
-                        <span class="section-eyebrow">
-                            SUBJECT-WISE PREPARATION
-                        </span>
-
-                        <h2>Explore Subjects</h2>
-
-                        <p>
-                            Build knowledge one subject at a time
-                            with organized lessons and practice questions.
-                        </p>
-
-                    </div>
-
-                    <a href="subjects.html" class="text-link">
-                        All Subjects
-                        <span aria-hidden="true">&rarr;</span>
+                    <a
+                        href="practice.html"
+                        class="btn btn-outline"
+                    >
+                        Topic-Wise Practice
                     </a>
 
                 </div>
 
-                <div class="subject-grid" id="subjectCategories"
-                     aria-live="polite">
-
-                    <!-- Subject cards loaded dynamically -->
-
-                    <div class="content-placeholder">
-                        <p>Available subjects will appear here.</p>
-                    </div>
-
-                </div>
-
             </div>
 
         </section>
 
-        <!-- FEATURED MOCK TESTS -->
+        <!-- ==========================================
+             SUBJECT DIRECTORY
+        =========================================== -->
 
-        <section class="section mock-section">
+        <section
+            class="section"
+            id="homeSubjectsSection"
+            aria-labelledby="homeSubjectsTitle"
+        >
 
             <div class="container">
 
@@ -456,32 +712,50 @@
                     <div>
 
                         <span class="section-eyebrow">
-                            EXAM-ORIENTED PRACTICE
+                            Published Subjects
                         </span>
 
-                        <h2>Featured Mock Tests</h2>
+                        <h2 id="homeSubjectsTitle">
+                            Explore Available Subjects
+                        </h2>
 
                         <p>
-                            Practise with carefully structured tests
-                            designed to evaluate your preparation.
+                            Find published subjects
+                            and continue into their
+                            available topics and lessons.
                         </p>
 
                     </div>
 
-                    <a href="mock-tests.html" class="text-link">
-                        Browse Tests
-                        <span aria-hidden="true">&rarr;</span>
+                    <a
+                        href="subjects.html"
+                        class="text-link"
+                    >
+                        View All Subjects
                     </a>
 
                 </div>
 
-                <div class="mock-grid" id="featuredMockTests"
-                     aria-live="polite">
+                <!-- Firebase renders published subjects here -->
 
-                    <!-- Published mock tests loaded dynamically -->
+                <div
+                    class="subject-grid"
+                    id="subjectCategories"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
 
                     <div class="content-placeholder">
-                        <p>Featured mock tests will appear here.</p>
+
+                        <span
+                            class="ui-spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <p>
+                            Loading subjects...
+                        </p>
+
                     </div>
 
                 </div>
@@ -490,9 +764,15 @@
 
         </section>
 
-        <!-- DAILY LEARNING -->
+        <!-- ==========================================
+             FEATURED MOCK TESTS
+        =========================================== -->
 
-        <section class="section daily-section">
+        <section
+            class="section"
+            id="homeMockTestsSection"
+            aria-labelledby="homeMockTestsTitle"
+        >
 
             <div class="container">
 
@@ -501,72 +781,121 @@
                     <div>
 
                         <span class="section-eyebrow">
-                            BUILD A DAILY HABIT
+                            Self-Assessment
                         </span>
 
-                        <h2>A Little Progress Every Day.</h2>
+                        <h2 id="homeMockTestsTitle">
+                            Featured Mock Tests
+                        </h2>
 
                         <p>
-                            Stay consistent with short learning activities
-                            that make preparation more engaging.
+                            Attempt available mock tests
+                            and review your performance
+                            after submission.
+                        </p>
+
+                    </div>
+
+                    <a
+                        href="mock-tests.html"
+                        class="text-link"
+                    >
+                        View All Mock Tests
+                    </a>
+
+                </div>
+
+                <!-- Firebase renders featured tests here -->
+
+                <div
+                    class="mock-grid"
+                    id="featuredMockTests"
+                    aria-live="polite"
+                    aria-busy="true"
+                >
+
+                    <div class="content-placeholder">
+
+                        <span
+                            class="ui-spinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <p>
+                            Loading featured mock tests...
                         </p>
 
                     </div>
 
                 </div>
+
+            </div>
+
+        </section>
+
+        <!-- ==========================================
+             PRACTICE PROMOTION
+        =========================================== -->
+
+        <section
+            class="section"
+            id="homePracticeSection"
+            aria-labelledby="homePracticeTitle"
+        >
+
+            <div class="container">
 
                 <div class="daily-grid">
 
                     <article class="daily-card reveal">
 
-                        <span class="card-eyebrow">DAILY PRACTICE</span>
+                        <span class="card-eyebrow">
+                            Topic-Wise Practice
+                        </span>
 
-                        <h3>Daily Challenge</h3>
+                        <h2 id="homePracticeTitle">
+                            Strengthen Your Understanding,
+                            One Question at a Time.
+                        </h2>
 
                         <p>
-                            Test your knowledge with a short set of
-                            carefully selected practice questions.
+                            Select a published topic,
+                            practise available questions,
+                            check your answers instantly
+                            and read explanations.
                         </p>
 
-                        <a href="learn.html#daily-challenge" class="text-link">
-                            Explore Challenge
-                            <span aria-hidden="true">&rarr;</span>
+                        <a
+                            href="practice.html"
+                            class="btn btn-primary"
+                        >
+                            Start Question Practice
                         </a>
 
                     </article>
 
                     <article class="daily-card reveal">
 
-                        <span class="card-eyebrow">QUICK LEARNING</span>
+                        <span class="card-eyebrow">
+                            Mock Examinations
+                        </span>
 
-                        <h3>Concept of the Day</h3>
-
-                        <p>
-                            Learn something useful every day through
-                            concise explanations and examples.
-                        </p>
-
-                        <a href="learn.html#daily-concept" class="text-link">
-                            Explore Concept
-                            <span aria-hidden="true">&rarr;</span>
-                        </a>
-
-                    </article>
-
-                    <article class="daily-card reveal">
-
-                        <span class="card-eyebrow">SMART REVISION</span>
-
-                        <h3>Revise & Improve</h3>
+                        <h2>
+                            Ready to Assess Your Preparation?
+                        </h2>
 
                         <p>
-                            Revisit important concepts and strengthen
-                            your understanding through focused revision.
+                            Explore available timed mock
+                            tests, navigate questions
+                            and review your results
+                            after submission.
                         </p>
 
-                        <a href="learn.html#revision" class="text-link">
-                            Start Revision
-                            <span aria-hidden="true">&rarr;</span>
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            Browse Mock Tests
                         </a>
 
                     </article>
@@ -577,63 +906,149 @@
 
         </section>
 
-        <!-- PLATFORM FEATURES -->
+        <!-- ==========================================
+             PLATFORM FEATURES
+        =========================================== -->
 
-        <section class="section features-section" id="features">
+        <section
+            class="section"
+            id="homeFeaturesSection"
+            aria-labelledby="homeFeaturesTitle"
+        >
 
             <div class="container">
 
-                <div class="section-heading section-heading-centered reveal">
+                <div
+                    class="section-heading section-heading-centered reveal"
+                >
 
-                    <span class="section-eyebrow">
-                        EVERYTHING YOU NEED
-                    </span>
+                    <div>
 
-                    <h2>Designed Around Your Learning.</h2>
+                        <span class="section-eyebrow">
+                            Why Yadav ExamPrep?
+                        </span>
 
-                    <p>
-                        Powerful preparation tools without unnecessary
-                        complexity, registration, or subscription.
-                    </p>
+                        <h2 id="homeFeaturesTitle">
+                            Designed for Accessible Preparation
+                        </h2>
+
+                        <p>
+                            A focused learning experience
+                            without unnecessary barriers.
+                        </p>
+
+                    </div>
 
                 </div>
 
                 <div class="features-grid">
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">01</span>
-                        <h3>Completely Free</h3>
-                        <p>Access available learning resources and mock tests without payment.</p>
+
+                        <span class="feature-number">
+                            01
+                        </span>
+
+                        <h3>
+                            Completely Free
+                        </h3>
+
+                        <p>
+                            Access published learning
+                            resources and mock tests
+                            without subscription fees.
+                        </p>
+
                     </article>
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">02</span>
-                        <h3>No Registration</h3>
-                        <p>Start learning immediately without creating an account.</p>
+
+                        <span class="feature-number">
+                            02
+                        </span>
+
+                        <h3>
+                            No Visitor Login
+                        </h3>
+
+                        <p>
+                            Start exploring educational
+                            content without creating
+                            a public account.
+                        </p>
+
                     </article>
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">03</span>
-                        <h3>Detailed Explanations</h3>
-                        <p>Understand the reasoning behind answers instead of memorising options.</p>
+
+                        <span class="feature-number">
+                            03
+                        </span>
+
+                        <h3>
+                            Responsive Interface
+                        </h3>
+
+                        <p>
+                            A consistent preparation
+                            experience across desktop,
+                            tablet and mobile screens.
+                        </p>
+
                     </article>
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">04</span>
-                        <h3>Performance Analysis</h3>
-                        <p>Review your accuracy, scores, and areas requiring improvement.</p>
+
+                        <span class="feature-number">
+                            04
+                        </span>
+
+                        <h3>
+                            Structured Learning
+                        </h3>
+
+                        <p>
+                            Navigate published subjects,
+                            topics and lessons through
+                            an organised learning path.
+                        </p>
+
                     </article>
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">05</span>
-                        <h3>Mobile Friendly</h3>
-                        <p>Enjoy a consistent learning experience across devices and screen sizes.</p>
+
+                        <span class="feature-number">
+                            05
+                        </span>
+
+                        <h3>
+                            Immediate Practice Feedback
+                        </h3>
+
+                        <p>
+                            Check answers during topic-wise
+                            practice and review available
+                            explanations.
+                        </p>
+
                     </article>
 
                     <article class="feature-card reveal">
-                        <span class="feature-number">06</span>
-                        <h3>Personal Revision</h3>
-                        <p>Bookmark important questions and revisit previously incorrect answers.</p>
+
+                        <span class="feature-number">
+                            06
+                        </span>
+
+                        <h3>
+                            Performance Review
+                        </h3>
+
+                        <p>
+                            Review your mock-test results
+                            and identify areas that
+                            need further preparation.
+                        </p>
+
                     </article>
 
                 </div>
@@ -642,39 +1057,59 @@
 
         </section>
 
-        <!-- FINAL CTA -->
+        <!-- ==========================================
+             FINAL CALL TO ACTION
+        =========================================== -->
 
-        <section class="section cta-section">
+        <section
+            class="cta-section"
+            id="homeCTASection"
+            aria-labelledby="homeCTATitle"
+        >
 
             <div class="container">
 
                 <div class="cta-container reveal">
 
-                    <span class="section-eyebrow">
-                        YOUR PREPARATION STARTS HERE
-                    </span>
+                    <div>
 
-                    <h2>
-                        Every Great Result Begins
-                        With Consistent Practice.
-                    </h2>
+                        <span class="section-eyebrow">
+                            Start Your Preparation
+                        </span>
 
-                    <p>
-                        Choose an examination, explore concepts,
-                        and start improving your preparation today.
-                    </p>
+                        <h2 id="homeCTATitle">
+                            Your Next Learning Session
+                            Starts Here.
+                        </h2>
 
-                    <a href="mock-tests.html" class="btn btn-primary btn-large">
-                        Start Free Mock Test
+                        <p>
+                            Browse published examinations,
+                            discover available subjects
+                            and practise freely.
+                        </p>
 
-                        <svg viewBox="0 0 24 24" fill="none"
-                             stroke="currentColor" stroke-width="1.8"
-                             stroke-linecap="round" stroke-linejoin="round"
-                             aria-hidden="true">
+                    </div>
 
-                            <path d="M5 12h14"/>
-                            <path d="m13 6 6 6-6 6"/>
+                    <a
+                        href="exams.html"
+                        class="btn btn-primary"
+                    >
+                        Explore Examinations
 
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
                         </svg>
 
                     </a>
@@ -687,7 +1122,9 @@
 
     </main>
 
-    <!-- ================= FOOTER ================= -->
+    <!-- ==============================================
+         FOOTER
+    =============================================== -->
 
     <footer class="site-footer">
 
@@ -695,11 +1132,22 @@
 
             <div class="footer-main">
 
+                <!-- Brand -->
+
                 <div class="footer-brand">
 
-                    <a href="index.html" class="site-logo">
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep Homepage"
+                    >
 
-                        <span class="logo-symbol" aria-hidden="true">Y.</span>
+                        <span
+                            class="logo-symbol"
+                            aria-hidden="true"
+                        >
+                            Y.
+                        </span>
 
                         <span class="logo-text">
                             Yadav<span>ExamPrep</span>
@@ -708,42 +1156,72 @@
                     </a>
 
                     <p>
-                        Making quality examination preparation
-                        accessible through free, interactive,
-                        and concept-focused learning.
+                        Free examination preparation,
+                        structured learning and mock
+                        tests for every learner.
                     </p>
 
                 </div>
 
+                <!-- Explore -->
+
                 <div class="footer-column">
 
-                    <h3>Explore</h3>
+                    <h3>
+                        Explore
+                    </h3>
 
-                    <a href="index.html">Home</a>
-                    <a href="mock-tests.html">Mock Tests</a>
-                    <a href="subjects.html">Subjects</a>
-                    <a href="learn.html">Learning Hub</a>
+                    <a href="exams.html">
+                        Examinations
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="learn.html">
+                        Learning
+                    </a>
+
+                    <a href="practice.html">
+                        Question Practice
+                    </a>
 
                 </div>
 
+                <!-- Information -->
+
                 <div class="footer-column">
 
-                    <h3>Learning</h3>
+                    <h3>
+                        Information
+                    </h3>
 
-                    <a href="learn.html#daily-challenge">Daily Challenge</a>
-                    <a href="learn.html#daily-concept">Daily Concept</a>
-                    <a href="learn.html#revision">Revision</a>
-                    <a href="mock-tests.html">Exam Practice</a>
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact Us
+                    </a>
 
                 </div>
 
+                <!-- Administration -->
+
                 <div class="footer-column">
 
-                    <h3>Platform</h3>
+                    <h3>
+                        Administration
+                    </h3>
 
-                    <a href="#features">Features</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="contact.html">Contact</a>
+                    <a href="admin/index.html">
+                        Admin Login
+                    </a>
 
                 </div>
 
@@ -752,7 +1230,8 @@
             <div class="footer-bottom">
 
                 <p>
-                    &copy; <span id="currentYear">2026</span>
+                    &copy;
+                    <span id="currentYear">2026</span>
                     Yadav ExamPrep. All Rights Reserved.
                 </p>
 
@@ -768,4 +1247,5 @@
     </footer>
 
 </body>
+
 </html>
