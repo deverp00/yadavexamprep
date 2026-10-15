@@ -1,0 +1,17 @@
+
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+
+    "admin": {
+      ".read": "auth != null && auth.uid === '6HwAPbqwYBgg5Ih2zWycOZFBCe93'",
+      ".write": "auth != null && auth.uid === '6HwAPbqwYBgg5Ih2zWycOZFBCe93'"
+    },
+
+    "public": {
+      ".read": true,
+      ".write": "auth != null && auth.uid === '6HwAPbqwYBgg5Ih2zWycOZFBCe93'"
+    }
+  }
+}
