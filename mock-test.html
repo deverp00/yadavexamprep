@@ -1,0 +1,1281 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Attempt free online mock tests with timed questions, examination-style navigation, and instant performance evaluation on Yadav ExamPrep."
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <title>Mock Test Examination | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <link rel="stylesheet" href="css/components.css">
+
+    <link rel="stylesheet" href="css/animation.css">
+
+    <link rel="stylesheet" href="css/responsive.css">
+
+
+    <!-- =============================================
+         SHARED JAVASCRIPT
+    ============================================== -->
+
+    <script src="js/toggle.js" defer></script>
+
+    <script src="js/animations.js" defer></script>
+
+    <script src="js/script.js" defer></script>
+
+
+    <!-- =============================================
+         EXAMINATION CONTROLLER
+    ============================================== -->
+
+    <script
+        type="module"
+        src="js/mock-test.js"
+    ></script>
+
+</head>
+
+
+<body class="site-body" data-page="mock-test">
+
+
+    <!-- =============================================
+         ACCESSIBILITY
+    ============================================== -->
+
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+
+    <!-- =============================================
+         UNIVERSAL HEADER
+    ============================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-container">
+
+
+            <!-- Brand -->
+
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep homepage"
+            >
+
+                <span class="logo-symbol" aria-hidden="true">
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="desktop-nav"
+                aria-label="Main navigation"
+            >
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="nav-link active"
+                    aria-current="page"
+                >
+                    Mock Tests
+                </a>
+
+                <a href="subjects.html" class="nav-link">
+                    Subjects
+                </a>
+
+                <a href="learn.html" class="nav-link">
+                    Learn
+                </a>
+
+            </nav>
+
+
+            <!-- Header Actions -->
+
+            <div class="header-actions">
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-outline header-cta"
+                >
+                    All Mock Tests
+                </a>
+
+
+                <!-- Mobile Navigation Toggle -->
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open navigation menu"
+                    aria-controls="mobileNavigation"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- Mobile Navigation -->
+
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
+
+            <div class="mobile-nav-inner">
+
+                <a href="index.html" class="mobile-nav-link">
+                    Home
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link active"
+                    aria-current="page"
+                >
+                    Mock Tests
+                </a>
+
+                <a href="subjects.html" class="mobile-nav-link">
+                    Subjects
+                </a>
+
+                <a href="learn.html" class="mobile-nav-link">
+                    Learn
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary mobile-cta"
+                >
+                    All Mock Tests
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+
+    <!-- =============================================
+         MAIN CONTENT
+    ============================================== -->
+
+    <main id="mainContent">
+
+
+        <!-- =========================================
+             EXAMINATION LOADING / ERROR STATE
+        ========================================== -->
+
+        <section
+            class="section examination-status-section"
+            id="examStatusSection"
+            aria-labelledby="examStatusTitle"
+        >
+
+            <div class="container">
+
+                <div
+                    class="empty-state"
+                    id="examStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="examStatusSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <h1 id="examStatusTitle">
+                        Loading Mock Test
+                    </h1>
+
+                    <p id="examStatusDescription">
+                        Please wait while the examination details
+                        and questions are being prepared.
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="btn btn-outline"
+                        id="examStatusBackLink"
+                        hidden
+                    >
+                        Browse Mock Tests
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             EXAMINATION INSTRUCTIONS
+        ========================================== -->
+
+        <section
+            class="section exam-instructions-section"
+            id="examInstructionsSection"
+            aria-labelledby="examInstructionsTitle"
+            hidden
+        >
+
+            <div class="container">
+
+
+                <!-- Breadcrumb -->
+
+                <nav
+                    class="breadcrumb"
+                    aria-label="Breadcrumb"
+                >
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <span
+                        class="breadcrumb-separator"
+                        aria-hidden="true"
+                    >
+                        /
+                    </span>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <span
+                        class="breadcrumb-separator"
+                        aria-hidden="true"
+                    >
+                        /
+                    </span>
+
+                    <span
+                        class="current"
+                        aria-current="page"
+                    >
+                        Instructions
+                    </span>
+
+                </nav>
+
+
+                <!-- Instructions Header -->
+
+                <div class="page-intro-content">
+
+                    <span class="section-eyebrow">
+                        Examination Instructions
+                    </span>
+
+                    <h1 id="examInstructionsTitle">
+                        Mock Test Instructions
+                    </h1>
+
+                    <p id="examInstructionsDescription">
+                        Review the examination details and
+                        instructions before starting your test.
+                    </p>
+
+                </div>
+
+
+                <!-- Test Information -->
+
+                <div class="ui-card exam-instructions-card">
+
+                    <div class="exam-instructions-header">
+
+                        <span class="ui-badge">
+                            Free Mock Test
+                        </span>
+
+                        <h2 id="instructionTestTitle">
+                            Examination Details
+                        </h2>
+
+                        <p id="instructionTestDescription"></p>
+
+                    </div>
+
+
+                    <!-- Dynamic Test Statistics -->
+
+                    <div
+                        class="exam-information-grid"
+                        aria-label="Test information"
+                    >
+
+                        <div class="exam-information-item">
+
+                            <span class="exam-information-label">
+                                Total Questions
+                            </span>
+
+                            <strong id="instructionQuestionCount">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="exam-information-item">
+
+                            <span class="exam-information-label">
+                                Duration
+                            </span>
+
+                            <strong id="instructionDuration">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="exam-information-item">
+
+                            <span class="exam-information-label">
+                                Maximum Marks
+                            </span>
+
+                            <strong id="instructionTotalMarks">
+                                —
+                            </strong>
+
+                        </div>
+
+
+                        <div class="exam-information-item">
+
+                            <span class="exam-information-label">
+                                Negative Marking
+                            </span>
+
+                            <strong id="instructionNegativeMarking">
+                                —
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- General Instructions -->
+
+                    <div class="exam-rules">
+
+                        <h3>
+                            General Instructions
+                        </h3>
+
+                        <ol>
+
+                            <li>
+                                Read each question carefully before
+                                selecting your answer.
+                            </li>
+
+                            <li>
+                                You may navigate between questions
+                                using the Previous, Next, or question
+                                palette controls.
+                            </li>
+
+                            <li>
+                                Use Mark for Review to identify
+                                questions you want to revisit.
+                            </li>
+
+                            <li>
+                                You can change or clear an answer
+                                before submitting the examination.
+                            </li>
+
+                            <li>
+                                If the test has a time limit, it will
+                                be submitted automatically when
+                                the timer reaches zero.
+                            </li>
+
+                            <li>
+                                Your result will be calculated using
+                                the marking scheme configured for
+                                this examination.
+                            </li>
+
+                        </ol>
+
+                    </div>
+
+
+                    <!-- Agreement -->
+
+                    <label class="exam-agreement">
+
+                        <input
+                            type="checkbox"
+                            id="examAgreement"
+                        >
+
+                        <span>
+                            I have read the examination instructions
+                            and am ready to begin.
+                        </span>
+
+                    </label>
+
+
+                    <!-- Actions -->
+
+                    <div class="exam-instruction-actions">
+
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            Back to Mock Tests
+                        </a>
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="startExamButton"
+                            disabled
+                        >
+                            Start Examination
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="18"
+                                height="18"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <path d="M5 12h14"></path>
+                                <path d="m12 5 7 7-7 7"></path>
+                            </svg>
+
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =========================================
+             ACTIVE EXAMINATION WORKSPACE
+        ========================================== -->
+
+        <section
+            class="section examination-workspace-section"
+            id="examWorkspace"
+            aria-labelledby="activeExamTitle"
+            hidden
+        >
+
+            <div class="container">
+
+
+                <!-- =================================
+                     EXAMINATION TOP BAR
+                ================================== -->
+
+                <div class="exam-topbar ui-card">
+
+                    <div class="exam-topbar-information">
+
+                        <span class="section-eyebrow">
+                            Examination in Progress
+                        </span>
+
+                        <h1 id="activeExamTitle">
+                            Mock Test
+                        </h1>
+
+                        <p id="activeExamSubtitle"></p>
+
+                    </div>
+
+
+                    <!-- Timer and Submit -->
+
+                    <div class="exam-topbar-actions">
+
+                        <div
+                            class="exam-timer"
+                            id="examTimer"
+                            role="timer"
+                            aria-label="Time remaining"
+                        >
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="20"
+                                height="20"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.8"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <circle
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                ></circle>
+
+                                <path d="M12 6v6l4 2"></path>
+                            </svg>
+
+                            <span id="examTimerValue">
+                                --:--
+                            </span>
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="submitExamButton"
+                        >
+                            Submit Test
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     OVERALL PROGRESS
+                ================================== -->
+
+                <div class="exam-progress-panel">
+
+                    <div class="progress-info">
+
+                        <span id="examProgressText">
+                            0 questions answered
+                        </span>
+
+                        <strong id="examProgressPercentage">
+                            0%
+                        </strong>
+
+                    </div>
+
+                    <div
+                        class="progress-track"
+                        id="examProgressTrack"
+                        role="progressbar"
+                        aria-label="Questions answered"
+                        aria-valuemin="0"
+                        aria-valuemax="100"
+                        aria-valuenow="0"
+                    >
+
+                        <div
+                            class="progress-fill"
+                            id="examProgressFill"
+                        ></div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- =================================
+                     EXAMINATION LAYOUT
+                ================================== -->
+
+                <div class="exam-layout">
+
+
+                    <!-- =============================
+                         QUESTION PANEL
+                    ============================== -->
+
+                    <div class="exam-question-column">
+
+
+                        <!-- Question Card -->
+
+                        <article
+                            class="ui-card exam-question-card"
+                            id="examQuestionCard"
+                            aria-labelledby="examQuestionTitle"
+                        >
+
+                            <!-- Question Header -->
+
+                            <div class="exam-question-header">
+
+                                <div>
+
+                                    <span
+                                        class="section-eyebrow"
+                                        id="examQuestionCategory"
+                                    >
+                                        Question
+                                    </span>
+
+                                    <h2 id="examQuestionTitle">
+                                        Question 1
+                                    </h2>
+
+                                </div>
+
+                                <span
+                                    class="ui-badge"
+                                    id="examQuestionMarks"
+                                >
+                                    Marks
+                                </span>
+
+                            </div>
+
+
+                            <!-- Dynamic Question -->
+
+                            <div
+                                class="exam-question-content"
+                                id="examQuestionContent"
+                            ></div>
+
+
+                            <!-- Dynamic Options -->
+
+                            <fieldset
+                                class="exam-answer-fieldset"
+                                id="examAnswerFieldset"
+                            >
+
+                                <legend class="form-label">
+                                    Select your answer
+                                </legend>
+
+                                <div
+                                    class="exam-answer-options"
+                                    id="examAnswerOptions"
+                                ></div>
+
+                            </fieldset>
+
+
+                            <!-- Question Actions -->
+
+                            <div class="exam-question-actions">
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline"
+                                    id="clearAnswerButton"
+                                >
+                                    Clear Answer
+                                </button>
+
+                                <button
+                                    type="button"
+                                    class="btn btn-outline"
+                                    id="markReviewButton"
+                                    aria-pressed="false"
+                                >
+                                    Mark for Review
+                                </button>
+
+                            </div>
+
+                        </article>
+
+
+                        <!-- =========================
+                             QUESTION NAVIGATION
+                        ========================== -->
+
+                        <nav
+                            class="exam-question-navigation"
+                            aria-label="Question navigation"
+                        >
+
+                            <button
+                                type="button"
+                                class="btn btn-outline"
+                                id="previousQuestionButton"
+                                disabled
+                            >
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M19 12H5"></path>
+                                    <path d="m12 19-7-7 7-7"></path>
+                                </svg>
+
+                                Previous
+                            </button>
+
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="nextQuestionButton"
+                            >
+
+                                Save &amp; Next
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="18"
+                                    height="18"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+
+                            </button>
+
+                        </nav>
+
+                    </div>
+
+
+                    <!-- =============================
+                         QUESTION PALETTE SIDEBAR
+                    ============================== -->
+
+                    <aside
+                        class="ui-card exam-sidebar"
+                        id="examSidebar"
+                        aria-labelledby="examPaletteTitle"
+                    >
+
+                        <!-- Sidebar Header -->
+
+                        <div class="exam-sidebar-header">
+
+                            <div>
+
+                                <span class="section-eyebrow">
+                                    Question Navigation
+                                </span>
+
+                                <h2 id="examPaletteTitle">
+                                    Question Palette
+                                </h2>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Question Statistics -->
+
+                        <div class="exam-statistics-grid">
+
+                            <div class="exam-stat-item">
+
+                                <strong id="answeredCount">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Answered
+                                </span>
+
+                            </div>
+
+
+                            <div class="exam-stat-item">
+
+                                <strong id="unansweredCount">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Unanswered
+                                </span>
+
+                            </div>
+
+
+                            <div class="exam-stat-item">
+
+                                <strong id="reviewCount">
+                                    0
+                                </strong>
+
+                                <span>
+                                    For Review
+                                </span>
+
+                            </div>
+
+
+                            <div class="exam-stat-item">
+
+                                <strong id="totalQuestionCount">
+                                    0
+                                </strong>
+
+                                <span>
+                                    Total
+                                </span>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- Palette Legend -->
+
+                        <div
+                            class="exam-palette-legend"
+                            aria-label="Question status legend"
+                        >
+
+                            <span class="palette-legend-item">
+
+                                <span
+                                    class="palette-indicator is-current"
+                                    aria-hidden="true"
+                                ></span>
+
+                                Current
+
+                            </span>
+
+
+                            <span class="palette-legend-item">
+
+                                <span
+                                    class="palette-indicator is-answered"
+                                    aria-hidden="true"
+                                ></span>
+
+                                Answered
+
+                            </span>
+
+
+                            <span class="palette-legend-item">
+
+                                <span
+                                    class="palette-indicator is-unanswered"
+                                    aria-hidden="true"
+                                ></span>
+
+                                Unanswered
+
+                            </span>
+
+
+                            <span class="palette-legend-item">
+
+                                <span
+                                    class="palette-indicator is-review"
+                                    aria-hidden="true"
+                                ></span>
+
+                                For Review
+
+                            </span>
+
+                        </div>
+
+
+                        <!-- Dynamic Question Palette -->
+
+                        <nav
+                            class="exam-question-palette"
+                            id="examQuestionPalette"
+                            aria-label="Jump to a question"
+                        ></nav>
+
+
+                        <!-- Sidebar Submit -->
+
+                        <div class="exam-sidebar-footer">
+
+                            <button
+                                type="button"
+                                class="btn btn-primary"
+                                id="sidebarSubmitButton"
+                            >
+                                Submit Examination
+                            </button>
+
+                        </div>
+
+                    </aside>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <!-- =============================================
+         SUBMISSION CONFIRMATION MODAL
+    ============================================== -->
+
+    <div
+        class="modal-overlay"
+        id="submitConfirmationModal"
+        role="presentation"
+        hidden
+    >
+
+        <div
+            class="ui-card exam-confirmation-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="submitModalTitle"
+            aria-describedby="submitModalDescription"
+        >
+
+            <span class="section-eyebrow">
+                Examination Submission
+            </span>
+
+            <h2 id="submitModalTitle">
+                Submit Your Mock Test?
+            </h2>
+
+            <p id="submitModalDescription">
+                Please review your examination summary before
+                submitting. Once submitted, your answers cannot
+                be changed.
+            </p>
+
+
+            <!-- Dynamic Submission Summary -->
+
+            <div class="exam-submission-summary">
+
+                <div>
+
+                    <span>
+                        Answered
+                    </span>
+
+                    <strong id="submitAnsweredCount">
+                        0
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Unanswered
+                    </span>
+
+                    <strong id="submitUnansweredCount">
+                        0
+                    </strong>
+
+                </div>
+
+                <div>
+
+                    <span>
+                        Marked for Review
+                    </span>
+
+                    <strong id="submitReviewCount">
+                        0
+                    </strong>
+
+                </div>
+
+            </div>
+
+
+            <!-- Confirmation Actions -->
+
+            <div class="exam-confirmation-actions">
+
+                <button
+                    type="button"
+                    class="btn btn-outline"
+                    id="cancelSubmitButton"
+                >
+                    Continue Examination
+                </button>
+
+                <button
+                    type="button"
+                    class="btn btn-primary"
+                    id="confirmSubmitButton"
+                >
+                    Confirm Submission
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =============================================
+         UNIVERSAL FOOTER
+    ============================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+
+            <!-- Main Footer -->
+
+            <div class="footer-main">
+
+
+                <!-- Brand -->
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep homepage"
+                    >
+
+                        <span class="logo-symbol" aria-hidden="true">
+                            Y.
+                        </span>
+
+                        <span class="logo-text">
+                            Yadav<span>ExamPrep</span>
+                        </span>
+
+                    </a>
+
+                    <p>
+                        Free examination preparation through
+                        structured learning, concept practice,
+                        and meaningful mock tests.
+                    </p>
+
+                </div>
+
+
+                <!-- Explore -->
+
+                <div class="footer-column">
+
+                    <h3>Explore</h3>
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="learn.html">
+                        Learn
+                    </a>
+
+                </div>
+
+
+                <!-- Preparation -->
+
+                <div class="footer-column">
+
+                    <h3>Preparation</h3>
+
+                    <a href="mock-tests.html">
+                        Practice Tests
+                    </a>
+
+                    <a href="subjects.html">
+                        Subject Learning
+                    </a>
+
+                    <a href="learn.html">
+                        Concept Revision
+                    </a>
+
+                </div>
+
+
+                <!-- Information -->
+
+                <div class="footer-column">
+
+                    <h3>Information</h3>
+
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact
+                    </a>
+
+                    <a href="admin/index.html">
+                        Administration
+                    </a>
+
+                </div>
+
+            </div>
+
+
+            <!-- Bottom Footer -->
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy;
+                    <span id="currentYear">2026</span>
+                    Yadav ExamPrep. All Rights Reserved.
+                </p>
+
+                <p class="developer-credit">
+                    Designed and Developed by
+                    <span>Yadav Web Technologies</span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
