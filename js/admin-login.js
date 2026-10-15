@@ -4,49 +4,35 @@
 YADAV EXAMPREP
 File: js/admin-login.js
 
-Secure Administrator Login Controller
+Administrator Authentication Controller
+Firebase Authentication
 
 Designed and Developed by Yadav Web Technologies
-
-IMPORTANT:
-Client-side UID verification is only a UI access check.
-Firebase Security Rules must independently enforce
-administrator permissions.
 =========================================================
 */
 
 "use strict";
 
-
-/* =====================================================
-   01. FIREBASE IMPORTS
-===================================================== */
-
 import {
-
     auth
-
 } from "./firebase-config.js";
 
-
 import {
-
-    signInWithEmailAndPassword,
     onAuthStateChanged,
+    signInWithEmailAndPassword,
     signOut
-
 } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-auth.js";
 
 
 /* =====================================================
-   02. ADMIN CONFIGURATION
+   01. CONFIGURATION
 ===================================================== */
 
-const ADMIN_CONFIG = Object.freeze({
+const CONFIG = Object.freeze({
 
-    authorizedUID: "6HwAPbqwYBgg5Ih2zWycOZFBCe93",
+    adminUID: "6HwAPbqwYBgg5Ih2zWycOZFBCe93",
 
-    dashboardURL: "../admin/dashboard.html",
+    dashboardURL: "dashboard.html",
 
     selectors: {
 
@@ -58,17 +44,17 @@ const ADMIN_CONFIG = Object.freeze({
 
         passwordToggle: "#adminPasswordToggle",
 
+        status: "#adminAuthStatus",
+
+        message: "#adminAuthMessage",
+
         submitButton: "#adminLoginButton",
 
         submitText: "#adminLoginButtonText",
 
         spinner: "#adminLoginSpinner",
 
-        status: "#adminAuthStatus",
-
-        statusMessage: "#adminAuthMessage",
-
-        currentYear: "#currentYear"
+        year: "#currentYear"
 
     }
 
@@ -76,240 +62,156 @@ const ADMIN_CONFIG = Object.freeze({
 
 
 /* =====================================================
-   03. APPLICATION STATE
+   02. STATE
 ===================================================== */
 
 const state = {
 
     initialized: false,
 
+    authenticationResolved: false,
+
     submitting: false,
 
     redirecting: false,
 
-    authenticationResolved: false
+    rejectingUnauthorizedUser: false
 
 };
 
-
-const elements = {};
+const el = {};
 
 
 /* =====================================================
-   04. STATUS MESSAGE
+   03. ELEMENT HELPERS
 ===================================================== */
 
-function showStatus(message, type = "error") {
+function setText(element, value) {
 
-    elements.status.hidden = false;
-
-    elements.status.classList.remove(
-
-        "is-error",
-        "is-success",
-        "is-loading"
-
-    );
-
-    elements.status.classList.add(
-        `is-${type}`
-    );
-
-    elements.statusMessage.textContent = message;
+    if (element) {
+        element.textContent = String(value);
+    }
 
 }
 
+function setStatus(message, type = "loading") {
+
+    el.status.hidden = false;
+
+    el.status.classList.remove(
+        "is-error",
+        "is-success",
+        "is-loading"
+    );
+
+    el.status.classList.add(`is-${type}`);
+
+    setText(el.message, message);
+
+}
 
 function clearStatus() {
 
-    elements.status.hidden = true;
+    el.status.hidden = true;
 
-    elements.statusMessage.textContent = "";
-
-    elements.status.classList.remove(
-
+    el.status.classList.remove(
         "is-error",
         "is-success",
         "is-loading"
+    );
 
+    setText(el.message, "");
+
+}
+
+
+/* =====================================================
+   04. BUTTON STATE
+===================================================== */
+
+function updateSubmitButton() {
+
+    const disabled = (
+
+        !state.authenticationResolved ||
+
+        state.submitting ||
+
+        state.redirecting ||
+
+        state.rejectingUnauthorizedUser
+
+    );
+
+    el.submitButton.disabled = disabled;
+
+    el.spinner.hidden = !state.submitting;
+
+    setText(
+        el.submitText,
+        state.redirecting
+            ? "Opening Dashboard..."
+            : state.submitting
+                ? "Signing In..."
+                : state.rejectingUnauthorizedUser
+                    ? "Verifying Account..."
+                    : "Sign In"
     );
 
 }
 
 
 /* =====================================================
-   05. LOADING STATE
-===================================================== */
-
-function setLoading(loading) {
-
-    state.submitting = loading;
-
-    elements.submitButton.disabled = loading;
-
-    elements.email.disabled = loading;
-
-    elements.password.disabled = loading;
-
-    elements.passwordToggle.disabled = loading;
-
-    elements.spinner.hidden = !loading;
-
-    elements.submitText.textContent = loading
-        ? "Please Wait..."
-        : "Sign In to Dashboard";
-
-    elements.form.setAttribute(
-        "aria-busy",
-        String(loading)
-    );
-
-}
-
-
-/* =====================================================
-   06. INPUT VALIDATION
-===================================================== */
-
-function validateInputs() {
-
-    const email = elements.email.value.trim();
-
-    const password = elements.password.value;
-
-    elements.email.removeAttribute("aria-invalid");
-
-    elements.password.removeAttribute("aria-invalid");
-
-    if (!email) {
-
-        elements.email.setAttribute(
-            "aria-invalid",
-            "true"
-        );
-
-        elements.email.focus();
-
-        showStatus(
-            "Please enter your administrator email address."
-        );
-
-        return null;
-
-    }
-
-    if (!elements.email.validity.valid) {
-
-        elements.email.setAttribute(
-            "aria-invalid",
-            "true"
-        );
-
-        elements.email.focus();
-
-        showStatus(
-            "Please enter a valid email address."
-        );
-
-        return null;
-
-    }
-
-    if (!password) {
-
-        elements.password.setAttribute(
-            "aria-invalid",
-            "true"
-        );
-
-        elements.password.focus();
-
-        showStatus(
-            "Please enter your administrator password."
-        );
-
-        return null;
-
-    }
-
-    return {
-
-        email,
-        password
-
-    };
-
-}
-
-
-/* =====================================================
-   07. FIREBASE ERROR MESSAGES
+   05. AUTHENTICATION ERRORS
 ===================================================== */
 
 function getAuthenticationError(error) {
 
-    const messages = {
+    switch (error?.code) {
 
-        "auth/invalid-email":
-            "Please enter a valid email address.",
+        case "auth/invalid-email":
 
-        "auth/invalid-credential":
-            "Incorrect email or password. Please try again.",
+            return "Enter a valid email address.";
 
-        "auth/wrong-password":
-            "Incorrect email or password. Please try again.",
+        case "auth/invalid-credential":
 
-        "auth/user-not-found":
-            "Incorrect email or password. Please try again.",
+        case "auth/wrong-password":
 
-        "auth/user-disabled":
-            "This administrator account has been disabled.",
+        case "auth/user-not-found":
 
-        "auth/too-many-requests":
-            "Too many login attempts. Please try again later.",
+            return "Invalid administrator email or password.";
 
-        "auth/network-request-failed":
-            "Network connection failed. Please check your internet connection.",
+        case "auth/user-disabled":
 
-        "auth/operation-not-allowed":
-            "Email/Password Authentication is not enabled in Firebase.",
+            return "This administrator account has been disabled.";
 
-        "auth/invalid-api-key":
-            "Firebase configuration is invalid.",
+        case "auth/too-many-requests":
 
-        "auth/unauthorized-domain":
-            "This website domain is not authorized in Firebase Authentication."
+            return "Too many unsuccessful attempts. Please try again later.";
 
-    };
+        case "auth/network-request-failed":
 
-    return messages[error?.code] ||
+            return "Network error. Check your internet connection and try again.";
 
-        "Unable to sign in. Please try again.";
+        case "auth/operation-not-allowed":
 
-}
+            return "Email/Password authentication is not enabled in Firebase.";
 
+        case "auth/unauthorized-domain":
 
-/* =====================================================
-   08. ADMIN UID VERIFICATION
-===================================================== */
+            return "This website domain is not authorized in Firebase Authentication.";
 
-function isAuthorizedAdministrator(user) {
+        default:
 
-    return Boolean(
+            return "Unable to sign in. Please try again.";
 
-        user &&
-
-        typeof user.uid === "string" &&
-
-        user.uid === ADMIN_CONFIG.authorizedUID
-
-    );
+    }
 
 }
 
 
 /* =====================================================
-   09. DASHBOARD REDIRECTION
+   06. REDIRECT
 ===================================================== */
 
 function redirectToDashboard() {
@@ -320,26 +222,33 @@ function redirectToDashboard() {
 
     state.redirecting = true;
 
-    showStatus(
+    updateSubmitButton();
 
-        "Administrator verified. Opening your dashboard...",
-
+    setStatus(
+        "Administrator verified. Opening dashboard...",
         "success"
-
     );
 
     window.location.replace(
-        ADMIN_CONFIG.dashboardURL
+        CONFIG.dashboardURL
     );
 
 }
 
 
 /* =====================================================
-   10. UNAUTHORIZED USER HANDLING
+   07. REJECT UNAUTHORIZED ACCOUNT
 ===================================================== */
 
 async function rejectUnauthorizedUser() {
+
+    if (state.rejectingUnauthorizedUser) {
+        return;
+    }
+
+    state.rejectingUnauthorizedUser = true;
+
+    updateSubmitButton();
 
     try {
 
@@ -348,17 +257,108 @@ async function rejectUnauthorizedUser() {
     } catch (error) {
 
         console.error(
-            "[Yadav ExamPrep] Sign-out error:",
-            error
+            "[Admin Login] Unauthorized account sign-out failed:",
+            error?.code
+        );
+
+    } finally {
+
+        state.rejectingUnauthorizedUser = false;
+
+        state.submitting = false;
+
+        state.authenticationResolved = true;
+
+        updateSubmitButton();
+
+        setStatus(
+            "Access denied. This account is not authorized as an administrator.",
+            "error"
         );
 
     }
 
-    showStatus(
+}
 
-        "Access denied. This Firebase account is not authorized to manage Yadav ExamPrep.",
 
-        "error"
+/* =====================================================
+   08. OBSERVE AUTHENTICATION
+===================================================== */
+
+function observeAuthentication() {
+
+    state.authenticationResolved = false;
+
+    updateSubmitButton();
+
+    setStatus(
+        "Checking administrator session...",
+        "loading"
+    );
+
+    onAuthStateChanged(
+
+        auth,
+
+        async user => {
+
+            state.authenticationResolved = true;
+
+            if (user) {
+
+                if (user.uid === CONFIG.adminUID) {
+
+                    redirectToDashboard();
+
+                    return;
+
+                }
+
+                await rejectUnauthorizedUser();
+
+                return;
+
+            }
+
+            /*
+             * IMPORTANT LOGIN FIX:
+             *
+             * A signed-out visitor must be allowed
+             * to use the Sign In button.
+             *
+             * Previously the button remained disabled
+             * after the initial authentication check.
+             */
+
+            if (!state.submitting && !state.redirecting) {
+
+                clearStatus();
+
+            }
+
+            updateSubmitButton();
+
+        },
+
+        error => {
+
+            console.error(
+                "[Admin Login] Authentication observer error:",
+                error?.code
+            );
+
+            state.authenticationResolved = true;
+
+            state.submitting = false;
+
+            updateSubmitButton();
+
+            setStatus(
+                "Unable to verify the current session. Please try signing in.",
+                "error"
+            );
+
+        }
 
     );
 
@@ -366,37 +366,97 @@ async function rejectUnauthorizedUser() {
 
 
 /* =====================================================
-   11. ADMIN LOGIN SUBMISSION
+   09. FORM VALIDATION
 ===================================================== */
 
-async function handleLogin(event) {
+function validateForm() {
+
+    const email = el.email.value.trim();
+
+    const password = el.password.value;
+
+    if (!email) {
+
+        setStatus(
+            "Enter your administrator email address.",
+            "error"
+        );
+
+        el.email.focus();
+
+        return null;
+
+    }
+
+    if (!el.email.validity.valid) {
+
+        setStatus(
+            "Enter a valid email address.",
+            "error"
+        );
+
+        el.email.focus();
+
+        return null;
+
+    }
+
+    if (!password) {
+
+        setStatus(
+            "Enter your administrator password.",
+            "error"
+        );
+
+        el.password.focus();
+
+        return null;
+
+    }
+
+    return {
+        email,
+        password
+    };
+
+}
+
+
+/* =====================================================
+   10. SIGN IN
+===================================================== */
+
+async function handleSignIn(event) {
 
     event.preventDefault();
 
     if (
+
+        !state.authenticationResolved ||
+
         state.submitting ||
+
         state.redirecting ||
-        !state.authenticationResolved
+
+        state.rejectingUnauthorizedUser
+
     ) {
         return;
     }
 
-    clearStatus();
+    const values = validateForm();
 
-    const credentials = validateInputs();
-
-    if (!credentials) {
+    if (!values) {
         return;
     }
 
-    setLoading(true);
+    state.submitting = true;
 
-    showStatus(
+    updateSubmitButton();
 
-        "Verifying administrator credentials...",
-
+    setStatus(
+        "Signing in securely...",
         "loading"
-
     );
 
     try {
@@ -405,19 +465,22 @@ async function handleLogin(event) {
 
             auth,
 
-            credentials.email,
+            values.email,
 
-            credentials.password
+            values.password
 
         );
 
-        const user = credential.user;
+        /*
+         * Checking the UID here improves the UI flow.
+         *
+         * Actual database authorization MUST also be
+         * enforced through Firebase Security Rules.
+         */
 
-        if (!isAuthorizedAdministrator(user)) {
+        if (credential.user.uid !== CONFIG.adminUID) {
 
             await rejectUnauthorizedUser();
-
-            elements.password.value = "";
 
             return;
 
@@ -428,29 +491,26 @@ async function handleLogin(event) {
     } catch (error) {
 
         console.error(
-
-            "[Yadav ExamPrep] Authentication error:",
-
-            error?.code || "unknown"
-
+            "[Admin Login] Sign-in failed:",
+            error?.code
         );
-
-        showStatus(
-            getAuthenticationError(error),
-            "error"
-        );
-
-        elements.password.value = "";
-
-        elements.password.focus();
-
-    } finally {
 
         if (!state.redirecting) {
 
-            setLoading(false);
+            setStatus(
+                getAuthenticationError(error),
+                "error"
+            );
+
+            el.password.focus();
 
         }
+
+    } finally {
+
+        state.submitting = false;
+
+        updateSubmitButton();
 
     }
 
@@ -458,240 +518,68 @@ async function handleLogin(event) {
 
 
 /* =====================================================
-   12. EXISTING SESSION DETECTION
-===================================================== */
-
-function observeAuthentication() {
-
-    onAuthStateChanged(
-
-        auth,
-
-        async user => {
-
-            state.authenticationResolved = true;
-
-            if (state.redirecting) {
-                return;
-            }
-
-            if (!user) {
-
-                if (!state.submitting) {
-
-                    clearStatus();
-
-                }
-
-                return;
-
-            }
-
-            if (isAuthorizedAdministrator(user)) {
-
-                redirectToDashboard();
-
-                return;
-
-            }
-
-            /*
-             * Avoid competing with the login handler
-             * while it verifies a newly signed-in user.
-             */
-
-            if (state.submitting) {
-                return;
-            }
-
-            await rejectUnauthorizedUser();
-
-        },
-
-        error => {
-
-            state.authenticationResolved = true;
-
-            console.error(
-
-                "[Yadav ExamPrep] Session verification error:",
-
-                error?.code || "unknown"
-
-            );
-
-            showStatus(
-
-                "Unable to verify your administrator session. Please refresh and try again.",
-
-                "error"
-
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   13. PASSWORD VISIBILITY TOGGLE
+   11. PASSWORD VISIBILITY
 ===================================================== */
 
 function togglePasswordVisibility() {
 
     const currentlyHidden =
+        el.password.type === "password";
 
-        elements.password.type === "password";
-
-    elements.password.type = currentlyHidden
+    el.password.type = currentlyHidden
         ? "text"
         : "password";
 
-    elements.passwordToggle.setAttribute(
-
+    el.passwordToggle.setAttribute(
         "aria-pressed",
-
         String(currentlyHidden)
-
     );
 
-    elements.passwordToggle.setAttribute(
-
+    el.passwordToggle.setAttribute(
         "aria-label",
-
         currentlyHidden
             ? "Hide password"
             : "Show password"
-
     );
+
+    el.password.focus();
 
 }
 
 
 /* =====================================================
-   14. REGISTER EVENT LISTENERS
+   12. INITIALIZATION
 ===================================================== */
 
-function registerEvents() {
-
-    elements.form.addEventListener(
-
-        "submit",
-
-        handleLogin
-
-    );
-
-    elements.passwordToggle.addEventListener(
-
-        "click",
-
-        togglePasswordVisibility
-
-    );
-
-    elements.email.addEventListener(
-
-        "input",
-
-        () => {
-
-            elements.email.removeAttribute(
-                "aria-invalid"
-            );
-
-        }
-
-    );
-
-    elements.password.addEventListener(
-
-        "input",
-
-        () => {
-
-            elements.password.removeAttribute(
-                "aria-invalid"
-            );
-
-        }
-
-    );
-
-}
-
-
-/* =====================================================
-   15. CURRENT YEAR
-===================================================== */
-
-function updateCurrentYear() {
-
-    if (!elements.currentYear) {
-        return;
-    }
-
-    elements.currentYear.textContent =
-
-        String(new Date().getFullYear());
-
-}
-
-
-/* =====================================================
-   16. INITIALIZE ADMIN LOGIN
-===================================================== */
-
-function initializeAdminLogin() {
+function initialize() {
 
     if (
 
-        document.body.dataset.page !== "admin-login" ||
+        state.initialized ||
 
-        state.initialized
+        document.body.dataset.page !== "admin-login"
 
     ) {
         return;
     }
 
-    Object.entries(
-        ADMIN_CONFIG.selectors
-    ).forEach(([key, selector]) => {
+    Object.entries(CONFIG.selectors).forEach(
+        ([key, selector]) => {
 
-        elements[key] = document.querySelector(
-            selector
-        );
+            el[key] = document.querySelector(selector);
 
-    });
-
-    const requiredElements = [
-
-        "form",
-        "email",
-        "password",
-        "passwordToggle",
-        "submitButton",
-        "submitText",
-        "spinner",
-        "status",
-        "statusMessage"
-
-    ];
-
-    const missing = requiredElements.filter(
-        key => !elements[key]
+        }
     );
 
-    if (missing.length > 0) {
+    const missing = Object.keys(
+        CONFIG.selectors
+    ).filter(key => !el[key]);
+
+    if (missing.length) {
 
         console.error(
-
-            "[Yadav ExamPrep] Missing login elements:",
-
+            "[Admin Login] Missing HTML elements:",
             missing
-
         );
 
         return;
@@ -700,24 +588,36 @@ function initializeAdminLogin() {
 
     state.initialized = true;
 
-    updateCurrentYear();
-
-    registerEvents();
-
-    /*
-     * Prevent submission until Firebase resolves
-     * the existing authentication session.
-     */
-
-    elements.submitButton.disabled = true;
-
-    showStatus(
-
-        "Checking administrator session...",
-
-        "loading"
-
+    setText(
+        el.year,
+        new Date().getFullYear()
     );
+
+    el.form.addEventListener(
+        "submit",
+        handleSignIn
+    );
+
+    el.passwordToggle.addEventListener(
+        "click",
+        togglePasswordVisibility
+    );
+
+    el.email.addEventListener("input", () => {
+
+        if (!state.submitting) {
+            clearStatus();
+        }
+
+    });
+
+    el.password.addEventListener("input", () => {
+
+        if (!state.submitting) {
+            clearStatus();
+        }
+
+    });
 
     observeAuthentication();
 
@@ -725,7 +625,7 @@ function initializeAdminLogin() {
 
 
 /* =====================================================
-   17. START APPLICATION
+   13. START APPLICATION
 ===================================================== */
 
 if (document.readyState === "loading") {
@@ -734,7 +634,7 @@ if (document.readyState === "loading") {
 
         "DOMContentLoaded",
 
-        initializeAdminLogin,
+        initialize,
 
         { once: true }
 
@@ -742,10 +642,9 @@ if (document.readyState === "loading") {
 
 } else {
 
-    initializeAdminLogin();
+    initialize();
 
 }
-
 
 /* =====================================================
    END OF ADMIN-LOGIN.JS
