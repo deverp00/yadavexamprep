@@ -1,919 +1,618 @@
 
 /*
-=========================================================
+=====================================================
 YADAV EXAMPREP
 File: css/responsive.css
 
-Universal Responsive Design System
+CSS INTEGRATION — FULL FILE REPLACEMENT
 
 Designed and Developed by Yadav Web Technologies
-=========================================================
+
+PURPOSE:
+- Cross-page responsive safety
+- Narrow-screen overflow protection
+- Responsive embedded media
+- Touch interaction improvements
+- Mobile landscape adjustments
+- Print layout safety
+
+CSS OWNERSHIP:
+
+style.css:
+    Global responsive typography, header,
+    footer, containers and grids.
+
+components.css:
+    Component-level responsive layouts.
+
+animation.css:
+    Motion and menu transitions.
+
+exam.css:
+    Examination-specific responsive rules.
+
+learn.css:
+    Learning workspace responsive rules.
+
+admin.css:
+    Administration responsive rules.
+
+This file must not duplicate those responsibilities.
+=====================================================
 */
 
+/* ================================================
+   01. UNIVERSAL RESPONSIVE SAFETY
+================================================ */
 
-/* =====================================================
-   01. UNIVERSAL RESPONSIVE PROTECTION
-===================================================== */
+/*
+    Prevent intrinsic content widths from
+    forcing grid and flex parents to expand.
+*/
 
-html {
-    width: 100%;
+:where(
+    .site-body,
+    main,
+    .container,
+    .hero-container,
+    .hero-content,
+    .hero-visual,
+    .section-heading,
+    .section-heading > div,
+    .exam-grid,
+    .subject-grid,
+    .mock-grid,
+    .features-grid,
+    .learning-grid,
+    .cta-container,
+    .footer-main,
+    .footer-column,
+    .exam-layout,
+    .exam-main-column,
+    .exam-sidebar,
+    .learning-workspace,
+    .learning-sidebar,
+    .learning-content
+) {
     min-width: 0;
 }
 
-body {
-    width: 100%;
-    min-width: 0;
+/*
+    Long strings should wrap rather than
+    create page-wide horizontal scrolling.
+
+    Normal words continue wrapping naturally.
+*/
+
+:where(
+    .hero-content,
+    .section-heading,
+    .cta-container,
+    .footer-brand,
+    .footer-column,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card,
+    .empty-state,
+    .content-placeholder,
+    .exam-question-content,
+    .answer-review-list,
+    .contact-address-text
+) {
+    overflow-wrap: anywhere;
 }
 
-main,
-section,
-header,
-footer,
-nav {
-    min-width: 0;
+/*
+    Do not use overflow-x: hidden on body.
+
+    It can conceal genuine layout defects,
+    interfere with sticky positioning and
+    clip focused controls.
+*/
+
+/* ================================================
+   02. MEDIA SAFETY
+================================================ */
+
+:where(
+    img,
+    video,
+    canvas,
+    picture,
+    iframe
+) {
+    max-width: 100%;
 }
 
-.container,
-.hero-content,
-.hero-preview,
-.section-heading,
-.ui-card,
-.exam-card,
-.subject-card,
-.mock-card {
-    min-width: 0;
+iframe {
+    display: block;
+    border: 0;
 }
 
-img,
-video,
-canvas {
+:where(
+    .hero-visual,
+    .ui-card,
+    .exam-card,
+    .subject-card,
+    .mock-card,
+    .feature-card,
+    .learning-card
+) img {
     max-width: 100%;
     height: auto;
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-a {
-    overflow-wrap: break-word;
+/*
+    Text content may contain long URLs or
+    content entered by administrators.
+*/
+
+:where(
+    .lesson-body,
+    .lesson-content,
+    .exam-question-content,
+    .exam-question-card,
+    .answer-review-list,
+    .contact-address-text
+) a {
+    overflow-wrap: anywhere;
+    word-break: break-word;
 }
 
-input,
-select,
-textarea,
-button {
+/*
+    Preserve contained scrolling for data
+    tables without scrolling the whole page.
+*/
+
+.table-container {
     max-width: 100%;
+    overscroll-behavior-x: contain;
 }
 
+/* ================================================
+   03. LARGE SCREEN SAFETY
+================================================ */
 
-/* =====================================================
-   02. LARGE DESKTOP
-   1440px AND ABOVE
-===================================================== */
+@media (min-width: 1441px) {
 
-@media (min-width: 1440px) {
+    /*
+        Prevent content blocks from becoming
+        excessively wide on large monitors.
 
-    :root {
-        --container-width: 1280px;
-    }
+        The actual container width remains
+        controlled by style.css.
+    */
 
-    .hero-section {
-        padding-block: 125px;
-    }
-
-    .hero-container {
-        gap: 85px;
-    }
-
-    .hero-title {
-        font-size: 4.6rem;
-    }
-
-    .section {
-        padding-block: 105px;
+    :where(
+        .section-heading p,
+        .hero-description,
+        .hero-content > p,
+        .cta-container p
+    ) {
+        max-width: 720px;
     }
 
 }
 
+/* ================================================
+   04. TABLET SAFETY
+================================================ */
 
-/* =====================================================
-   03. LAPTOP AND SMALL DESKTOP
-   1025px - 1199px
-===================================================== */
+@media (max-width: 1024px) {
 
-@media (min-width: 1025px) and (max-width: 1199px) {
+    /*
+        Complex page layouts must be able
+        to shrink inside their parent container.
+        Their column counts remain owned by
+        the relevant page stylesheet.
+    */
 
-    :root {
-        --container-padding: 28px;
+    :where(
+        .exam-workspace,
+        .exam-layout,
+        .result-content,
+        .answer-review-section,
+        .learning-workspace,
+        .learning-content,
+        .learning-sidebar
+    ) {
+        max-width: 100%;
+        min-width: 0;
     }
 
-    .header-container {
-        gap: 18px;
-    }
+    /*
+        Avoid embedded content stretching
+        a learning or examination page.
+    */
 
-    .desktop-nav {
-        gap: 18px;
-    }
-
-    .hero-container {
-        gap: 35px;
-    }
-
-    .hero-title {
-        font-size: clamp(2.8rem, 4.4vw, 3.7rem);
-    }
-
-    .exam-grid,
-    .subject-grid {
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .learning-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-/* =====================================================
-   04. TABLET LANDSCAPE
-   901px - 1024px
-===================================================== */
-
-@media (min-width: 901px) and (max-width: 1024px) {
-
-    :root {
-        --container-padding: 25px;
-        --header-height: 78px;
-    }
-
-    .desktop-nav {
-        gap: 13px;
-    }
-
-    .nav-link {
-        font-size: 13px;
-    }
-
-    .header-cta {
-        padding-inline: 13px;
-        font-size: 12px;
-    }
-
-    .hero-container {
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-        gap: 30px;
-    }
-
-    .hero-title {
-        font-size: clamp(2.5rem, 4.3vw, 3.3rem);
-    }
-
-    .hero-description {
-        font-size: 15px;
-    }
-
-    .hero-actions .btn {
-        padding-inline: 15px;
-        font-size: 13px;
-    }
-
-    .exam-grid,
-    .subject-grid,
-    .learning-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .mock-grid,
-    .daily-grid,
-    .features-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
+    :where(
+        .lesson-body,
+        .lesson-content,
+        .exam-question-content,
+        .answer-review-list
+    ) :is(
+        pre,
+        table
+    ) {
+        max-width: 100%;
     }
 
 }
 
+/* ================================================
+   05. MOBILE SAFETY
+================================================ */
 
-/* =====================================================
-   05. TABLET AND MOBILE NAVIGATION
-   900px AND BELOW
-===================================================== */
+@media (max-width: 768px) {
 
-@media (max-width: 900px) {
+    /*
+        Forms and media should not exceed
+        their available parent width.
+    */
 
-    :root {
-        --header-height: 74px;
+    :where(
+        .site-body,
+        .site-body main
+    ) :is(
+        input:not([type="checkbox"]):not([type="radio"]),
+        select,
+        textarea
+    ) {
+        max-width: 100%;
+        min-width: 0;
     }
 
-    .site-header {
-        width: 100%;
+    /*
+        Inherit the project's type scale.
+        Do not introduce a second mobile
+        typography system here.
+    */
+
+    :where(
+        .exam-question-content,
+        .lesson-body,
+        .lesson-content,
+        .answer-review-list
+    ) {
+        max-width: 100%;
+        overflow-wrap: anywhere;
     }
 
-    .header-container {
-        min-height: var(--header-height);
+    /*
+        Keep unusually wide authored content
+        scrollable within its own content area.
+    */
+
+    :where(
+        .lesson-body,
+        .lesson-content,
+        .exam-question-content,
+        .answer-review-list
+    ) pre {
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+
+        max-width: 100%;
+        white-space: pre;
+        -webkit-overflow-scrolling: touch;
     }
 
-    .desktop-nav,
-    .header-cta {
-        display: none;
+    :where(
+        .lesson-body,
+        .lesson-content,
+        .exam-question-content,
+        .answer-review-list
+    ) table {
+        display: block;
+
+        max-width: 100%;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+
+        -webkit-overflow-scrolling: touch;
     }
 
-    .menu-toggle {
-        display: inline-flex;
+}
+
+/* ================================================
+   06. SMALL MOBILE SCREENS
+================================================ */
+
+@media (max-width: 600px) {
+
+    /*
+        Prevent action rows from exceeding
+        the width available on narrow phones.
+
+        Layout-specific wrapping is still
+        controlled by the owner stylesheet.
+    */
+
+    :where(
+        .hero-actions,
+        .form-actions,
+        .exam-workspace-actions,
+        .exam-question-actions,
+        .exam-question-navigation,
+        .modal-actions
+    ) {
+        min-width: 0;
+        max-width: 100%;
+    }
+
+    /*
+        Allow long dynamic labels to wrap
+        without changing the standard font size.
+    */
+
+    :where(
+        .btn,
+        .ui-badge,
+        .ui-tab,
+        .mobile-nav-link,
+        .exam-card,
+        .subject-card,
+        .mock-card
+    ) {
+        overflow-wrap: anywhere;
+    }
+
+    /*
+        Long addresses or email addresses
+        must not extend beyond contact cards.
+    */
+
+    #contactInformationGrid a,
+    #contactInformationGrid p {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+}
+
+/* ================================================
+   07. EXTRA-NARROW DEVICES
+================================================ */
+
+@media (max-width: 400px) {
+
+    /*
+        No duplicate font-size overrides.
+
+        The revised style.css already controls
+        global typography and container padding.
+    */
+
+    :where(
+        .site-logo,
+        .header-actions,
+        .hero-actions,
+        .footer-main,
+        .cta-container
+    ) {
+        min-width: 0;
+    }
+
+    /*
+        Keep navigation controls readable
+        without increasing the page width.
+    */
+
+    .mobile-nav-link {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+    .footer-column a {
+        max-width: 100%;
+        overflow-wrap: anywhere;
+    }
+
+}
+
+/* ================================================
+   08. VERY NARROW DEVICES
+================================================ */
+
+@media (max-width: 320px) {
+
+    /*
+        This is a fallback for unusually narrow
+        browser windows.
+
+        Avoid changing the root font size:
+        doing so would unexpectedly resize
+        every rem-based element.
+    */
+
+    .site-logo {
+        flex-shrink: 1;
+    }
+
+    .logo-text {
+        min-width: 0;
+        white-space: normal;
+        overflow-wrap: anywhere;
+    }
+
+    .header-actions {
         flex-shrink: 0;
     }
 
     /*
-       Mobile navigation uses max-height transitions
-       defined in animation.css.
+        Preserve contained table scrolling.
     */
 
-    .mobile-nav {
-        display: block;
-
+    .table-container {
         width: 100%;
-        max-height: 0;
-
-        overflow: hidden;
-
-        background: rgba(255, 255, 255, 0.98);
-
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
+        max-width: 100%;
     }
 
-    .mobile-nav-inner {
-        width: min(
-            calc(100% - (var(--container-padding) * 2)),
-            var(--container-width)
-        );
+}
 
-        margin-inline: auto;
+/* ================================================
+   09. MOBILE LANDSCAPE
+================================================ */
 
-        padding: 14px 0 22px;
-    }
+@media (
+    max-height: 500px
+) and (
+    orientation: landscape
+) {
+
+    /*
+        The menu may become taller than
+        the available landscape viewport.
+
+        This rule adjusts only the menu's
+        scrollable area.
+    */
 
     .mobile-nav.is-open {
-        max-height: min(75dvh, 650px);
-    }
+        max-height:
+            calc(100dvh - var(--header-height));
 
-    .hero-container {
-        grid-template-columns: minmax(0, 1fr);
-    }
-
-    .hero-content {
-        max-width: 720px;
-    }
-
-    .hero-preview {
-        width: 100%;
-        max-width: 650px;
-
-        margin-inline: auto;
-    }
-
-    .hero-title {
-        max-width: 720px;
-    }
-
-    .section {
-        padding-block: 75px;
-    }
-
-    .exam-grid,
-    .subject-grid,
-    .learning-grid,
-    .mock-grid,
-    .daily-grid,
-    .features-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    .footer-main {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-}
-
-
-/* =====================================================
-   06. TABLET PORTRAIT
-   601px - 768px
-===================================================== */
-
-@media (min-width: 601px) and (max-width: 768px) {
-
-    :root {
-        --container-padding: 24px;
-    }
-
-    .hero-section {
-        padding-block: 75px;
-    }
-
-    .hero-title {
-        font-size: clamp(3rem, 6vw, 3.8rem);
-    }
-
-    .hero-description {
-        max-width: 650px;
-    }
-
-    .section-heading {
-        align-items: flex-start;
-    }
-
-    .section-heading h2 {
-        font-size: 32px;
-    }
-
-    .learning-card,
-    .feature-card,
-    .daily-card {
-        padding: 22px;
-    }
-
-    .daily-card {
-        min-height: 230px;
-    }
-
-    .footer-main {
-        gap: 40px;
-    }
-
-}
-
-
-/* =====================================================
-   07. MOBILE DEVICES
-   600px AND BELOW
-===================================================== */
-
-@media (max-width: 600px) {
-
-    :root {
-        --container-padding: 18px;
-        --header-height: 68px;
-    }
-
-    html {
-        scroll-padding-top: 85px;
-    }
-
-    .container {
-        width: calc(100% - 36px);
-    }
-
-    .section {
-        padding-block: 58px;
-    }
-
-    .header-container {
-        gap: 12px;
-    }
-
-    .site-logo {
-        gap: 9px;
-    }
-
-    .logo-symbol {
-        width: 35px;
-        height: 35px;
-
-        font-size: 17px;
-    }
-
-    .logo-text {
-        font-size: 18px;
-    }
-
-    .menu-toggle {
-        width: 42px;
-        height: 42px;
-    }
-
-    .mobile-nav-inner {
-        padding-block: 12px 20px;
-    }
-
-    .mobile-nav-link {
-        min-height: 46px;
-        padding: 12px 14px;
-    }
-
-    .mobile-cta {
-        min-height: 46px;
-        margin-top: 10px;
-    }
-
-    /* Hero */
-
-    .hero-section {
-        padding-block: 52px 65px;
-    }
-
-    .hero-container {
-        gap: 42px;
-    }
-
-    .hero-title {
-        margin: 18px 0 22px;
-
-        font-size: clamp(2.3rem, 9.5vw, 3.5rem);
-        line-height: 1.1;
-    }
-
-    .hero-description {
-        margin-bottom: 25px;
-
-        font-size: 15px;
-        line-height: 1.8;
-    }
-
-    .hero-actions {
-        flex-direction: column;
-        align-items: stretch;
-
-        gap: 11px;
-    }
-
-    .hero-actions .btn {
-        width: 100%;
-        min-height: 50px;
-    }
-
-    .hero-benefits {
-        gap: 10px 16px;
-        margin-top: 25px;
-    }
-
-    /* Hero preview */
-
-    .preview-header {
-        align-items: flex-start;
-        gap: 12px;
-    }
-
-    .preview-header h2 {
-        font-size: 16px;
-    }
-
-    .preview-status {
-        font-size: 10px;
-    }
-
-    .preview-question h3 {
-        font-size: 17px;
-    }
-
-    .preview-option {
-        min-height: 47px;
-        font-size: 12px;
-    }
-
-    /* Section headings */
-
-    .section-heading {
-        align-items: flex-start;
-        flex-direction: column;
-
-        gap: 18px;
-        margin-bottom: 30px;
-    }
-
-    .section-heading-centered {
-        align-items: center;
-    }
-
-    .section-heading h2 {
-        font-size: clamp(1.65rem, 7vw, 2rem);
-        line-height: 1.25;
-    }
-
-    .section-heading p {
-        font-size: 14px;
-        line-height: 1.8;
-    }
-
-    /* Grids */
-
-    .exam-grid,
-    .subject-grid,
-    .learning-grid,
-    .mock-grid,
-    .daily-grid,
-    .features-grid {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 14px;
-    }
-
-    /* Cards */
-
-    .exam-card,
-    .mock-card,
-    .learning-card,
-    .daily-card,
-    .feature-card {
-        padding: 22px;
-    }
-
-    .subject-card {
-        min-height: 90px;
-        padding: 16px;
-    }
-
-    .daily-card {
-        min-height: 205px;
-    }
-
-    .step-number {
-        margin-bottom: 22px;
-    }
-
-    /* CTA */
-
-    .cta-section {
-        padding-block: 55px;
-    }
-
-    .cta-container {
-        padding: 38px 20px;
-    }
-
-    .cta-container h2 {
-        font-size: clamp(1.7rem, 7vw, 2.3rem);
-    }
-
-    .cta-container p {
-        font-size: 14px;
-    }
-
-    .cta-container .btn {
-        width: 100%;
-    }
-
-    /* Footer */
-
-    .footer-main {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-
-        gap: 32px 20px;
-        padding-block: 42px;
-    }
-
-    .footer-brand {
-        grid-column: 1 / -1;
-    }
-
-    .footer-brand p {
-        max-width: 420px;
-    }
-
-    .footer-bottom {
-        flex-direction: column;
-        align-items: flex-start;
-
-        gap: 10px;
-    }
-
-}
-
-
-/* =====================================================
-   08. SMALL MOBILE
-   400px AND BELOW
-===================================================== */
-
-@media (max-width: 400px) {
-
-    :root {
-        --container-padding: 15px;
-    }
-
-    .container {
-        width: calc(100% - 30px);
-    }
-
-    .logo-text {
-        font-size: 16px;
-    }
-
-    .hero-title {
-        font-size: clamp(2.1rem, 9vw, 2.6rem);
-    }
-
-    .hero-description {
-        font-size: 14px;
-    }
-
-    .hero-benefits {
-        gap: 8px 12px;
-        font-size: 11px;
-    }
-
-    .preview-header,
-    .preview-progress,
-    .preview-question,
-    .preview-footer {
-        padding-inline: 15px;
-    }
-
-    .preview-footer {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .learning-card,
-    .feature-card,
-    .daily-card,
-    .exam-card,
-    .mock-card {
-        padding: 18px;
-    }
-
-    .footer-main {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 28px;
-    }
-
-    .footer-brand {
-        grid-column: auto;
-    }
-
-}
-
-
-/* =====================================================
-   09. EXTRA SMALL MOBILE
-   320px AND BELOW
-===================================================== */
-
-@media (max-width: 320px) {
-
-    :root {
-        --container-padding: 12px;
-    }
-
-    .container {
-        width: calc(100% - 24px);
-    }
-
-    .logo-text {
-        font-size: 15px;
-    }
-
-    .logo-symbol {
-        width: 32px;
-        height: 32px;
-    }
-
-    .hero-title {
-        font-size: 2rem;
-    }
-
-    .hero-actions .btn {
-        font-size: 13px;
-    }
-
-    .preview-option {
-        padding: 8px;
-        gap: 8px;
-    }
-
-}
-
-
-/* =====================================================
-   10. LANDSCAPE MOBILE DEVICES
-===================================================== */
-
-@media (max-height: 500px) and (orientation: landscape) {
-
-    .mobile-nav.is-open {
-        max-height: 75dvh;
         overflow-y: auto;
-    }
-
-    .hero-section {
-        padding-block: 45px;
-    }
-
-    .section {
-        padding-block: 50px;
-    }
-
-}
-
-
-/* =====================================================
-   11. TOUCH DEVICE OPTIMIZATION
-===================================================== */
-
-@media (hover: none) and (pointer: coarse) {
-
-    .btn,
-    .menu-toggle,
-    .mobile-nav-link,
-    .page-btn,
-    .ui-tab {
-        min-height: 44px;
-    }
-
-    .exam-card:hover,
-    .subject-card:hover,
-    .mock-card:hover,
-    .learning-card:hover,
-    .daily-card:hover,
-    .feature-card:hover {
-        transform: none;
-    }
-
-    .btn:hover {
-        transform: none;
-    }
-
-    .btn:active {
-        opacity: 0.85;
-        transform: scale(0.985);
-    }
-
-}
-
-
-/* =====================================================
-   12. RESPONSIVE FORM BEHAVIOUR
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .form-input,
-    .form-select,
-    .form-textarea,
-    .search-box input {
-        font-size: 16px;
-    }
-
-    .filter-bar {
-        flex-direction: column;
-        align-items: stretch;
-    }
-
-    .filter-bar .search-box,
-    .filter-bar .form-select {
-        width: 100%;
-        flex: none;
-    }
-
-    .form-group {
-        margin-bottom: 18px;
-    }
-
-}
-
-
-/* =====================================================
-   13. RESPONSIVE TABLE PROTECTION
-===================================================== */
-
-.table-container {
-    max-width: 100%;
-    overflow-x: auto;
-    overscroll-behavior-inline: contain;
-}
-
-@media (max-width: 600px) {
-
-    .ui-table {
-        font-size: 12px;
-    }
-
-    .ui-table th,
-    .ui-table td {
-        padding: 12px 10px;
-    }
-
-    .pagination {
-        gap: 6px;
-    }
-
-    .page-btn {
-        min-width: 38px;
-        min-height: 40px;
-    }
-
-}
-
-
-/* =====================================================
-   14. RESPONSIVE MODAL
-===================================================== */
-
-@media (max-width: 600px) {
-
-    .modal-overlay {
-        padding: 12px;
-    }
-
-    .modal-dialog {
-        width: 100%;
-        max-height: calc(100dvh - 24px);
-
-        padding: 20px;
-
         overscroll-behavior: contain;
     }
 
-    .modal-header {
+    /*
+        Dialogs must remain accessible on
+        devices with limited vertical height.
+    */
+
+    .modal-overlay {
         align-items: flex-start;
+        overflow-y: auto;
     }
 
-    .modal-footer {
-        flex-direction: column-reverse;
-        align-items: stretch;
-    }
-
-    .modal-footer .btn {
-        width: 100%;
-    }
-
-}
-
-
-/* =====================================================
-   15. ACCESSIBILITY
-===================================================== */
-
-@media (prefers-reduced-motion: reduce) {
-
-    html {
-        scroll-behavior: auto !important;
-    }
-
-    .reveal,
-    .reveal-left,
-    .reveal-right,
-    .reveal-scale {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    .mobile-nav,
-    .mobile-nav-inner {
-        transition: none !important;
+    .modal-dialog,
+    .modal-content {
+        max-height:
+            calc(100dvh - 24px);
     }
 
 }
 
+/* ================================================
+   10. TOUCH INTERACTION
+================================================ */
 
-/* =====================================================
-   16. PRINT OPTIMIZATION
-===================================================== */
+@media (hover: none) and (pointer: coarse) {
+
+    /*
+        Prevent hover transforms from creating
+        stuck visual states on touch devices.
+    */
+
+    :where(
+        .ui-card,
+        .exam-card,
+        .subject-card,
+        .mock-card,
+        .feature-card,
+        .learning-card
+    ):hover {
+        transform: none;
+    }
+
+    /*
+        Make small standalone navigation
+        controls easier to interact with.
+
+        Do not enlarge internal checkbox,
+        radio or table-cell controls.
+    */
+
+    .menu-toggle {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    .mobile-nav-link {
+        min-height: 44px;
+    }
+
+}
+
+/* ================================================
+   11. PRINT SAFETY
+================================================ */
 
 @media print {
 
-    :root {
-        --background: #FFFFFF;
-        --surface: #FFFFFF;
-    }
+    /*
+        Page-specific print layouts remain
+        inside their respective stylesheets.
+        These rules prevent accidental clipping.
+    */
 
-    body {
-        background: #FFFFFF;
-        color: #000000;
-    }
+    html,
+    body,
+    body.site-body,
+    main {
+        width: 100%;
+        min-width: 0;
+        min-height: 0;
 
-    .site-header,
-    .site-footer,
-    .mobile-nav,
-    .menu-toggle,
-    .hero-actions,
-    .cta-section {
-        display: none !important;
+        overflow: visible;
     }
 
     .container {
         width: 100%;
         max-width: none;
+        margin: 0;
     }
 
-    .section {
-        padding-block: 20px;
+    :where(
+        .table-container,
+        .lesson-body,
+        .lesson-content,
+        .exam-question-content
+    ) {
+        max-width: 100%;
     }
+
+    .table-container {
+        overflow: visible;
+    }
+
+    /*
+        Reveal animations should never
+        hide content in printed output.
+    */
 
     .reveal,
     .reveal-enabled .reveal {
-        opacity: 1 !important;
-        transform: none !important;
-    }
-
-    .ui-card,
-    .exam-card,
-    .subject-card,
-    .mock-card {
-        break-inside: avoid;
-        box-shadow: none;
+        opacity: 1;
+        transform: none;
     }
 
 }
+
+/* ================================================
+   12. REDUCED MOTION
+================================================ */
+
+@media (prefers-reduced-motion: reduce) {
+
+    /*
+        Full animation management belongs
+        to animation.css.
+
+        This rule only prevents smooth
+        scrolling from overriding the
+        user's accessibility preference.
+    */
+
+    html {
+        scroll-behavior: auto;
+    }
+
+}
+
+/* ================================================
+   END OF FILE
+================================================ */
