@@ -1,0 +1,1058 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: practice.html
+
+    Public Topic-Wise Practice Interface
+
+    Designed and Developed by Yadav Web Technologies
+
+    IMPORTANT:
+    - Completely free public access.
+    - No visitor authentication.
+    - No hardcoded educational records.
+    - Questions must come from published Firebase data.
+    - This page is separate from timed mock-test attempts.
+    =====================================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Practise examination questions by subject and topic with instant feedback and detailed answer explanations on Yadav ExamPrep."
+    >
+
+    <meta name="theme-color" content="#111111">
+
+    <title>Question Practice | Yadav ExamPrep</title>
+
+    <!-- Typography -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/components.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link rel="stylesheet" href="css/exam.css">
+
+    <!-- Shared JavaScript -->
+
+    <script src="js/toggle.js" defer></script>
+    <script src="js/animations.js" defer></script>
+    <script src="js/script.js" defer></script>
+
+    <!-- Practice Controller -->
+
+    <script
+        type="module"
+        src="js/practice.js"
+    ></script>
+
+</head>
+
+<body class="site-body" data-page="practice">
+
+    <a href="#mainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         HEADER
+    =============================================== -->
+
+    <header class="site-header" id="siteHeader">
+
+        <div class="container header-container">
+
+            <a
+                href="index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep Homepage"
+            >
+
+                <span
+                    class="logo-symbol"
+                    aria-hidden="true"
+                >
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+            <!-- Desktop Navigation -->
+
+            <nav
+                class="desktop-nav"
+                aria-label="Primary navigation"
+            >
+
+                <a href="index.html" class="nav-link">
+                    Home
+                </a>
+
+                <a href="exams.html" class="nav-link">
+                    Exams
+                </a>
+
+                <a href="subjects.html" class="nav-link">
+                    Subjects
+                </a>
+
+                <a href="mock-tests.html" class="nav-link">
+                    Mock Tests
+                </a>
+
+                <a
+                    href="learn.html"
+                    class="nav-link"
+                >
+                    Learn
+                </a>
+
+            </nav>
+
+            <div class="header-actions">
+
+                <a
+                    href="mock-tests.html"
+                    class="btn btn-primary header-cta"
+                >
+                    Mock Tests
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="17"
+                        height="17"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="menu-toggle"
+                    id="menuToggle"
+                    aria-label="Open navigation menu"
+                    aria-controls="mobileNavigation"
+                    aria-expanded="false"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M4 7h16"></path>
+                        <path d="M4 12h16"></path>
+                        <path d="M4 17h16"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <!-- Mobile Navigation -->
+
+        <nav
+            class="mobile-nav"
+            id="mobileNavigation"
+            aria-label="Mobile navigation"
+            inert
+        >
+
+            <div class="mobile-nav-inner">
+
+                <a
+                    href="index.html"
+                    class="mobile-nav-link"
+                >
+                    Home
+                </a>
+
+                <a
+                    href="exams.html"
+                    class="mobile-nav-link"
+                >
+                    Exams
+                </a>
+
+                <a
+                    href="subjects.html"
+                    class="mobile-nav-link"
+                >
+                    Subjects
+                </a>
+
+                <a
+                    href="mock-tests.html"
+                    class="mobile-nav-link"
+                >
+                    Mock Tests
+                </a>
+
+                <a
+                    href="learn.html"
+                    class="mobile-nav-link"
+                >
+                    Learn
+                </a>
+
+                <a
+                    href="practice.html"
+                    class="btn btn-primary mobile-cta"
+                    aria-current="page"
+                >
+                    Question Practice
+                </a>
+
+            </div>
+
+        </nav>
+
+    </header>
+
+    <!-- ==============================================
+         MAIN CONTENT
+    =============================================== -->
+
+    <main id="mainContent">
+
+        <!-- ==========================================
+             PAGE INTRODUCTION
+        =========================================== -->
+
+        <section class="section">
+
+            <div class="container">
+
+                <nav
+                    class="breadcrumb"
+                    aria-label="Breadcrumb"
+                >
+
+                    <a href="index.html">
+                        Home
+                    </a>
+
+                    <span aria-hidden="true">
+                        /
+                    </span>
+
+                    <a href="learn.html">
+                        Learn
+                    </a>
+
+                    <span aria-hidden="true">
+                        /
+                    </span>
+
+                    <span aria-current="page">
+                        Question Practice
+                    </span>
+
+                </nav>
+
+                <div class="section-heading reveal">
+
+                    <div>
+
+                        <span class="section-eyebrow">
+                            Practice &amp; Improve
+                        </span>
+
+                        <h1 id="practicePageTitle">
+                            Question Practice
+                        </h1>
+
+                        <p id="practicePageDescription">
+                            Choose your examination, subject
+                            and topic to practise available
+                            questions at your own pace.
+                        </p>
+
+                    </div>
+
+                </div>
+
+                <!-- ==================================
+                     PRACTICE SELECTION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    id="practiceSelectionSection"
+                    aria-labelledby="practiceSelectionTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="practiceSelectionTitle">
+                                Select Your Practice Area
+                            </h2>
+
+                            <p>
+                                Select a published examination,
+                                subject and topic to continue.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="practiceSelectionForm"
+                    >
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field">
+
+                                <label for="practiceExamSelect">
+                                    Examination *
+                                </label>
+
+                                <select
+                                    id="practiceExamSelect"
+                                    name="exam"
+                                    required
+                                    disabled
+                                >
+
+                                    <option value="">
+                                        Loading examinations...
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="practiceSubjectSelect">
+                                    Subject *
+                                </label>
+
+                                <select
+                                    id="practiceSubjectSelect"
+                                    name="subject"
+                                    required
+                                    disabled
+                                >
+
+                                    <option value="">
+                                        Select an examination first
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="practiceTopicSelect">
+                                    Topic *
+                                </label>
+
+                                <select
+                                    id="practiceTopicSelect"
+                                    name="topic"
+                                    required
+                                    disabled
+                                >
+
+                                    <option value="">
+                                        Select a subject first
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="practiceQuestionLimit">
+                                    Number of Questions
+                                </label>
+
+                                <select
+                                    id="practiceQuestionLimit"
+                                    name="limit"
+                                    disabled
+                                >
+
+                                    <option value="10">
+                                        Up to 10 Questions
+                                    </option>
+
+                                    <option value="20">
+                                        Up to 20 Questions
+                                    </option>
+
+                                    <option value="30">
+                                        Up to 30 Questions
+                                    </option>
+
+                                    <option value="all">
+                                        All Available Questions
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="startPracticeButton"
+                                disabled
+                            >
+
+                                Start Practice
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="17"
+                                    height="17"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.8"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M5 12h14"></path>
+                                    <path d="m12 5 7 7-7 7"></path>
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     STATUS AREA
+                =================================== -->
+
+                <section
+                    class="exam-status-section"
+                    id="practiceStatusSection"
+                    aria-live="polite"
+                >
+
+                    <div
+                        class="content-placeholder"
+                        id="practiceStatus"
+                        role="status"
+                    >
+
+                        <span
+                            class="ui-spinner"
+                            id="practiceStatusSpinner"
+                            aria-hidden="true"
+                        ></span>
+
+                        <h2 id="practiceStatusTitle">
+                            Loading Practice Content
+                        </h2>
+
+                        <p id="practiceStatusDescription">
+                            Retrieving published examinations,
+                            subjects, topics and questions.
+                        </p>
+
+                    </div>
+
+                </section>
+
+                <!-- ==================================
+                     ACTIVE PRACTICE WORKSPACE
+                =================================== -->
+
+                <section
+                    class="examination-workspace-section"
+                    id="practiceWorkspace"
+                    aria-labelledby="practiceWorkspaceTitle"
+                    hidden
+                >
+
+                    <!-- WORKSPACE HEADER -->
+
+                    <div class="exam-workspace-topbar">
+
+                        <div>
+
+                            <span class="section-eyebrow">
+                                Active Practice
+                            </span>
+
+                            <h2 id="practiceWorkspaceTitle">
+                                Topic Practice
+                            </h2>
+
+                            <p id="practiceWorkspaceSubtitle"></p>
+
+                        </div>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="exitPracticeButton"
+                        >
+                            Exit Practice
+                        </button>
+
+                    </div>
+
+                    <!-- PROGRESS -->
+
+                    <div class="exam-progress-section">
+
+                        <div class="exam-progress-info">
+
+                            <span id="practiceProgressText">
+                                Question 1 of 1
+                            </span>
+
+                            <strong id="practiceProgressPercentage">
+                                0%
+                            </strong>
+
+                        </div>
+
+                        <div
+                            class="ui-progress"
+                            id="practiceProgressTrack"
+                            role="progressbar"
+                            aria-label="Practice progress"
+                            aria-valuemin="0"
+                            aria-valuemax="100"
+                            aria-valuenow="0"
+                        >
+
+                            <div
+                                class="ui-progress-fill"
+                                id="practiceProgressFill"
+                            ></div>
+
+                        </div>
+
+                    </div>
+
+                    <!-- QUESTION LAYOUT -->
+
+                    <div class="exam-layout">
+
+                        <div class="exam-main-column">
+
+                            <article
+                                class="exam-question-card"
+                                id="practiceQuestionCard"
+                            >
+
+                                <div class="exam-question-header">
+
+                                    <span
+                                        class="ui-badge"
+                                        id="practiceQuestionCategory"
+                                    >
+                                        Topic Practice
+                                    </span>
+
+                                    <span id="practiceQuestionNumber">
+                                        Question 1
+                                    </span>
+
+                                </div>
+
+                                <h3 id="practiceQuestionTitle">
+                                    Practice Question
+                                </h3>
+
+                                <p
+                                    class="exam-question-content"
+                                    id="practiceQuestionContent"
+                                ></p>
+
+                                <fieldset
+                                    class="exam-answer-fieldset"
+                                    id="practiceAnswerFieldset"
+                                >
+
+                                    <legend class="visually-hidden">
+                                        Select your answer
+                                    </legend>
+
+                                    <div
+                                        class="exam-answer-options"
+                                        id="practiceAnswerOptions"
+                                    ></div>
+
+                                </fieldset>
+
+                                <!-- INSTANT FEEDBACK -->
+
+                                <div
+                                    class="ui-alert"
+                                    id="practiceFeedback"
+                                    role="status"
+                                    aria-live="polite"
+                                    hidden
+                                >
+
+                                    <h4 id="practiceFeedbackTitle"></h4>
+
+                                    <p id="practiceFeedbackMessage"></p>
+
+                                </div>
+
+                                <!-- ANSWER EXPLANATION -->
+
+                                <div
+                                    class="answer-review-explanation"
+                                    id="practiceExplanationPanel"
+                                    hidden
+                                >
+
+                                    <h4>
+                                        Answer Explanation
+                                    </h4>
+
+                                    <p id="practiceExplanationText"></p>
+
+                                </div>
+
+                                <!-- QUESTION ACTIONS -->
+
+                                <div class="exam-question-actions">
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline"
+                                        id="checkPracticeAnswerButton"
+                                        disabled
+                                    >
+                                        Check Answer
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-outline"
+                                        id="skipPracticeQuestionButton"
+                                    >
+                                        Skip Question
+                                    </button>
+
+                                    <button
+                                        type="button"
+                                        class="btn btn-primary"
+                                        id="nextPracticeQuestionButton"
+                                        hidden
+                                    >
+                                        Next Question
+                                    </button>
+
+                                </div>
+
+                            </article>
+
+                        </div>
+
+                        <!-- PRACTICE SIDEBAR -->
+
+                        <aside
+                            class="exam-sidebar"
+                            id="practiceSidebar"
+                            aria-label="Practice session statistics"
+                        >
+
+                            <div class="exam-sidebar-card">
+
+                                <h3>
+                                    Session Overview
+                                </h3>
+
+                                <div class="exam-summary-grid">
+
+                                    <div>
+
+                                        <strong id="practiceTotalCount">
+                                            0
+                                        </strong>
+
+                                        <span>
+                                            Total
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong id="practiceCorrectCount">
+                                            0
+                                        </strong>
+
+                                        <span>
+                                            Correct
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong id="practiceIncorrectCount">
+                                            0
+                                        </strong>
+
+                                        <span>
+                                            Incorrect
+                                        </span>
+
+                                    </div>
+
+                                    <div>
+
+                                        <strong id="practiceSkippedCount">
+                                            0
+                                        </strong>
+
+                                        <span>
+                                            Skipped
+                                        </span>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                            <div class="exam-sidebar-card">
+
+                                <h3>
+                                    Practice Guidance
+                                </h3>
+
+                                <p>
+                                    Select an answer and choose
+                                    Check Answer to receive immediate
+                                    feedback. You can also skip a
+                                    question and continue.
+                                </p>
+
+                                <p>
+                                    There is no countdown timer.
+                                    Take the time you need to
+                                    understand each explanation.
+                                </p>
+
+                            </div>
+
+                        </aside>
+
+                    </div>
+
+                </section>
+
+                <!-- ==================================
+                     PRACTICE RESULTS
+                =================================== -->
+
+                <section
+                    class="result-overview-section"
+                    id="practiceResultSection"
+                    aria-labelledby="practiceResultTitle"
+                    hidden
+                >
+
+                    <div class="section-heading">
+
+                        <div>
+
+                            <span class="section-eyebrow">
+                                Session Completed
+                            </span>
+
+                            <h2 id="practiceResultTitle">
+                                Your Practice Results
+                            </h2>
+
+                            <p id="practiceResultDescription">
+                                Review your completed practice session.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="result-stats-grid">
+
+                        <article class="result-stat-card">
+
+                            <span>
+                                Total Questions
+                            </span>
+
+                            <strong id="practiceResultTotal">
+                                0
+                            </strong>
+
+                        </article>
+
+                        <article class="result-stat-card">
+
+                            <span>
+                                Correct Answers
+                            </span>
+
+                            <strong id="practiceResultCorrect">
+                                0
+                            </strong>
+
+                        </article>
+
+                        <article class="result-stat-card">
+
+                            <span>
+                                Incorrect Answers
+                            </span>
+
+                            <strong id="practiceResultIncorrect">
+                                0
+                            </strong>
+
+                        </article>
+
+                        <article class="result-stat-card">
+
+                            <span>
+                                Skipped Questions
+                            </span>
+
+                            <strong id="practiceResultSkipped">
+                                0
+                            </strong>
+
+                        </article>
+
+                        <article class="result-stat-card">
+
+                            <span>
+                                Accuracy
+                            </span>
+
+                            <strong id="practiceResultAccuracy">
+                                0%
+                            </strong>
+
+                        </article>
+
+                    </div>
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-primary"
+                            id="restartPracticeButton"
+                        >
+                            Practice Again
+                        </button>
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="changePracticeTopicButton"
+                        >
+                            Change Topic
+                        </button>
+
+                        <a
+                            href="mock-tests.html"
+                            class="btn btn-outline"
+                        >
+                            Explore Mock Tests
+                        </a>
+
+                    </div>
+
+                </section>
+
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- ==============================================
+         FOOTER
+    =============================================== -->
+
+    <footer class="site-footer">
+
+        <div class="container">
+
+            <div class="footer-main">
+
+                <div class="footer-brand">
+
+                    <a
+                        href="index.html"
+                        class="site-logo"
+                        aria-label="Yadav ExamPrep Homepage"
+                    >
+
+                        <span
+                            class="logo-symbol"
+                            aria-hidden="true"
+                        >
+                            Y.
+                        </span>
+
+                        <span class="logo-text">
+                            Yadav<span>ExamPrep</span>
+                        </span>
+
+                    </a>
+
+                    <p>
+                        Free examination preparation,
+                        structured learning and mock tests
+                        for every learner.
+                    </p>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Explore</h3>
+
+                    <a href="exams.html">
+                        Examinations
+                    </a>
+
+                    <a href="subjects.html">
+                        Subjects
+                    </a>
+
+                    <a href="mock-tests.html">
+                        Mock Tests
+                    </a>
+
+                    <a href="learn.html">
+                        Learning
+                    </a>
+
+                    <a href="practice.html">
+                        Practice
+                    </a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Information</h3>
+
+                    <a href="privacy.html">
+                        Privacy Policy
+                    </a>
+
+                    <a href="contact.html">
+                        Contact Us
+                    </a>
+
+                </div>
+
+                <div class="footer-column">
+
+                    <h3>Administration</h3>
+
+                    <a href="admin/index.html">
+                        Admin Login
+                    </a>
+
+                </div>
+
+            </div>
+
+            <div class="footer-bottom">
+
+                <p>
+                    &copy;
+                    <span id="currentYear">2026</span>
+                    Yadav ExamPrep. All Rights Reserved.
+                </p>
+
+                <p class="developer-credit">
+                    Designed and Developed by
+                    <span>Yadav Web Technologies</span>
+                </p>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
