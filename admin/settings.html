@@ -1,0 +1,1276 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!--
+    =====================================================
+    YADAV EXAMPREP
+    File: admin/settings.html
+
+    Administrator Settings Management
+
+    Designed and Developed by Yadav Web Technologies
+    =====================================================
+    -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Manage Yadav ExamPrep website settings and administrator preferences."
+    >
+
+    <meta name="theme-color" content="#111111">
+    <meta name="robots" content="noindex, nofollow">
+
+    <title>Settings | Yadav ExamPrep</title>
+
+    <!-- Typography -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- Shared Stylesheets -->
+
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/components.css">
+    <link rel="stylesheet" href="../css/animation.css">
+    <link rel="stylesheet" href="../css/responsive.css">
+    <link rel="stylesheet" href="../css/admin.css">
+
+    <!-- Settings Controller -->
+
+    <script
+        type="module"
+        src="../js/admin-settings.js"
+    ></script>
+
+</head>
+
+<body class="admin-body" data-page="admin-settings">
+
+    <a href="#adminMainContent" class="skip-link">
+        Skip to main content
+    </a>
+
+    <!-- ==============================================
+         AUTHENTICATION GATE
+    =============================================== -->
+
+    <section
+        class="admin-auth-gate"
+        id="adminAuthGate"
+        role="status"
+        aria-live="polite"
+    >
+
+        <div class="admin-empty-state">
+
+            <span
+                class="ui-spinner"
+                id="adminGateSpinner"
+                aria-hidden="true"
+            ></span>
+
+            <h1 id="adminGateTitle">
+                Verifying Administrator Access
+            </h1>
+
+            <p id="adminGateDescription">
+                Checking your administrator session.
+            </p>
+
+            <a
+                href="index.html"
+                class="btn btn-primary"
+                id="adminGateLoginLink"
+                hidden
+            >
+                Return to Admin Login
+            </a>
+
+        </div>
+
+    </section>
+
+    <!-- ==============================================
+         PROTECTED APPLICATION
+    =============================================== -->
+
+    <div
+        class="admin-app"
+        id="adminSettingsApp"
+        hidden
+    >
+
+        <div
+            class="admin-sidebar-backdrop"
+            id="adminSidebarBackdrop"
+            hidden
+        ></div>
+
+        <!-- SIDEBAR -->
+
+        <aside
+            class="admin-sidebar"
+            id="adminSidebar"
+            aria-label="Administrator navigation"
+        >
+
+            <div class="admin-sidebar-brand">
+
+                <a
+                    href="dashboard.html"
+                    class="site-logo"
+                    aria-label="Yadav ExamPrep Admin Dashboard"
+                >
+
+                    <span
+                        class="logo-symbol"
+                        aria-hidden="true"
+                    >
+                        Y.
+                    </span>
+
+                    <span class="logo-text">
+                        Yadav<span>ExamPrep</span>
+                    </span>
+
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-sidebar-close"
+                    id="adminSidebarClose"
+                    aria-label="Close navigation"
+                >
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="19"
+                        height="19"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M18 6 6 18"></path>
+                        <path d="m6 6 12 12"></path>
+                    </svg>
+
+                </button>
+
+            </div>
+
+            <nav
+                class="admin-sidebar-navigation"
+                id="adminSidebarNavigation"
+                aria-label="Management sections"
+            >
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Overview
+                    </p>
+
+                    <a
+                        href="dashboard.html"
+                        class="admin-nav-link"
+                    >
+                        Dashboard
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Content Management
+                    </p>
+
+                    <a
+                        href="exams.html"
+                        class="admin-nav-link"
+                    >
+                        Exams
+                    </a>
+
+                    <a
+                        href="subjects.html"
+                        class="admin-nav-link"
+                    >
+                        Subjects
+                    </a>
+
+                    <a
+                        href="topics.html"
+                        class="admin-nav-link"
+                    >
+                        Topics
+                    </a>
+
+                    <a
+                        href="lessons.html"
+                        class="admin-nav-link"
+                    >
+                        Lessons
+                    </a>
+
+                    <a
+                        href="questions.html"
+                        class="admin-nav-link"
+                    >
+                        Question Bank
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Examination
+                    </p>
+
+                    <a
+                        href="mock-tests.html"
+                        class="admin-nav-link"
+                    >
+                        Mock Tests
+                    </a>
+
+                    <a
+                        href="publishing.html"
+                        class="admin-nav-link"
+                    >
+                        Publishing
+                    </a>
+
+                </div>
+
+                <div class="admin-nav-group">
+
+                    <p class="admin-nav-heading">
+                        Administration
+                    </p>
+
+                    <a
+                        href="import-export.html"
+                        class="admin-nav-link"
+                    >
+                        Import / Export
+                    </a>
+
+                    <a
+                        href="settings.html"
+                        class="admin-nav-link active"
+                        aria-current="page"
+                    >
+                        Settings
+                    </a>
+
+                </div>
+
+            </nav>
+
+            <div class="admin-sidebar-footer">
+
+                <a
+                    href="../index.html"
+                    class="admin-nav-link"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                >
+                    View Public Website ↗
+                </a>
+
+                <button
+                    type="button"
+                    class="admin-nav-link"
+                    id="adminSidebarLogout"
+                >
+                    Sign Out
+                </button>
+
+            </div>
+
+        </aside>
+
+        <!-- ==========================================
+             MAIN AREA
+        =========================================== -->
+
+        <div class="admin-main">
+
+            <header class="admin-topbar">
+
+                <div class="admin-topbar-left">
+
+                    <button
+                        type="button"
+                        class="admin-menu-toggle"
+                        id="adminMenuToggle"
+                        aria-label="Open administrator navigation"
+                        aria-controls="adminSidebar"
+                        aria-expanded="false"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="21"
+                            height="21"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M4 7h16"></path>
+                            <path d="M4 12h16"></path>
+                            <path d="M4 17h16"></path>
+                        </svg>
+
+                    </button>
+
+                    <h2 class="admin-topbar-title">
+                        Website Settings
+                    </h2>
+
+                </div>
+
+                <div class="admin-topbar-actions">
+
+                    <div class="admin-user-badge">
+
+                        <span
+                            class="admin-user-avatar"
+                            aria-hidden="true"
+                        >
+                            A
+                        </span>
+
+                        <span id="adminUserEmail">
+                            Administrator
+                        </span>
+
+                    </div>
+
+                    <button
+                        type="button"
+                        class="admin-icon-button"
+                        id="adminTopbarLogout"
+                        aria-label="Sign out"
+                        title="Sign Out"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+                            <path d="m16 17 5-5-5-5"></path>
+                            <path d="M21 12H9"></path>
+                        </svg>
+
+                    </button>
+
+                </div>
+
+            </header>
+
+            <!-- ======================================
+                 SETTINGS CONTENT
+            ======================================= -->
+
+            <main
+                class="admin-main-content"
+                id="adminMainContent"
+            >
+
+                <!-- PAGE HEADING -->
+
+                <div class="admin-page-heading">
+
+                    <div>
+
+                        <span class="admin-page-eyebrow">
+                            Administration
+                        </span>
+
+                        <h1>Website Settings</h1>
+
+                        <p>
+                            Manage website information, public
+                            preferences, examination defaults,
+                            and maintenance controls.
+                        </p>
+
+                    </div>
+
+                    <div class="admin-page-actions">
+
+                        <button
+                            type="button"
+                            class="btn btn-outline"
+                            id="refreshSettingsButton"
+                            disabled
+                        >
+                            Refresh Settings
+                        </button>
+
+                    </div>
+
+                </div>
+
+                <!-- STATUS -->
+
+                <div
+                    class="admin-alert"
+                    id="settingsManagementStatus"
+                    role="status"
+                    aria-live="polite"
+                >
+
+                    <span
+                        class="ui-spinner"
+                        id="settingsManagementSpinner"
+                        aria-hidden="true"
+                    ></span>
+
+                    <span id="settingsManagementStatusText">
+                        Loading website settings...
+                    </span>
+
+                </div>
+
+                <!-- ==================================
+                     WEBSITE IDENTITY
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="websiteIdentityTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="websiteIdentityTitle">
+                                Website Identity
+                            </h2>
+
+                            <p>
+                                Configure the public-facing
+                                website name and description.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="websiteIdentityForm"
+                    >
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field">
+
+                                <label for="websiteName">
+                                    Website Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="websiteName"
+                                    name="websiteName"
+                                    maxlength="100"
+                                    autocomplete="organization"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="websiteTagline">
+                                    Website Tagline
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="websiteTagline"
+                                    name="websiteTagline"
+                                    maxlength="160"
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field is-full">
+
+                                <label for="websiteDescription">
+                                    Website Description
+                                </label>
+
+                                <textarea
+                                    id="websiteDescription"
+                                    name="websiteDescription"
+                                    rows="4"
+                                    maxlength="600"
+                                    disabled
+                                ></textarea>
+
+                                <span class="admin-form-help">
+                                    A short introduction displayed
+                                    in supported public website sections.
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="saveIdentityButton"
+                                disabled
+                            >
+
+                                <span id="saveIdentityButtonText">
+                                    Save Website Identity
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="saveIdentitySpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     CONTACT INFORMATION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="contactSettingsTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="contactSettingsTitle">
+                                Public Contact Information
+                            </h2>
+
+                            <p>
+                                Manage the contact details displayed
+                                on the public Contact page.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="contactSettingsForm"
+                    >
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field">
+
+                                <label for="contactEmail">
+                                    Public Email Address
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="contactEmail"
+                                    name="contactEmail"
+                                    maxlength="254"
+                                    autocomplete="email"
+                                    placeholder="Enter public contact email"
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="contactPhone">
+                                    Public Phone Number
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="contactPhone"
+                                    name="contactPhone"
+                                    maxlength="20"
+                                    autocomplete="tel"
+                                    placeholder="Optional"
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field is-full">
+
+                                <label for="contactAddress">
+                                    Contact Address
+                                </label>
+
+                                <textarea
+                                    id="contactAddress"
+                                    name="contactAddress"
+                                    rows="3"
+                                    maxlength="400"
+                                    placeholder="Optional public contact address"
+                                    disabled
+                                ></textarea>
+
+                            </div>
+
+                            <div class="admin-form-field is-full">
+
+                                <label for="contactMessage">
+                                    Contact Page Introduction
+                                </label>
+
+                                <textarea
+                                    id="contactMessage"
+                                    name="contactMessage"
+                                    rows="3"
+                                    maxlength="500"
+                                    disabled
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="saveContactButton"
+                                disabled
+                            >
+
+                                <span id="saveContactButtonText">
+                                    Save Contact Information
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="saveContactSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     HOMEPAGE PREFERENCES
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="homepageSettingsTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="homepageSettingsTitle">
+                                Homepage Preferences
+                            </h2>
+
+                            <p>
+                                Choose which available educational
+                                sections appear on the homepage.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="homepageSettingsForm"
+                    >
+
+                        <fieldset class="admin-form-field">
+
+                            <legend>
+                                Homepage Sections
+                            </legend>
+
+                            <div class="admin-form-grid">
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        id="showFeaturedExams"
+                                        name="showFeaturedExams"
+                                        disabled
+                                    >
+
+                                    <span>
+                                        Show Featured Exams
+                                    </span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        id="showFeaturedSubjects"
+                                        name="showFeaturedSubjects"
+                                        disabled
+                                    >
+
+                                    <span>
+                                        Show Featured Subjects
+                                    </span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        id="showFeaturedTests"
+                                        name="showFeaturedTests"
+                                        disabled
+                                    >
+
+                                    <span>
+                                        Show Featured Mock Tests
+                                    </span>
+
+                                </label>
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        id="showLearningSection"
+                                        name="showLearningSection"
+                                        disabled
+                                    >
+
+                                    <span>
+                                        Show Learning Section
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            <p class="admin-form-help">
+                                A section will only display actual
+                                eligible published content. Empty
+                                sections must remain hidden.
+                            </p>
+
+                        </fieldset>
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field">
+
+                                <label for="homepageExamLimit">
+                                    Maximum Featured Exams
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="homepageExamLimit"
+                                    name="homepageExamLimit"
+                                    min="1"
+                                    max="24"
+                                    step="1"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="homepageTestLimit">
+                                    Maximum Featured Tests
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="homepageTestLimit"
+                                    name="homepageTestLimit"
+                                    min="1"
+                                    max="24"
+                                    step="1"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="saveHomepageButton"
+                                disabled
+                            >
+
+                                <span id="saveHomepageButtonText">
+                                    Save Homepage Preferences
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="saveHomepageSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     MOCK TEST DEFAULTS
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="testDefaultsTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="testDefaultsTitle">
+                                Mock Test Defaults
+                            </h2>
+
+                            <p>
+                                Default values for newly created
+                                mock tests. Existing tests retain
+                                their own saved configurations.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="testDefaultsForm"
+                    >
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field">
+
+                                <label for="defaultTestDuration">
+                                    Default Duration (Minutes)
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="defaultTestDuration"
+                                    name="defaultTestDuration"
+                                    min="0"
+                                    max="360"
+                                    step="1"
+                                    required
+                                    disabled
+                                >
+
+                                <span class="admin-form-help">
+                                    Enter 0 for an untimed test.
+                                </span>
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="defaultQuestionMarks">
+                                    Default Marks Per Question
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="defaultQuestionMarks"
+                                    name="defaultQuestionMarks"
+                                    min="0.01"
+                                    max="1000"
+                                    step="0.01"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+                            <div class="admin-form-field">
+
+                                <label for="defaultNegativeMarks">
+                                    Default Negative Marks
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="defaultNegativeMarks"
+                                    name="defaultNegativeMarks"
+                                    min="0"
+                                    max="1000"
+                                    step="0.01"
+                                    required
+                                    disabled
+                                >
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="saveTestDefaultsButton"
+                                disabled
+                            >
+
+                                <span id="saveTestDefaultsButtonText">
+                                    Save Mock Test Defaults
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="saveTestDefaultsSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     PUBLIC WEBSITE CONTROLS
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="publicControlsTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="publicControlsTitle">
+                                Public Website Controls
+                            </h2>
+
+                            <p>
+                                Configure general website availability
+                                and public access preferences.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <form
+                        class="admin-form"
+                        id="publicControlsForm"
+                    >
+
+                        <fieldset class="admin-form-field">
+
+                            <legend>
+                                Website Availability
+                            </legend>
+
+                            <div class="admin-form-grid">
+
+                                <label class="admin-checkbox-label">
+
+                                    <input
+                                        type="checkbox"
+                                        id="maintenanceMode"
+                                        name="maintenanceMode"
+                                        disabled
+                                    >
+
+                                    <span>
+                                        Enable Maintenance Mode
+                                    </span>
+
+                                </label>
+
+                            </div>
+
+                            <p class="admin-form-help">
+                                Public pages must read this setting
+                                and display the maintenance notice
+                                when maintenance mode is enabled.
+                                This setting does not restrict direct
+                                database access; Firebase Security
+                                Rules remain authoritative.
+                            </p>
+
+                        </fieldset>
+
+                        <div class="admin-form-grid">
+
+                            <div class="admin-form-field is-full">
+
+                                <label for="maintenanceMessage">
+                                    Maintenance Notice
+                                </label>
+
+                                <textarea
+                                    id="maintenanceMessage"
+                                    name="maintenanceMessage"
+                                    rows="3"
+                                    maxlength="500"
+                                    disabled
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                        <div class="admin-page-actions">
+
+                            <button
+                                type="submit"
+                                class="btn btn-primary"
+                                id="savePublicControlsButton"
+                                disabled
+                            >
+
+                                <span id="savePublicControlsButtonText">
+                                    Save Public Controls
+                                </span>
+
+                                <span
+                                    class="ui-spinner"
+                                    id="savePublicControlsSpinner"
+                                    aria-hidden="true"
+                                    hidden
+                                ></span>
+
+                            </button>
+
+                        </div>
+
+                    </form>
+
+                </section>
+
+                <!-- ==================================
+                     SYSTEM INFORMATION
+                =================================== -->
+
+                <section
+                    class="admin-card"
+                    aria-labelledby="systemInformationTitle"
+                >
+
+                    <div class="admin-card-header">
+
+                        <div>
+
+                            <h2 id="systemInformationTitle">
+                                System Information
+                            </h2>
+
+                            <p>
+                                Read-only information about the
+                                connected administration system.
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                    <div class="admin-system-details">
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Application
+                            </span>
+
+                            <strong>
+                                Yadav ExamPrep
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Database
+                            </span>
+
+                            <strong>
+                                Firebase Realtime Database
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Database Connection
+                            </span>
+
+                            <strong id="settingsDatabaseStatus">
+                                Checking...
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Administrator
+                            </span>
+
+                            <strong id="settingsAdministratorEmail">
+                                Verifying...
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Last Settings Update
+                            </span>
+
+                            <strong id="settingsLastUpdated">
+                                —
+                            </strong>
+
+                        </div>
+
+                        <div class="admin-system-detail">
+
+                            <span>
+                                Public Access
+                            </span>
+
+                            <strong>
+                                Free — No Public Login Required
+                            </strong>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+                <!-- FOOTER -->
+
+                <footer class="admin-dashboard-footer">
+
+                    <p>
+                        &copy;
+                        <span id="currentYear">2026</span>
+                        Yadav ExamPrep. All Rights Reserved.
+                    </p>
+
+                    <p class="developer-credit">
+                        Designed and Developed by
+                        <span>Yadav Web Technologies</span>
+                    </p>
+
+                </footer>
+
+            </main>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>
