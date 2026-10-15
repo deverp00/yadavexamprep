@@ -1,0 +1,588 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <!-- =============================================
+         BASIC META INFORMATION
+    ============================================== -->
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Secure administrator sign-in for Yadav ExamPrep."
+    >
+
+    <meta
+        name="theme-color"
+        content="#111111"
+    >
+
+    <meta
+        name="robots"
+        content="noindex, nofollow"
+    >
+
+    <title>Admin Login | Yadav ExamPrep</title>
+
+
+    <!-- =============================================
+         GOOGLE FONT
+    ============================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <!-- =============================================
+         STYLESHEETS
+    ============================================== -->
+
+    <link
+        rel="stylesheet"
+        href="../css/style.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/components.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/animation.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/responsive.css"
+    >
+
+    <link
+        rel="stylesheet"
+        href="../css/admin.css"
+    >
+
+
+    <!-- =============================================
+         ADMIN LOGIN CONTROLLER
+    ============================================== -->
+
+    <script
+        type="module"
+        src="../js/admin-login.js"
+    ></script>
+
+</head>
+
+
+<body class="admin-body" data-page="admin-login">
+
+
+    <!-- =============================================
+         ACCESSIBILITY
+    ============================================== -->
+
+    <a
+        href="#adminMain"
+        class="skip-link"
+    >
+        Skip to main content
+    </a>
+
+
+    <!-- =============================================
+         ADMIN LOGIN HEADER
+    ============================================== -->
+
+    <header class="admin-login-header">
+
+        <div class="container admin-login-header-inner">
+
+
+            <!-- Brand -->
+
+            <a
+                href="../index.html"
+                class="site-logo"
+                aria-label="Yadav ExamPrep homepage"
+            >
+
+                <span
+                    class="logo-symbol"
+                    aria-hidden="true"
+                >
+                    Y.
+                </span>
+
+                <span class="logo-text">
+                    Yadav<span>ExamPrep</span>
+                </span>
+
+            </a>
+
+
+            <!-- Public Website Link -->
+
+            <a
+                href="../index.html"
+                class="admin-back-link"
+            >
+
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="17"
+                    height="17"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    aria-hidden="true"
+                >
+                    <path d="m15 18-6-6 6-6"></path>
+                </svg>
+
+                <span>
+                    Back to Website
+                </span>
+
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =============================================
+         MAIN ADMIN LOGIN AREA
+    ============================================== -->
+
+    <main
+        id="adminMain"
+        class="admin-login-main"
+    >
+
+        <div class="admin-login-container">
+
+
+            <!-- =====================================
+                 ADMIN INTRODUCTION
+            ====================================== -->
+
+            <div class="admin-login-intro">
+
+                <span class="admin-login-eyebrow">
+                    Administration Portal
+                </span>
+
+                <h1>
+                    Welcome Back
+                </h1>
+
+                <p>
+                    Sign in with your authorized administrator
+                    account to manage Yadav ExamPrep.
+                </p>
+
+            </div>
+
+
+            <!-- =====================================
+                 AUTHENTICATION CARD
+            ====================================== -->
+
+            <section
+                class="admin-login-card"
+                aria-labelledby="adminLoginTitle"
+            >
+
+
+                <!-- Card Header -->
+
+                <div class="admin-login-card-header">
+
+                    <div
+                        class="admin-login-icon"
+                        aria-hidden="true"
+                    >
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="25"
+                            height="25"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        >
+                            <rect
+                                x="4"
+                                y="11"
+                                width="16"
+                                height="10"
+                                rx="2"
+                            ></rect>
+
+                            <path
+                                d="M8 11V7a4 4 0 0 1 8 0v4"
+                            ></path>
+
+                            <path d="M12 15v2"></path>
+                        </svg>
+
+                    </div>
+
+                    <h2 id="adminLoginTitle">
+                        Administrator Sign In
+                    </h2>
+
+                    <p>
+                        Enter your administrator credentials
+                        to continue.
+                    </p>
+
+                </div>
+
+
+                <!-- =================================
+                     AUTHENTICATION STATUS
+                ================================== -->
+
+                <div
+                    class="admin-auth-status"
+                    id="adminAuthStatus"
+                    role="status"
+                    aria-live="polite"
+                    aria-atomic="true"
+                    hidden
+                >
+
+                    <span
+                        class="admin-auth-status-icon"
+                        aria-hidden="true"
+                    ></span>
+
+                    <p id="adminAuthMessage"></p>
+
+                </div>
+
+
+                <!-- =================================
+                     ADMIN LOGIN FORM
+                ================================== -->
+
+                <form
+                    id="adminLoginForm"
+                    class="admin-login-form"
+                    novalidate
+                >
+
+
+                    <!-- Email Address -->
+
+                    <div class="admin-form-group">
+
+                        <label for="adminEmail">
+                            Email Address
+                        </label>
+
+                        <div class="admin-input-wrapper">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="19"
+                                height="19"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <rect
+                                    x="2"
+                                    y="4"
+                                    width="20"
+                                    height="16"
+                                    rx="2"
+                                ></rect>
+
+                                <path d="m22 7-10 6L2 7"></path>
+                            </svg>
+
+                            <input
+                                type="email"
+                                id="adminEmail"
+                                name="email"
+                                placeholder="Enter administrator email"
+                                autocomplete="username"
+                                inputmode="email"
+                                spellcheck="false"
+                                maxlength="254"
+                                required
+                                aria-describedby="adminEmailHelp"
+                            >
+
+                        </div>
+
+                        <span
+                            class="admin-field-help"
+                            id="adminEmailHelp"
+                        >
+                            Use your registered administrator email.
+                        </span>
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="admin-form-group">
+
+                        <label for="adminPassword">
+                            Password
+                        </label>
+
+                        <div class="admin-input-wrapper admin-password-wrapper">
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                width="19"
+                                height="19"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                stroke-width="1.7"
+                                stroke-linecap="round"
+                                stroke-linejoin="round"
+                                aria-hidden="true"
+                            >
+                                <rect
+                                    x="4"
+                                    y="11"
+                                    width="16"
+                                    height="10"
+                                    rx="2"
+                                ></rect>
+
+                                <path
+                                    d="M8 11V7a4 4 0 0 1 8 0v4"
+                                ></path>
+                            </svg>
+
+                            <input
+                                type="password"
+                                id="adminPassword"
+                                name="password"
+                                placeholder="Enter your password"
+                                autocomplete="current-password"
+                                minlength="6"
+                                required
+                            >
+
+
+                            <!-- Password Visibility -->
+
+                            <button
+                                type="button"
+                                class="admin-password-toggle"
+                                id="adminPasswordToggle"
+                                aria-label="Show password"
+                                aria-controls="adminPassword"
+                                aria-pressed="false"
+                            >
+
+                                <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="19"
+                                    height="19"
+                                    viewBox="0 0 24 24"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    stroke-width="1.7"
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M2 12s3.5-6 10-6 10 6 10 6-3.5 6-10 6-10-6-10-6Z"
+                                    ></path>
+
+                                    <circle
+                                        cx="12"
+                                        cy="12"
+                                        r="3"
+                                    ></circle>
+                                </svg>
+
+                            </button>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =================================
+                         LOGIN SUBMISSION
+                    ================================== -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-primary admin-login-submit"
+                        id="adminLoginButton"
+                    >
+
+                        <span id="adminLoginButtonText">
+                            Sign In to Dashboard
+                        </span>
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="18"
+                            height="18"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path d="M5 12h14"></path>
+                            <path d="m12 5 7 7-7 7"></path>
+                        </svg>
+
+                        <span
+                            class="ui-spinner"
+                            id="adminLoginSpinner"
+                            aria-hidden="true"
+                            hidden
+                        ></span>
+
+                    </button>
+
+
+                    <!-- Security Information -->
+
+                    <p class="admin-login-security-note">
+
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="1.7"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            aria-hidden="true"
+                        >
+                            <path
+                                d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"
+                            ></path>
+
+                            <path d="m9 12 2 2 4-4"></path>
+                        </svg>
+
+                        <span>
+                            Access is restricted to authorized
+                            Firebase administrator accounts.
+                        </span>
+
+                    </p>
+
+                </form>
+
+            </section>
+
+
+            <!-- =====================================
+                 PUBLIC ACCESS INFORMATION
+            ====================================== -->
+
+            <div class="admin-public-access">
+
+                <p>
+                    Looking for free examination preparation?
+                </p>
+
+                <a href="../mock-tests.html">
+                    Explore Public Mock Tests
+
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        aria-hidden="true"
+                    >
+                        <path d="M5 12h14"></path>
+                        <path d="m12 5 7 7-7 7"></path>
+                    </svg>
+
+                </a>
+
+            </div>
+
+        </div>
+
+    </main>
+
+
+    <!-- =============================================
+         ADMIN LOGIN FOOTER
+    ============================================== -->
+
+    <footer class="admin-login-footer">
+
+        <div class="container admin-login-footer-inner">
+
+            <p>
+                &copy;
+                <span id="currentYear">2026</span>
+                Yadav ExamPrep. All Rights Reserved.
+            </p>
+
+            <p class="developer-credit">
+                Designed and Developed by
+                <span>Yadav Web Technologies</span>
+            </p>
+
+        </div>
+
+    </footer>
+
+</body>
+
+</html>
